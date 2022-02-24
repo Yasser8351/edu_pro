@@ -1,0 +1,14 @@
+GET https://jsonplaceholder.typicode.com/posts HTTP/1.1
+
+###
+
+POST url HTTP/1.1
+header name: header value
+
+{
+    
+}
+
+###
+
+get https://localhost:7267/weatherforecast
