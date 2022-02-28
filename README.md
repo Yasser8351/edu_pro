@@ -1,6 +1,6 @@
 # edu_pro
 
-A new Flutter project.
+A new Flutter project
 
 ## Getting Started
 
