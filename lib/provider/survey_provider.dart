@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
+import '../url.dart';
 
 class SurveyProvider with ChangeNotifier {
   Map<String, dynamic> _surveyList = {};
@@ -16,7 +17,7 @@ class SurveyProvider with ChangeNotifier {
   Future<void> getSurvey() async {
     try {
       bool _error = false;
-      var url = "https://192.168.1.188:3000/api/Survey";
+      var url = "$National/api/Survey";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

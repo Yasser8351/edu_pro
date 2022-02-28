@@ -1,4 +1,4 @@
-package com.example.edu_pro
+package com.edu_pro.studentportal
 
 import io.flutter.embedding.android.FlutterActivity
 

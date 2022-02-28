@@ -4,6 +4,7 @@ import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/library/library.dart';
 import 'package:edu_pro/view_models/library/library_brrowed_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:date_format/date_format.dart';
@@ -76,262 +77,106 @@ class _BorrowedLibraryState extends State<BorrowedLibrary> {
           print(connected);
         },
         connected: borrowList == null
-            ? Center(
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset(
-                            'assets/warning.gif',
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Server error please try again later',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : borrowList.length == 0
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset(
-                            'assets/warning.gif',
-                            // color: Colors.blue,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            'No Data Found',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                ? ErrorConnection(message: "No Data Found")
                 : Container(
                     child: Column(
                       children: [
-                        Container(
-                          height: 550,
-                          child: Card(
-                            margin: EdgeInsets.all(10),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 10, bottom: 10, left: 20, right: 20),
-                              child: Column(
-                                children: [
-                                  _isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : FutureBuilder(
-                                          future: _data,
-                                          builder: (_, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            } else {
-                                              if (snapshot.hasError) {
-                                                return Text("some error");
-                                              } else if (snapshot.hasData ==
-                                                  null) {
-                                                return Text("No data found");
-                                              } else if (snapshot.hasData) {
-                                                return Text("No data found");
-                                              }
-                                              return Column(
+                        _isLoading
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : FutureBuilder(
+                                future: _data,
+                                builder: (_, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  } else {
+                                    if (snapshot.hasError) {
+                                      return Text("some error");
+                                    } else if (snapshot.hasData == null) {
+                                      return Text("No data found");
+                                    } else if (snapshot.hasData) {
+                                      return Text("No data found");
+                                    }
+
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20, horizontal: 10),
+                                      child: Container(
+                                        height: size.height - 200,
+                                        child: ListView.builder(
+                                          itemCount: borrowList.length,
+                                          itemBuilder: (context, index) {
+                                            String dateToDB = "";
+                                            dateToDB =
+                                                "${borrowList[index].bDate}";
+                                            var dateToDay =
+                                                DateTime.parse(dateToDB).day;
+                                            var dateToMonth =
+                                                DateTime.parse(dateToDB).month;
+                                            var dateToYear =
+                                                DateTime.parse(dateToDB).year;
+
+                                            String dateFromDB = "";
+                                            dateFromDB =
+                                                "${borrowList[index].dueDate}";
+                                            var dateFromDay =
+                                                DateTime.parse(dateFromDB).day;
+                                            var dateFromMonth =
+                                                DateTime.parse(dateFromDB)
+                                                    .month;
+                                            var dateFromYear =
+                                                DateTime.parse(dateFromDB).year;
+                                            return Card(
+                                              child: Column(
                                                 children: [
-                                                  Card(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    margin: EdgeInsets.all(0),
-                                                    child: Padding(
-                                                      //    padding: EdgeInsets.all(0),
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20,
-                                                              right: 20,
-                                                              top: 10,
-                                                              bottom: 10),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Book Title',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                            'Borrow Date',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          Text(
-                                                            'Due Date',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                  ListTile(
+                                                    leading: Text('Book Title',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
+                                                    trailing: Text(
+                                                        "${borrowList[index].title}",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
                                                   ),
-                                                  Container(
-                                                    height: 100,
-                                                    //color: Colors.black45,
-                                                    margin: EdgeInsets.all(4),
-                                                    child: FutureBuilder(
-                                                      future: _data,
-                                                      builder: (_, snapshot) {
-                                                        if (snapshot
-                                                                .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return Center(
-                                                              child:
-                                                                  CircularProgressIndicator());
-                                                        } else {
-                                                          if (snapshot
-                                                              .hasError) {
-                                                            return Text(
-                                                                "some error");
-                                                          } else if (snapshot
-                                                                  .hasData ==
-                                                              null) {
-                                                            return Text(
-                                                                "No data found");
-                                                          } else if (snapshot
-                                                              .hasData) {
-                                                            return Text(
-                                                                "No data found");
-                                                          }
-                                                          print(borrowList
-                                                              .length);
-
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10.0),
-                                                            child: Container(
-                                                              height: 55,
-                                                              child: ListView
-                                                                  .builder(
-                                                                itemCount:
-                                                                    borrowList
-                                                                        .length,
-                                                                itemBuilder:
-                                                                    (context,
-                                                                        index) {
-                                                                  String
-                                                                      dateToDB =
-                                                                      "";
-                                                                  dateToDB =
-                                                                      "${borrowList[index].bDate}";
-                                                                  var dateToDay =
-                                                                      DateTime.parse(
-                                                                              dateToDB)
-                                                                          .day;
-                                                                  var dateToMonth =
-                                                                      DateTime.parse(
-                                                                              dateToDB)
-                                                                          .month;
-                                                                  var dateToYear =
-                                                                      DateTime.parse(
-                                                                              dateToDB)
-                                                                          .year;
-
-                                                                  String
-                                                                      dateFromDB =
-                                                                      "";
-                                                                  dateFromDB =
-                                                                      "${borrowList[index].dueDate}";
-                                                                  var dateFromDay =
-                                                                      DateTime.parse(
-                                                                              dateFromDB)
-                                                                          .day;
-                                                                  var dateFromMonth =
-                                                                      DateTime.parse(
-                                                                              dateFromDB)
-                                                                          .month;
-                                                                  var dateFromYear =
-                                                                      DateTime.parse(
-                                                                              dateFromDB)
-                                                                          .year;
-                                                                  return Column(
-                                                                    children: [
-                                                                      Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            children: [
-                                                                              Text("${borrowList[index].title}",
-                                                                                  style: TextStyle(
-                                                                                    color: Theme.of(context).colorScheme.primary,
-                                                                                  )),
-                                                                              Text("$dateFromYear-$dateFromMonth-$dateFromDay",
-                                                                                  style: TextStyle(
-                                                                                    color: Theme.of(context).colorScheme.primary,
-                                                                                  )),
-                                                                              Text("$dateToYear-$dateToMonth-$dateToDay",
-                                                                                  style: TextStyle(
-                                                                                    color: Theme.of(context).colorScheme.primary,
-                                                                                  )),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                  ListTile(
+                                                    leading: Text('Borrow Date',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
+                                                    trailing: Text(
+                                                        "$dateFromYear-$dateFromMonth-$dateFromDay",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
+                                                  ),
+                                                  ListTile(
+                                                    leading: Text('Due Date',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
+                                                    trailing: Text(
+                                                        "$dateToYear-$dateToMonth-$dateToDay",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        )),
                                                   ),
                                                 ],
-                                              );
-                                            }
+                                              ),
+                                            );
                                           },
                                         ),
-                                ],
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

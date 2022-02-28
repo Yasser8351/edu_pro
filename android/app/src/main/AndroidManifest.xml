@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.edu_pro">
+    package="com.edu_pro.studentportal">
     <uses-permission android:name="android.permission.INTERNET"/>
        
    <application
-   android:requestLegacyExternalStorage="true"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic= "true"
         android:label="Student Portal"
         android:icon="@mipmap/ic_launcher">

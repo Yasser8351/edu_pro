@@ -5,6 +5,7 @@ import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/my_activties/activity_more.dart';
 import 'package:edu_pro/view_models/activity_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class ActivitiesSearch extends StatefulWidget {
   const ActivitiesSearch(
       {Key? key, this.dateFrom = '', this.dateTo = '', this.isNews = false})
       : super(key: key);
-  static const routeName = 'News_Search';
+  static const routeName = 'Activities_Search';
 
   final String dateFrom;
   final String dateTo;
@@ -67,57 +68,12 @@ class _CurrentNewsState extends State<ActivitiesSearch> {
           print(connected);
         },
         connected: list == null
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : list.length == 0
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset(
-                            'assets/warning.gif',
-                            // color: Colors.blue,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            widget.isNews
-                                ? 'No News or Events Found'
-                                : 'No Activities Found',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ),
-                        ),
-                      ],
-                    ),
+                ? ErrorConnection(
+                    message: widget.isNews
+                        ? 'No News or Events Found'
+                        : 'No Activities Found',
                   )
                 : _isLoading
                     ? Center(

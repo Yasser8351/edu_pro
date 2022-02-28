@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ConnectionStatuesBars extends StatelessWidget {
   ConnectionStatuesBars({
@@ -11,12 +12,15 @@ class ConnectionStatuesBars extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.wifi_off,
-          size: 100,
-          color: Theme.of(context).colorScheme.primary,
+        Container(
+          width: 120,
+          height: 120,
+          child: SvgPicture.asset(
+            'assets/warning.svg',
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 40),
         Text(
           "No Internet found, Check your connection",
           textAlign: TextAlign.center,

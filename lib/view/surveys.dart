@@ -3,7 +3,9 @@ import 'package:edu_pro/provider/survey_provider.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -56,35 +58,7 @@ class _SurveysState extends State<Surveys> {
           print(connected);
         },
         connected: api.isServerError
-            ? Column(
-                children: [
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset(
-                            'assets/warning.gif',
-                            // color: Colors.blue,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Server error please try again later',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : isLoading
                 ? Center(child: CircularProgressIndicator())
                 : Container(
@@ -98,34 +72,9 @@ class _SurveysState extends State<Surveys> {
                             return value.surveyList.length == 0 && !value.error
                                 ? Center(child: CircularProgressIndicator())
                                 : value.error
-                                    ? Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 150,
-                                              height: 150,
-                                              child: Image.asset(
-                                                'assets/warning.gif',
-                                                // color: Colors.blue,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 15),
-                                              child: Text(
-                                                'Server error please try again later',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                    ? ErrorConnection(
+                                        message:
+                                            "Server error please try again later")
                                     : Column(
                                         children: [
                                           Expanded(

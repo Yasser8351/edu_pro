@@ -2,9 +2,11 @@ import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/complaints/add_complaints.dart';
 import 'package:edu_pro/view/complaints/complaints.dart';
+import 'package:edu_pro/view/complaints/my_complaints.dart';
 import 'package:edu_pro/view/complaints/update_complain.dart';
 import 'package:edu_pro/view_models/complain_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ReportComplaints extends StatefulWidget {
@@ -32,7 +34,7 @@ class _ReportComplaintsState extends State<ReportComplaints> {
   initState() {
     super.initState();
 
-    Provider.of<ComplainViewModel>(context, listen: false)
+    _data = Provider.of<ComplainViewModel>(context, listen: false)
         .fetchComplain()
         .then((_) => setState(() {
               _isLoading = false;
@@ -254,34 +256,43 @@ class _ReportComplaintsState extends State<ReportComplaints> {
                                                                     AllApi()
                                                                         .deleteComplain(
                                                                             complaintId)
+                                                                        .then(
+                                                                      (value) {
+                                                                        {
+                                                                          if (value) {
+                                                                            Fluttertoast.showToast(
+                                                                                msg: "Deleted successfully",
+                                                                                toastLength: Toast.LENGTH_SHORT,
+                                                                                gravity: ToastGravity.CENTER,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.green,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          } else {
+                                                                            Fluttertoast.showToast(
+                                                                                msg: "an error occurred",
+                                                                                toastLength: Toast.LENGTH_SHORT,
+                                                                                gravity: ToastGravity.CENTER,
+                                                                                timeInSecForIosWeb: 1,
+                                                                                backgroundColor: Colors.red,
+                                                                                textColor: Colors.white,
+                                                                                fontSize: 16.0);
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                    );
+                                                                    _data = Provider.of<ComplainViewModel>(
+                                                                            context,
+                                                                            listen:
+                                                                                false)
+                                                                        .fetchComplain()
                                                                         .then((value) =>
                                                                             {
-                                                                              if (value)
-                                                                                {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text("Deleted successfully"))),
-                                                                                  setState(() {
-                                                                                    _isLoading = false;
-                                                                                    Provider.of<ComplainViewModel>(context, listen: false).fetchComplain().then((_) => setState(() {
-                                                                                          _isLoading = false;
-                                                                                        }));
-                                                                                    list = Provider.of<ComplainViewModel>(context, listen: false).ComplainList;
-                                                                                  })
-                                                                                }
-                                                                              else
-                                                                                {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.red, content: Text("an error occurred")))
-                                                                                }
+                                                                              isLoading = false,
+                                                                              Navigator.of(context).pop(),
+                                                                              list = Provider.of<ComplainViewModel>(context, listen: false).ComplainList,
+                                                                              setState(() {})
                                                                             });
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop(
-                                                                            true);
-
-                                                                    // Navigator.of(
-                                                                    //         context)
-                                                                    //     .pushNamed(
-                                                                    //         MyComplaints
-                                                                    //             .routeName);
                                                                   },
                                                                 ),
                                                                 TextButton(
@@ -324,7 +335,7 @@ class _ReportComplaintsState extends State<ReportComplaints> {
                                                                             ? true
                                                                             : false,
                                                                       )));
-                                                          //"${list[index].isChecked}"
+                                                          //"${list![index].isChecked}"
                                                         },
                                                         icon: Icon(
                                                           Icons.edit,

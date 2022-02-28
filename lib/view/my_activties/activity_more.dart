@@ -1,5 +1,3 @@
-import 'package:edu_pro/view/my_activties/activities.dart';
-import 'package:edu_pro/view/my_activties/coming.dart';
 import 'package:flutter/material.dart';
 
 class ActivityMore extends StatefulWidget {

@@ -3,6 +3,7 @@ import 'package:edu_pro/provider/card_provider.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,30 +60,7 @@ class _CardInformationState extends State<CardInformation> {
           print(connected);
         },
         connected: api.isServerError
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : isLoading
                 ? Center(child: CircularProgressIndicator())
                 : Container(
@@ -94,40 +72,11 @@ class _CardInformationState extends State<CardInformation> {
                         return value.cardList.length == 0 && !value.error
                             ? Center(child: CircularProgressIndicator())
                             : value.error
-                                ? Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: 150,
-                                          height: 150,
-                                          child: Image.asset(
-                                            'assets/warning.gif',
-                                            // color: Colors.blue,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15),
-                                          child: Text(
-                                            'Server error please try again later',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .background),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                ? ErrorConnection(
+                                    message:
+                                        "Server error please try again later")
                                 : value.cardList['cardInfos'].length == 0
-                                    ? Center(
-                                        child: Text(
-                                        'No Data Found!',
-                                        style: TextStyle(fontSize: 18),
-                                      ))
+                                    ? ErrorConnection(message: "No Data Found")
                                     : ListView.builder(
                                         itemCount:
                                             value.cardList['cardInfos'].length,

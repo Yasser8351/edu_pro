@@ -3,6 +3,7 @@ import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/timetable/timetable.dart';
 import 'package:edu_pro/view_models/exams_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -64,55 +65,9 @@ class _ExameTimetableState extends State<ExameTimetable> {
           print(connected);
         },
         connected: examList == null
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : examList.length == 0
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset(
-                            'assets/warning.gif',
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            'No Data Found',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                ? ErrorConnection(message: "No Data Found")
                 : SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10),

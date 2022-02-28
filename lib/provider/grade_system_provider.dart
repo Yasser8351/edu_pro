@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../url.dart';
 
 class GradeSystemProvider with ChangeNotifier {
   Map<String, dynamic> _gradeSystemNoList = {};
@@ -17,15 +20,12 @@ class GradeSystemProvider with ChangeNotifier {
   String get errorMessage => _errorMessage;
   bool get error => _error;
 
-  //1. get GradeSystemNo By STDId
-  //https://192.168.1.188:3000/api/GradeSystem/id?stdId=151
-  //2. get All GradeSystem By GradeSystemNo
-  //https://192.168.1.188:3000/api/GradeSystemMark/id?grade=20
-
   Future<void> getGradeSystemNo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final stdId = prefs.getInt('stdId') ?? 0;
     try {
       bool _error = false;
-      var url = "https://192.168.1.188:3000/api/GradeSystem/id?stdId=150";
+      var url = "$National/api/GradeSystem/id?stdId=$stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -52,8 +52,7 @@ class GradeSystemProvider with ChangeNotifier {
   Future<void> getGradeDetails(int grade) async {
     try {
       bool _error = false;
-      var url =
-          "https://192.168.1.188:3000/api/GradeSystemMark/id?grade=$grade";
+      var url = "$National/api/GradeSystemMark/id?grade=$grade";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

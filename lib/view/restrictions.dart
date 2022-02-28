@@ -1,7 +1,6 @@
 import 'package:connection_notifier/connection_notifier.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view_models/restrictions_view_model.dart';
-import 'package:edu_pro/view_models/results/result_view_model.dart';
 import 'package:edu_pro/view_models/results/semester_view_model.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
@@ -30,15 +29,6 @@ class _RestrictionsState extends State<Restrictions> {
   bool _isLoading = false;
   var api = Api();
 
-  // https://192.168.1.2:3000/api/Restrictions/1267?stdId=151&facultySemesterId=1267
-  // final _itemsSemester = [
-  //   'Semester 1',
-  //   'Semester 2',
-  //   'Semester 3',
-  //   'Semester 4',
-  //   'Semester 5',
-  // ];
-  // bool isSelectedSemester = false;
   @override
   void initState() {
     super.initState();
@@ -187,37 +177,6 @@ class _RestrictionsState extends State<Restrictions> {
                                                                 ),
                                                               )
                                                               .toList(),
-                                                          // onChanged: (value) {
-                                                          //   setState(
-                                                          //     () {
-                                                          //       _isLoading = false;
-                                                          //       isSelectedSemester =
-                                                          //           true;
-                                                          //       this._valueSemester =
-                                                          //           value;
-                                                          //       this._val = value;
-                                                          //       print(
-                                                          //           "_valueSemester : $_valueSemester");
-                                                          //       setState(() {
-                                                          //         _dataResult = Provider.of<
-                                                          //                     RestrictionsViewModel>(
-                                                          //                 context,
-                                                          //                 listen: false)
-                                                          //             .fetchRestrictions(
-                                                          //                 1268);
-                                                          //         // .then((value) {
-                                                          //         // setState(() {
-                                                          //         //   _isLoading =
-                                                          //         //       false;
-                                                          //         // }
-                                                          //         // );
-                                                          //         // }
-                                                          //         //);
-                                                          //       });
-                                                          //     },
-                                                          //   );
-                                                          // },
-
                                                           onChanged: (value) {
                                                             setState(
                                                               () {
@@ -248,23 +207,6 @@ class _RestrictionsState extends State<Restrictions> {
                                                                   });
                                                                 });
 
-                                                                // setState(() {
-                                                                //   _semesterId = int.parse(
-                                                                //       _valueSemester
-                                                                //           .toString());
-                                                                //   _dataResult = Provider.of<
-                                                                //               RestrictionsViewModel>(
-                                                                //           context,
-                                                                //           listen: false)
-                                                                //       .fetchRestrictions(
-                                                                //           1267)
-                                                                //       .then((value) => {
-
-                                                                //             _isLoading =
-                                                                //                 false
-                                                                //           });
-                                                                // });
-
                                                                 print(
                                                                     "_semesterId  : $_semesterId");
                                                                 (int.parse(
@@ -286,8 +228,6 @@ class _RestrictionsState extends State<Restrictions> {
                                     ),
                                   ),
                                 ),
-                                // Text(restrictionsList.length.toString()),
-
                                 restrictionsList!.length == 0
                                     ? Center(
                                         child: Padding(
@@ -341,20 +281,6 @@ class _RestrictionsState extends State<Restrictions> {
                                               ],
                                             ),
                                           ),
-                                          // child: ListTile(
-                                          //   title: Text(
-                                          //     "Status",
-                                          //     style: TextStyle(color: Colors.white),
-                                          //   ),
-                                          //   trailing: Text(
-                                          //     "note",
-                                          //     style: TextStyle(color: Colors.white),
-                                          //   ),
-                                          //   leading: Text(
-                                          //     "Type",
-                                          //     style: TextStyle(color: Colors.white),
-                                          //   ),
-                                          // ),
                                         ),
                                       ),
                                 Container(

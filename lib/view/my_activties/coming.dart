@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:connection_notifier/connection_notifier.dart';
 import 'package:edu_pro/services/api.dart';
-import 'package:edu_pro/view/my_activties/activities.dart';
 import 'package:edu_pro/view/my_activties/activity_more.dart';
 import 'package:edu_pro/view_models/activity_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';

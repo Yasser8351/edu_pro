@@ -55,260 +55,271 @@ class _LoginHomeState extends State<LoginHome> {
     return Scaffold(
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : Container(
-              height: size.height,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 23, bottom: 0),
-                      child: Card(
-                        elevation: 10,
-                        child: IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.black54,
-                            )),
+          : SingleChildScrollView(
+              child: Container(
+                height: size.height,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 23, bottom: 0),
+                        child: Card(
+                          elevation: 10,
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black54,
+                              )),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 4),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/${widget.UniversitiesName}.png',
-                                height: 120,
-                              ),
-                              //SizedBox(height: 18),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'EDU.',
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        fontFamily: '',
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'PRO',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const SizedBox(height: 30),
-                                  Form(
-                                    key: _form,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          textAlign: TextAlign.left,
-                                          controller: _userNameController,
-                                          decoration: InputDecoration(
-                                              prefixIcon: Icon(Icons.email),
-                                              labelText: 'Email',
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              )),
-                                          textInputAction: TextInputAction.next,
-                                          keyboardType: TextInputType.text,
-                                          onFieldSubmitted: (_) {
-                                            FocusScope.of(context)
-                                                .requestFocus(_passwordFocus);
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter the email';
-                                            }
-                                            return null;
-                                          },
-                                          onSaved: (value) {},
-                                        ),
-                                        const SizedBox(height: 20.0),
-                                        TextFormField(
-                                          textAlign: TextAlign.left,
-                                          controller: _passwordController,
-                                          obscureText: _obscureText,
-                                          focusNode: _passwordFocus,
-                                          decoration: InputDecoration(
-                                              labelText: 'Password',
-                                              suffixIcon: InkWell(
-                                                  onTap: _toggle,
-                                                  child: _obscureText
-                                                      ? Container(
-                                                          width: 1,
-                                                          height: 1,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10.0),
-                                                            child: SvgPicture
-                                                                .asset(
-                                                              'assets/eye_visible.svg',
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      : Container(
-                                                          width: 1,
-                                                          height: 1,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10.0),
-                                                            child: SvgPicture
-                                                                .asset(
-                                                              'assets/eye_hide.svg',
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        )),
-                                              prefixIcon: Icon(
-                                                  Icons.lock_clock_rounded),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              )),
-                                          textInputAction: TextInputAction.done,
-                                          keyboardType: TextInputType.text,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter the password';
-                                            }
-                                            return null;
-                                          },
-                                          onSaved: (value) {},
-                                        ),
-                                      ],
+                    Container(
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 4),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/${widget.UniversitiesName}.png',
+                                  height: 120,
+                                ),
+                                //SizedBox(height: 18),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'EDU.',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          fontFamily: '',
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Container(
-                                    height: 50.0,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                                    child: TextButton(
-                                      child: _isLoadingLogin
-                                          ? Center(
-                                              child: CircularProgressIndicator(
-                                                  color: Colors.white))
-                                          : Text(
-                                              'Login',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18.0),
-                                            ),
-                                      onPressed: () {
-                                        final isValid =
-                                            _form.currentState!.validate();
-                                        if (!isValid) {
-                                          return null;
-                                        }
-                                        _form.currentState!.save();
-                                        setState(() {
-                                          _isLoadingLogin = true;
-                                        });
-
-                                        var responseData = api.responseData;
-
-                                        api
-                                            .login(
-                                          _userNameController.text.toString(),
-                                          _passwordController.text.toString(),
-                                        )
-                                            .then((value) {
-                                          api.data;
+                                    Text(
+                                      'PRO',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 30),
+                                    Form(
+                                      key: _form,
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            textAlign: TextAlign.left,
+                                            controller: _userNameController,
+                                            decoration: InputDecoration(
+                                                prefixIcon: Icon(Icons.email),
+                                                labelText: 'Email',
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                )),
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            keyboardType: TextInputType.text,
+                                            onFieldSubmitted: (_) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(_passwordFocus);
+                                            },
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please enter the email';
+                                              }
+                                              return null;
+                                            },
+                                            onSaved: (value) {},
+                                          ),
+                                          const SizedBox(height: 20.0),
+                                          TextFormField(
+                                            textAlign: TextAlign.left,
+                                            controller: _passwordController,
+                                            obscureText: _obscureText,
+                                            focusNode: _passwordFocus,
+                                            decoration: InputDecoration(
+                                                labelText: 'Password',
+                                                suffixIcon: InkWell(
+                                                    onTap: _toggle,
+                                                    child: _obscureText
+                                                        ? Container(
+                                                            width: 1,
+                                                            height: 1,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      10.0),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/eye_visible.svg',
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            width: 1,
+                                                            height: 1,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      10.0),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/eye_hide.svg',
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          )),
+                                                prefixIcon: Icon(
+                                                    Icons.lock_clock_rounded),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                )),
+                                            textInputAction:
+                                                TextInputAction.done,
+                                            keyboardType: TextInputType.text,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please enter the password';
+                                              }
+                                              return null;
+                                            },
+                                            onSaved: (value) {},
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Container(
+                                      height: 50.0,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                      child: TextButton(
+                                        child: _isLoadingLogin
+                                            ? Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        color: Colors.white))
+                                            : Text(
+                                                'Login',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18.0),
+                                              ),
+                                        onPressed: () {
+                                          final isValid =
+                                              _form.currentState!.validate();
+                                          if (!isValid) {
+                                            return null;
+                                          }
+                                          _form.currentState!.save();
                                           setState(() {
-                                            _isLoadingLogin = false;
+                                            _isLoadingLogin = true;
                                           });
 
-                                          if (value) {
-                                            print("login successfully");
-                                            SharedPrefUser().login();
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              duration: Duration(seconds: 1),
-                                              content:
-                                                  Text("login successfully"),
-                                              backgroundColor: Colors.green,
-                                            ));
-                                            SharedPrefUser().saveUniversitiesId(
-                                                widget.UniversitiesId);
-                                            api.getCurriculum();
+                                          var responseData = api.responseData;
 
-                                            SharedPrefUser()
-                                                .saveUser(api.data)
-                                                .then((value) => {});
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                                    builder: (ctx) => Home(
-                                                          userName:
-                                                              "${api.data['firstName']}",
-                                                        )));
-                                          } else {
-                                            if (api.isServerError) {
+                                          api
+                                              .login(
+                                            widget.UniversitiesId,
+                                            _userNameController.text.toString(),
+                                            _passwordController.text.toString(),
+                                          )
+                                              .then((value) {
+                                            api.data;
+                                            setState(() {
+                                              _isLoadingLogin = false;
+                                            });
+
+                                            if (value) {
+                                              print("login successfully");
+                                              SharedPrefUser().login();
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      "server error ,please try again later"),
-                                                  backgroundColor: Colors.red,
-                                                ),
-                                              );
+                                                  .showSnackBar(SnackBar(
+                                                duration: Duration(seconds: 1),
+                                                content:
+                                                    Text("login successfully"),
+                                                backgroundColor: Colors.green,
+                                              ));
+                                              SharedPrefUser()
+                                                  .saveUniversitiesId(
+                                                      widget.UniversitiesId);
+                                              api.getCurriculum();
+                                              SharedPrefUser()
+                                                  .saveUser(api.data)
+                                                  .then((value) => {});
+                                              print(
+                                                  "api.isServerError ${api.isServerError}");
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                      builder: (ctx) => Home(
+                                                            userName:
+                                                                "${api.data['firstName']}",
+                                                          )));
                                             } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      "incorrect username or password"),
-                                                  backgroundColor: Colors.red,
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        }
-                                                // },
+                                              print(
+                                                  "api.isServerError ${api.isServerError}");
+                                              if (api.isServerError) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        "server error ,please try again later"),
+                                                    backgroundColor: Colors.red,
+                                                  ),
                                                 );
-                                      },
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        "incorrect username or password"),
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                          });
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
     );

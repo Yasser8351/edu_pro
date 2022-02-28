@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../url.dart';
 
 class AnnouncementsProvider with ChangeNotifier {
   Map<String, dynamic> _anouncementsList = {};
@@ -14,9 +16,12 @@ class AnnouncementsProvider with ChangeNotifier {
   bool get error => _error;
 
   Future<void> getAnnouncements() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final stdId = prefs.getInt('stdId') ?? 0;
     try {
       bool _error = false;
-      var url = "https://192.168.1.188:3000/api/Announcement/id?stdId=67121";
+      var url = "$National/api/Announcement/id?stdId=$stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

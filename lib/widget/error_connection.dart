@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ErrorConnection extends StatelessWidget {
   const ErrorConnection({
@@ -16,14 +17,15 @@ class ErrorConnection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 150,
-                height: 150,
-                child: Image.asset(
-                  'assets/warning.gif',
+                width: 120,
+                height: 120,
+                child: SvgPicture.asset(
+                  'assets/warning.svg',
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   message,
                   style: TextStyle(

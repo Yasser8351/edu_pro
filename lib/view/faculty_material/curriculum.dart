@@ -23,6 +23,7 @@ class _CurriculumState extends State<Curriculum> {
   @override
   void initState() {
     super.initState();
+    
   }
 
   @override
@@ -232,6 +233,7 @@ class _CurriculumState extends State<Curriculum> {
                       //     },
                       //   ),
                       // ),
+                    
                       /////Part Two Of Curriculum
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1183,49 +1185,49 @@ class _CurriculumState extends State<Curriculum> {
               //         }
               //       },
               //     ),
-              //     FutureBuilder(
-              //       future: _data,
-              //       builder: (_, snapshot) {
-              //         if (snapshot.connectionState == ConnectionState.waiting) {
-              //           return Center(child: CircularProgressIndicator());
-              //         } else {
-              //           if (snapshot.hasError) {
-              //             return Text("some error");
-              //           } else if (snapshot.hasData == null) {
-              //             return Text("No data found");
-              //           } else if (snapshot.hasData) {
-              //             return Text("No data found");
-              //           }
-              //           return ListView.builder(
-              //             itemCount: CurriculumList.length,
-              //             itemBuilder: (ctx, index) {
-              //               var list = profileList[index];
-              //               return Container(
-              //                 height: 400,
-              //                 decoration: BoxDecoration(
-              //                   color: Colors.white,
-              //                   borderRadius: BorderRadius.all(
-              //                     Radius.circular(10),
-              //                   ),
-              //                 ),
-              //                 child: Column(
-              //                   children: [
-              //                     ListTile(
-              //                       trailing: Text('Program Name'),
-              //                       leading: Text('No.'),
-              //                     ),
-              //                     ListTile(
-              //                       trailing: Text("${list.programNameEn}"),
-              //                       leading: Text('1'),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               );
-              //             },
-              //           );
-              //         }
-              //       },
-              //     ),
+                  FutureBuilder(
+                    future: _data,
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else {
+                        if (snapshot.hasError) {
+                          return Text("some error");
+                        } else if (snapshot.hasData == null) {
+                          return Text("No data found");
+                        } else if (snapshot.hasData) {
+                          return Text("No data found");
+                        }
+                        return ListView.builder(
+                          itemCount: CurriculumList.length,
+                          itemBuilder: (ctx, index) {
+                            var list = profileList[index];
+                            return Container(
+                              height: 400,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    trailing: Text('Program Name'),
+                                    leading: Text('No.'),
+                                  ),
+                                  ListTile(
+                                    trailing: Text("${list.programNameEn}"),
+                                    leading: Text('1'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
               //     Column(
               //       children: [
               //         Text('Faculty of Business Administration'),

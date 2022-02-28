@@ -1,6 +1,7 @@
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/attendance/attendance.dart';
 import 'package:edu_pro/view_models/attendance_view_model.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -53,30 +54,7 @@ class _AttendanceState extends State<AttendanceMore> {
         ),
       ),
       body: list == null
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: Image.asset(
-                      'assets/warning.png',
-                      // color: Colors.blue,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Text(
-                      'Server error please try again later',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.background),
-                    ),
-                  ),
-                ],
-              ),
-            )
+          ? ErrorConnection(message: "Server error please try again later")
           : SingleChildScrollView(
               child: Container(
                 child: Padding(

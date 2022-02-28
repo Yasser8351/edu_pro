@@ -15,11 +15,10 @@ class _UniversitiesState extends State<Universities> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
+        height: size.height,
         child: Center(
-          child: Expanded(
+          child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 //umst = 1
                 //national  = 2
@@ -28,7 +27,6 @@ class _UniversitiesState extends State<Universities> {
                 //safwa = 5
                 //ibnsina = 6
                 //uofk = 7
-                // =
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Center(
@@ -38,6 +36,8 @@ class _UniversitiesState extends State<Universities> {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,6 +107,8 @@ class _UniversitiesState extends State<Universities> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,6 +178,8 @@ class _UniversitiesState extends State<Universities> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,6 +252,8 @@ class _UniversitiesState extends State<Universities> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,

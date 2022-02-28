@@ -2,6 +2,7 @@ import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/registration_fessInformation/registration_details.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -57,30 +58,7 @@ class _RegistrationState extends State<Registration> {
       ),
       drawer: AppDrawer(),
       body: api.isServerError
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      'assets/warning.gif',
-                      // color: Colors.blue,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Text(
-                      'Server error please try again later',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Theme.of(context).colorScheme.background),
-                    ),
-                  ),
-                ],
-              ),
-            )
+          ? ErrorConnection(message: "Server error please try again later")
           : SingleChildScrollView(
               child: Container(
                 //color: Colors.grey,

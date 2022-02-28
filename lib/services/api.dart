@@ -33,12 +33,12 @@ class Api {
     if (isComing) {
       url =
           "$MyActivityComing?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
-      //"https://192.168.1.188:3000/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
+      //"$National/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
 
     } else {
       url =
           "$MyActivityCurrent/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
-      // "https://192.168.1.188:3000/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
+      // "$National/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
 
     }
 
@@ -107,8 +107,7 @@ class Api {
     _prefs = await SharedPreferences.getInstance();
     int _facultyBatchNo = await _prefs.getInt('facultyBatchId') ?? 0;
 
-    var url =
-        "https://192.168.1.188:3000/api/ExamsTimetable?facultyBatchId=$_facultyBatchNo";
+    var url = "$National/api/ExamsTimetable?facultyBatchId=$_facultyBatchNo";
 
     try {
       bool trustSelfSigned = true;
@@ -140,12 +139,14 @@ class Api {
 
 //Done
   Future<void> getCard() async {
-    //var url = "https://192.168.1.188:3000/api/CardInfo";
+    //var url = "$National/api/CardInfo";
     _prefs = await SharedPreferences.getInstance();
 
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
-    var url = "https://192.168.1.188:3000/api/CardInfo/id?stdId=$_stdId";
+    //var url = "$National/api/CardInfo/id?stdId=$_stdId";
+    var url = "$National/api/CardInfo/id?stdId=67121";
+    // var url = "$National/api/CardInfo/id?stdId=$_stdId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -154,9 +155,17 @@ class Api {
             ((X509Certificate cert, String host, int port) => trustSelfSigned);
       IOClient ioClient = new IOClient(httpClient);
 
-      final response = await ioClient.get(Uri.parse(url), headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      });
+      final response = await ioClient.get(
+        Uri.parse(url),
+        headers: {
+          'charset': 'utf-8',
+          'content-type': 'text/plain',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+      );
+      // final response = await ioClient.get(Uri.parse(url), headers: {
+      //   HttpHeaders.contentTypeHeader: 'application/json',
+      // });
       if (response.statusCode == 200) {
         data = json.decode(response.body);
         var d = CardModel.fromJson(data);
@@ -173,8 +182,7 @@ class Api {
     _prefs = await SharedPreferences.getInstance();
 
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
-    var url =
-        "https://192.168.1.188:3000/api/GetCurriculum?facultyId=$_facultyNo";
+    var url = "$National/api/GetCurriculum?facultyId=$_facultyNo";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -194,9 +202,16 @@ class Api {
   }
 
 //Done
-  Future<bool> login(String userName, String password) async {
-    var url = "http://207.180.223.113:8081/api/UserIndex";
-    //var url = "https://192.168.1.188:3000/api/UserIndex";
+  Future<bool> login(
+      int universitiesId, String userName, String password) async {
+    var url = "";
+
+    print("universitiesId $universitiesId");
+    if (universitiesId == 1) {
+      url = "$NationalLogin";
+    } else if (universitiesId == 2) {
+      url = "$NationalLogin";
+    }
 
     bool isLogin = false;
     try {
@@ -206,7 +221,6 @@ class Api {
             ((X509Certificate cert, String host, int port) => trustSelfSigned);
       IOClient ioClient = new IOClient(httpClient);
       final msg = jsonEncode({
-
         "username": userName,
         "password": password,
         "studentIndexNo": password
@@ -219,6 +233,8 @@ class Api {
           'content-type': 'text/plain',
           HttpHeaders.contentTypeHeader: 'application/json',
         },
+      ).timeout(
+        const Duration(seconds: 15),
       );
 
       if (response.statusCode == 200) {
@@ -246,10 +262,22 @@ class Api {
     _prefs = await SharedPreferences.getInstance();
     int _facultyBatchNo = await _prefs.getInt('facultyBatchId') ?? 0;
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
+    int universitiesId = await _prefs.getInt('universitiesId') ?? 0;
 
+    print("_facultyNo $_facultyNo");
+    print("_facultyBatchNo $_facultyBatchNo");
     var url =
-        // "https://192.168.1.188:3000/api/Calendar/id?facultyNo=1107&facultyBatchNo=1616";
-        "https://192.168.1.188:3000/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+        "$National/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+
+    // print("universitiesId $universitiesId");
+    // if (universitiesId == 1) {
+    //   url =
+    //       "$UmstCalender/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+    // } else if (universitiesId == 2) {
+    //   url =
+    //       "$National/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+    // }
+
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -281,7 +309,7 @@ class Api {
 
 //Done
   Future<List<RegistrationModel>?> fetchRegistration() async {
-    var url = "https://192.168.1.188:3000/api/Registration";
+    var url = "$National/api/Registration";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

@@ -3,6 +3,7 @@ import 'package:edu_pro/provider/announcements_provider.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,30 +56,7 @@ class _AnnouncementsState extends State<Announcements> {
           print(connected);
         },
         connected: api.isServerError
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : isLoading
                 ? Center(child: CircularProgressIndicator())
                 : Container(
@@ -93,44 +71,14 @@ class _AnnouncementsState extends State<Announcements> {
                                     !value.error
                                 ? Center(child: CircularProgressIndicator())
                                 : value.error
-                                    ? Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 150,
-                                              height: 150,
-                                              child: Image.asset(
-                                                'assets/warning.gif',
-                                                // color: Colors.blue,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 15),
-                                              child: Text(
-                                                'Server error please try again later',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                    ? ErrorConnection(
+                                        message:
+                                            "Server error please try again later")
                                     : value.anouncementsList['announcements']
                                                 .length ==
                                             0
-                                        ? Center(
-                                            child: Text(
-                                            'No Announcements Found',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black54),
-                                          ))
+                                        ? ErrorConnection(
+                                            message: "No Announcements Found")
                                         : Column(
                                             children: [
                                               Card(
@@ -139,8 +87,7 @@ class _AnnouncementsState extends State<Announcements> {
                                                     .primary,
                                                 margin: EdgeInsets.all(10),
                                                 child: ListTile(
-                                                  trailing: Text(
-                                                      "Date    ", //announcementDate
+                                                  trailing: Text("Date    ",
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 20)),

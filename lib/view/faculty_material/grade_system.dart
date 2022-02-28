@@ -3,6 +3,7 @@ import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/faculty_material/faculty_material.dart';
 import 'package:edu_pro/view_models/grade_system_mark_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,37 +57,12 @@ class _GradeSystemState extends State<GradeSystem> {
           print(connected);
         },
         connected: listMark == null
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : Container(
                 child: listMark.length == 0
-                    ? Center(
-                        child: Text(
-                        _isLoading ? '' : 'No Data Found',
-                        style: TextStyle(fontSize: 20, color: Colors.black54),
-                      ))
+                    ? ErrorConnection(
+                        message: _isLoading ? '' : 'No Data Found',
+                      )
                     : _isLoading
                         ? Center(
                             child: CircularProgressIndicator(),

@@ -7,6 +7,7 @@ import 'package:edu_pro/view/my_profile/my_profile_detail.dart';
 import 'package:edu_pro/view_models/profile_view_model.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:edu_pro/widget/full_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,35 +80,9 @@ class _MyProfileState extends State<MyProfile> {
           print(connected);
         },
         connected: list == null
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : list.length == 0
-                ? Center(
-                    child: Text(
-                    'No Data Found',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ))
+                ? ErrorConnection(message: "No Data Found")
                 : _isLoading
                     ? Center(child: CircularProgressIndicator())
                     : Container(

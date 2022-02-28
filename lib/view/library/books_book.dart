@@ -2,6 +2,7 @@ import 'package:connection_notifier/connection_notifier.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view_models/library/books_view_model.dart';
 import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,30 +59,7 @@ class _PublicationsBookState extends State<BooksBook> {
           print(connected);
         },
         connected: bookList == null
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset(
-                        'assets/warning.gif',
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        'Server error please try again later',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+            ? ErrorConnection(message: "Server error please try again later")
             : Container(
                 child: _isLoading
                     ? Center(
@@ -103,34 +81,7 @@ class _PublicationsBookState extends State<BooksBook> {
                                 return Text("No data found");
                               }
                               return bookList.length == 0
-                                  ? Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 150,
-                                            height: 150,
-                                            child: Image.asset(
-                                              'assets/warning.gif',
-                                              // color: Colors.blue,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 15),
-                                            child: Text(
-                                              'No Data Found',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                                  ? ErrorConnection(message: "No Data Found")
                                   : Card(
                                       elevation: 10,
                                       shape: RoundedRectangleBorder(

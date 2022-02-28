@@ -1,10 +1,11 @@
 import 'package:edu_pro/view/calender.dart';
 import 'package:edu_pro/view/faculty_material/grade_system.dart';
+import 'package:edu_pro/view/faculty_material/home_curriculum.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'curriculum.dart';
-import 'curriculum2.dart';
+import 'Course_specification.dart';
 import 'faculty_information.dart';
 
 class FacultyMaterial extends StatelessWidget {
@@ -135,7 +136,7 @@ class FacultyMaterial extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(Curriculum2.routeName);
+                      Navigator.of(context).pushNamed(HomeCurriculum.routeName);
                       // Navigator.of(context).pushNamed(Curriculum.routeName);
                     },
                     child: Container(
@@ -147,7 +148,6 @@ class FacultyMaterial extends StatelessWidget {
                         ),
                         shadowColor: Colors.grey,
                         elevation: 10,
-                        //color: Colors.black,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

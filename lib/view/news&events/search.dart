@@ -1,4 +1,3 @@
-import 'package:edu_pro/view/news&events/news&events.dart';
 import 'package:edu_pro/view/news&events/news_search.dart';
 import 'package:flutter/material.dart';
 

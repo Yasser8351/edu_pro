@@ -26,8 +26,8 @@ class _UpdateComplaintsState extends State<UpdateComplaints> {
   var _isLoading = false;
   Future? _data;
 
-  TextEditingController title = TextEditingController(text: "");
-  TextEditingController complain = TextEditingController(text: "");
+  TextEditingController title = TextEditingController();
+  TextEditingController complain = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 

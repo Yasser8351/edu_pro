@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../url.dart';
+
 class CardProvider with ChangeNotifier {
   Map<String, dynamic> _cardList = {};
 
@@ -20,8 +22,8 @@ class CardProvider with ChangeNotifier {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final _stdId = prefs.getInt('stdId') ?? 0;
       print('_stdId $_stdId');
-      // var url = "https://192.168.1.188:3000/api/CardInfo/id?stdId=$_stdId";
-      var url = "https://192.168.1.188:3000/api/CardInfo/id?stdId=$_stdId";
+      var url = "$National/api/CardInfo/id?stdId=$_stdId";
+      // var url = "$National/api/CardInfo/id?stdId=$_stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -44,14 +46,14 @@ class CardProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
   Future<void> getCurriculum() async {
     try {
       bool _error = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final facultyNo = prefs.getInt('facultyNo') ?? 0;
       print('facultyNo $facultyNo');
-      var url =
-          "https://192.168.1.188:3000/api/AttendanceSubject?facultyId=1107";
+      var url = "$National/api/AttendanceSubject?facultyId=$facultyNo";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -74,6 +76,4 @@ class CardProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
-
 }

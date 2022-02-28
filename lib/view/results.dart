@@ -391,6 +391,7 @@ class _ResultsState extends State<Results> {
                           ),
                         ],
                       ),
+             
               ],
             )),
         disconnected: Center(key: UniqueKey(), child: ConnectionStatuesBars()),

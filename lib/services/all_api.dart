@@ -57,10 +57,10 @@ class AllApi {
     if (universitiesId == 1) {
       if (isComing) {
         url =
-            "https://192.168.1.188:3000/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+            "$National/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
       } else {
         url =
-            "https://192.168.1.188:3000/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+            "$National/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
       }
     }
 
@@ -101,8 +101,8 @@ class AllApi {
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
     var url =
-        "https://192.168.1.188:3000/api/FacultyMateralCurriculumn?CurriculumNo=3735&facultyNo=1107";
-    // "https://192.168.1.188:3000/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
+        "$National/api/FacultyMateralCurriculumn?CurriculumNo=3735&facultyNo=1107";
+    // "$National/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
 
     try {
       bool trustSelfSigned = true;
@@ -139,8 +139,7 @@ class AllApi {
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
-    var url =
-        "https://192.168.1.188:3000/api/CurriculumnCourseSpecification?CurriculumNo=3735";
+    var url = "$National/api/CurriculumnCourseSpecification?CurriculumNo=3735";
 
     try {
       bool trustSelfSigned = true;
@@ -177,7 +176,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
     var url =
-        "https://192.168.1.188:3000/api/EServicesRequests?stdId=$_stdId&academicYear=$academicYear"; //479
+        "$National/api/EServicesRequests?stdId=$_stdId&academicYear=$academicYear"; //479
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -211,7 +210,7 @@ class AllApi {
 
 //Done
   Future<List<EServicesTypeModel>> fetchEServicesType() async {
-    var url = "https://192.168.1.188:3000/api/EServicesDeliveryType/id";
+    var url = "$National/api/EServicesDeliveryType/id";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -245,7 +244,7 @@ class AllApi {
 
 //Done
   Future<List<EServicesNameModel>?> fetchEServicesName() async {
-    var url = "https://192.168.1.188:3000/api/EServicesTypeName";
+    var url = "$National/api/EServicesTypeName";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -284,8 +283,7 @@ class AllApi {
     print("universitiesId $universitiesId");
     // 1 : UMST universitie
     if (universitiesId == 1) {
-      url =
-          "https://192.168.1.188:3000/api/NewsAndEventsSearch?start=$start&end=$end";
+      url = "$National/api/NewsAndEventsSearch?start=$start&end=$end";
     }
 
     try {
@@ -320,7 +318,7 @@ class AllApi {
   Future<List<GradeSystemNoModel>?> fetchGradeSystemNo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final _stdId = prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/GradeSystem/id?stdId=$_stdId";
+    var url = "$National/api/GradeSystem/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -355,8 +353,8 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
 
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/GradeSystem/id?stdId=$_stdId";
-    // var url = "https://192.168.1.188:3000/api/GradeSystemMark/id?grade=$grade"; //20
+    var url = "$National/api/GradeSystem/id?stdId=$_stdId";
+    // var url = "$National/api/GradeSystemMark/id?grade=$grade"; //20
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -390,7 +388,7 @@ class AllApi {
   Future<void> getCard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final _stdId = prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/CardInfo/id?stdId=$_stdId";
+    var url = "$National/api/CardInfo/id?stdId=$_stdId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -419,7 +417,7 @@ class AllApi {
     int _facultyBatchNo = await _prefs.getInt('facultyBatchId') ?? 0;
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+        "$National/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -451,7 +449,7 @@ class AllApi {
 
 //Done
   Future<List<SurveysModel>?> fetchSurveys() async {
-    var url = "https://192.168.1.188:3000/api/Survey";
+    var url = "$National/api/Survey";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -485,7 +483,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyProgramNo = await _prefs.getInt('facultyProgramNo') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/Semester/id?facultyProgramNo=$_facultyProgramNo"; //10075
+        "$National/api/Semester/id?facultyProgramNo=$_facultyProgramNo"; //10075
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -521,7 +519,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/Results/id?studentNo=$_stdId&&facultyBatchId=$_facultyBatchId&&facultySemesterId=$semesterId";
+        "$National/api/Results/id?studentNo=$_stdId&&facultyBatchId=$_facultyBatchId&&facultySemesterId=$semesterId";
 
     try {
       bool trustSelfSigned = true;
@@ -553,7 +551,8 @@ class AllApi {
 
 //Done
   Future<List<AcademicYearModel>?> fetchAcademicYear() async {
-    var url = "https://192.168.1.188:3000/api/AcademicYear";
+    var url = "http://207.180.223.113:8081/api/AcademicYear";
+    // var url = "$National/api/AcademicYear";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -589,7 +588,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
     var url =
-        "https://192.168.1.188:3000/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId"; //9896 -137";
+        "$National/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId"; //9896 -137";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -622,7 +621,7 @@ class AllApi {
   Future<List<ProfileModel>?> fetchProfile() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/MyProfile/id?stdId=$_stdId";
+    var url = "$National/api/MyProfile/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -655,7 +654,7 @@ class AllApi {
   Future<List<LibraryBorrowModel>?> fetchBorrow() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/LibraryBrrowed/id?stdId=$_stdId";
+    var url = "$National/api/LibraryBrrowed/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -686,9 +685,8 @@ class AllApi {
 
 //Done
   Future<List<PublicationsModel>?> fetchPublications(String bookTitle) async {
-    var url =
-        "https://192.168.1.188:3000/api/LibraryPublications?title=$bookTitle";
-    //var url = "https://192.168.1.188:3000/api/LibraryPublications";
+    var url = "$National/api/LibraryPublications?title=$bookTitle";
+    //var url = "$National/api/LibraryPublications";
 
     try {
       bool trustSelfSigned = true;
@@ -724,8 +722,8 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     var url =
-        // "https://192.168.1.188:3000/api/LibraryBooks/id?facultyNo=$_facultyNo&&bookId=1784";
-        "https://192.168.1.188:3000/api/LibraryBooks?title=$title";
+        // "$National/api/LibraryBooks/id?facultyNo=$_facultyNo&&bookId=1784";
+        "$National/api/LibraryBooks?title=$title";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -759,7 +757,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/Restrictions/1267?stdId=$_stdId&facultySemesterId=$semesterId";
+        "$National/api/Restrictions/1267?stdId=$_stdId&facultySemesterId=$semesterId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -793,7 +791,7 @@ class AllApi {
   Future<List<ComplainModel>?> fetchComplain() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "https://192.168.1.188:3000/api/Complain/$_stdId";
+    var url = "$National/api/Complain/$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -825,7 +823,7 @@ class AllApi {
 
 //Done
   Future<bool> deleteComplain(int id) async {
-    var url = "https://192.168.1.188:3000/api/Complain/$id";
+    var url = "$National/api/Complain/$id";
     String message = "";
     bool isDelete = false;
     //if(204)
@@ -842,12 +840,14 @@ class AllApi {
           HttpHeaders.contentTypeHeader: 'application/json',
         },
       );
+      print(response.statusCode);
+
       if (response.statusCode == 204) {
-        print(response);
+        print(response.statusCode);
+        isDelete = true;
 
         //message = "Deleted";
         message = "Deleted successfully";
-        isDelete = true;
       } else if (response.statusCode == 500) {
         message = "server error please try again later";
         isDelete = false;
@@ -870,7 +870,7 @@ class AllApi {
     bool isAdd = false;
     try {
       //var url = "https://madeinsudan2.com/update_compail.php";
-      var url = "https://192.168.1.188:3000/api/ComplaintUpdate";
+      var url = "$National/api/ComplaintUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =
@@ -916,7 +916,7 @@ class AllApi {
 
     try {
       //var url = "https://madeinsudan2.com/update_compail.php";
-      var url = "https://192.168.1.188:3000/api/ComplaintUpdate";
+      var url = "$National/api/ComplaintUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =
@@ -958,7 +958,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/Curriculum/$_stdId?stdNo=$_stdId&courseId=$courseId";
+        "$National/api/Curriculum/$_stdId?stdNo=$_stdId&courseId=$courseId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -987,8 +987,7 @@ class AllApi {
   Future<List<AttendanceModel>?> fetchAttendanceDetails(int courseId) async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url =
-        "https://192.168.1.188:3000/api/Curriculum?stdNo=$_stdId&courseId=$courseId";
+    var url = "$National/api/Curriculum?stdNo=$_stdId&courseId=$courseId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -1026,9 +1025,9 @@ class AllApi {
 
     print("curriculumNo $curriculumNo");
     // var url =
-    //     "https://192.168.1.188:3000/api/AttendanceSubject/id?facultyId=1107";
+    //     "$National/api/AttendanceSubject/id?facultyId=1107";
     var url =
-        "https://192.168.1.188:3000/api/AttendanceSubject/id?curriculumNo=$curriculumNo"; //3735
+        "$National/api/AttendanceSubject/id?curriculumNo=$curriculumNo"; //3735
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -1065,7 +1064,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
     var url =
-        "https://192.168.1.188:3000/api/LectureTimetable/id?dayName=$day&&facultyBatchNo=$_facultyBatchId"; //Saturday
+        "$National/api/LectureTimetable/id?dayName=$day&&facultyBatchNo=$_facultyBatchId"; //Saturday
 
     try {
       bool trustSelfSigned = true;
@@ -1102,7 +1101,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     bool isUpdate = false;
     try {
-      var url = "https://192.168.1.188:3000/api/MyProfileUpdate";
+      var url = "$National/api/MyProfileUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =

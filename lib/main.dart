@@ -7,12 +7,12 @@ import 'package:edu_pro/provider/survey_provider.dart';
 import 'package:edu_pro/view/announcements.dart';
 import 'package:edu_pro/view/attendance/attendance.dart';
 import 'package:edu_pro/view/complaints/complaints.dart';
-import 'package:edu_pro/view/complaints/refresh_page.dart';
 import 'package:edu_pro/view/complaints/update_complain.dart';
 import 'package:edu_pro/view/e_services/e_services.dart';
 import 'package:edu_pro/view/e_services/show_e_services.dart';
 import 'package:edu_pro/view/faculty_material/faculty_information.dart';
 import 'package:edu_pro/view/faculty_material/grade_system.dart';
+import 'package:edu_pro/view/faculty_material/home_curriculum.dart';
 import 'package:edu_pro/view/home.dart';
 import 'package:edu_pro/view/registration_fessInformation/registration_details.dart';
 import 'package:edu_pro/view/universities.dart';
@@ -64,7 +64,9 @@ import 'view/complaints/report_complaints.dart';
 import 'view/e_services/add_request.dart';
 import 'view/e_services/show_e_services_more_details.dart';
 import 'view/faculty_material/curriculum.dart';
-import 'view/faculty_material/curriculum2.dart';
+import 'view/faculty_material/Course_specification.dart';
+import 'view/faculty_material/planning_study.dart';
+import 'view/faculty_material/program_structure.dart';
 import 'view/intro_screen.dart';
 import 'view/my_activties/activities.dart';
 import 'view/attendance/attendance_more.dart';
@@ -189,7 +191,6 @@ class MyApp extends StatelessWidget {
             LoginHome.routeName: (ctx) => LoginHome(),
             AddComplaints.routeName: (ctx) => AddComplaints(),
             UpdateComplaints.routeName: (ctx) => UpdateComplaints(),
-            RefreshPage.routeName: (ctx) => RefreshPage(),
             NewsSearch.routeName: (ctx) => NewsSearch(),
             EServices.routeName: (ctx) => EServices(),
             ShowEServices.routeName: (ctx) => ShowEServices(),
@@ -200,7 +201,10 @@ class MyApp extends StatelessWidget {
             RegistrationDetails.routeName: (ctx) => RegistrationDetails(),
             Universities.routeName: (ctx) => Universities(),
             Curriculum.routeName: (ctx) => Curriculum(),
-            Curriculum2.routeName: (ctx) => Curriculum2(),
+            CourseSpecification.routeName: (ctx) => CourseSpecification(),
+            HomeCurriculum.routeName: (ctx) => HomeCurriculum(),
+            ProgramStructure.routeName: (ctx) => ProgramStructure(),
+            PlanningStudy.routeName: (ctx) => PlanningStudy(),
           },
         ),
       ),
