@@ -8,13 +8,10 @@ import 'package:edu_pro/view/announcements.dart';
 import 'package:edu_pro/view/attendance/attendance.dart';
 import 'package:edu_pro/view/complaints/complaints.dart';
 import 'package:edu_pro/view/complaints/update_complain.dart';
-import 'package:edu_pro/view/e_services/e_services.dart';
-import 'package:edu_pro/view/e_services/show_e_services.dart';
 import 'package:edu_pro/view/faculty_material/faculty_information.dart';
 import 'package:edu_pro/view/faculty_material/grade_system.dart';
 import 'package:edu_pro/view/faculty_material/home_curriculum.dart';
 import 'package:edu_pro/view/home.dart';
-import 'package:edu_pro/view/registration_fessInformation/registration_details.dart';
 import 'package:edu_pro/view/universities.dart';
 import 'package:edu_pro/view_models/activity_view_model.dart';
 import 'package:edu_pro/view/library/borrowed_library.dart';
@@ -38,8 +35,6 @@ import 'package:edu_pro/view_models/attendance_view_model.dart';
 import 'package:edu_pro/view_models/complain_view_model.dart';
 import 'package:edu_pro/view_models/curriculum_view_model.dart';
 import 'package:edu_pro/view_models/drawar_view_model.dart';
-import 'package:edu_pro/view_models/e_services_type_view_model.dart';
-import 'package:edu_pro/view_models/e_services_view_model.dart';
 import 'package:edu_pro/view_models/exams_view_model.dart';
 import 'package:edu_pro/view_models/fees_view_model.dart';
 import 'package:edu_pro/view_models/grade_system_mark_view_model.dart';
@@ -50,7 +45,6 @@ import 'package:edu_pro/view_models/library/library_brrowed_view_model.dart';
 import 'package:edu_pro/view_models/news_view_model.dart';
 import 'package:edu_pro/view_models/profile_view_model.dart';
 import 'package:edu_pro/view_models/library/publications_view_model.dart';
-import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:edu_pro/view_models/restrictions_view_model.dart';
 import 'package:edu_pro/view_models/results/semester_view_model.dart';
 import 'package:edu_pro/view_models/subject_view_model.dart';
@@ -61,8 +55,6 @@ import 'provider/user_provider.dart';
 import 'view/complaints/add_complaints.dart';
 import 'view/complaints/my_complaints.dart';
 import 'view/complaints/report_complaints.dart';
-import 'view/e_services/add_request.dart';
-import 'view/e_services/show_e_services_more_details.dart';
 import 'view/faculty_material/curriculum.dart';
 import 'view/faculty_material/Course_specification.dart';
 import 'view/faculty_material/planning_study.dart';
@@ -79,7 +71,6 @@ import 'view/my_profile/my_profile.dart';
 import 'view/my_profile/my_profile_detail.dart';
 import 'view/news&events/news&events.dart';
 import 'view/news&events/news_search.dart';
-import 'view/registration.dart';
 import 'view/surveys.dart';
 import 'view/timetable/exame_timetable.dart';
 import 'view/my_profile/update_profile.dart';
@@ -123,9 +114,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => GradeSystemNoViewModel()),
         ChangeNotifierProvider(create: (_) => GradeSystemMarkViewModel()),
-        ChangeNotifierProvider(create: (_) => EServicesViewModel()),
-        ChangeNotifierProvider(create: (_) => EServicesTypeViewModel()),
-        ChangeNotifierProvider(create: (_) => RegistrationViewModel()),
         ChangeNotifierProvider(create: (_) => DrawerViewModel()),
         ChangeNotifierProvider(create: (_) => CurriculumViewModel()),
       ],
@@ -192,13 +180,6 @@ class MyApp extends StatelessWidget {
             AddComplaints.routeName: (ctx) => AddComplaints(),
             UpdateComplaints.routeName: (ctx) => UpdateComplaints(),
             NewsSearch.routeName: (ctx) => NewsSearch(),
-            EServices.routeName: (ctx) => EServices(),
-            ShowEServices.routeName: (ctx) => ShowEServices(),
-            ShowEServicesMoreDetails.routeName: (ctx) =>
-                ShowEServicesMoreDetails(),
-            AddRequest.routeName: (ctx) => AddRequest(),
-            Registration.routeName: (ctx) => Registration(),
-            RegistrationDetails.routeName: (ctx) => RegistrationDetails(),
             Universities.routeName: (ctx) => Universities(),
             Curriculum.routeName: (ctx) => Curriculum(),
             CourseSpecification.routeName: (ctx) => CourseSpecification(),

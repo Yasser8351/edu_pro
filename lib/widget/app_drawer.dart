@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:edu_pro/sharepref/user_share_pref.dart';
-import 'package:edu_pro/view/e_services/e_services.dart';
-import 'package:edu_pro/view/fees_information.dart';
 import 'package:edu_pro/view/my_activties/activities.dart';
 import 'package:edu_pro/view/announcements.dart';
 import 'package:edu_pro/view/card_information.dart';
@@ -81,17 +79,13 @@ class _AppDrawerState extends State<AppDrawer> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // CircleAvatar(
-                        //   backgroundColor: Colors.white,
-                        //   child: Icon(Icons.person),
-                        // ),
+                       
                         CircleAvatar(
                           maxRadius: 20,
                           backgroundImage: MemoryImage(
                             base64Decode("$image"),
                           ),
-                          // backgroundColor:
-                          //     Theme.of(context).colorScheme.primary,
+                         
                         ),
 
                         const SizedBox(width: 20),
@@ -136,13 +130,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 trailing: Text(''),
-                // Badge(
-                //     child: Icon(
-                //       Icons.notifications,
-                //       color: Colors.white,
-                //     ),
-                //     value: '$NewsList',
-                //     color: Colors.green),
+               
                 onTap: () {
                   Navigator.of(context).pushNamed(News.routeName);
                 },
@@ -159,15 +147,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     Icons.local_activity,
                     color: Colors.white,
                   ),
-                  // child: SvgPicture.asset(
-                  //   'assets/act.svg',
-                  //   color: Colors.white,
-                  // ),
+                  
                 ),
-                // leading: Icon(
-                //   Icons.article_rounded,
-                //   color: Colors.white,
-                // ),
+                
                 trailing: Text(''),
                 onTap: () {
                   Navigator.of(context).pushNamed(Activities.routeName);
@@ -183,42 +165,12 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 trailing: Text(''),
-                //  Badge(
-                //     child: Icon(
-                //       Icons.notifications,
-                //       color: Colors.white,
-                //     ),
-                //     value: '2',
-                //     //value: cart.itemCount.toString(),
-                //     color: Colors.green),
+               
                 onTap: () {
                   Navigator.of(context).pushNamed(Announcements.routeName);
                 },
               ),
-              // ListTile(
-              //   title: Text(
-              //     'Surveys',
-              //     style: TextStyle(color: Colors.white, fontSize: 15),
-              //   ),
-              //   leading: Icon(
-              //     Icons.receipt_long,
-              //     color: Colors.white,
-              //   ),
-              //   trailing: SurveysListFromShared >= SurveysListFromDB.length
-              //       ? Text('')
-              //       : Badge(
-              //           child: Icon(
-              //             Icons.notifications,
-              //             color: Colors.white,
-              //           ),
-              //           value:
-              //               '${SurveysListFromDB.length - SurveysListFromShared}',
-              //           color: Colors.green),
-              //   onTap: () {
-              //     Navigator.of(context).pushNamed(Surveys.routeName);
-              //     // SharedPrefUser().clearSurveys();
-              //   },
-              // ),
+             
               ListTile(
                 title: Text(
                   'Surveys',
@@ -231,26 +183,9 @@ class _AppDrawerState extends State<AppDrawer> {
                 trailing: Text(''),
                 onTap: () {
                   Navigator.of(context).pushNamed(Surveys.routeName);
-                  // SharedPrefUser().clearSurveys();
                 },
               ),
-              // ListTile(
-              //   title: Text(
-              //     feesList.length == 0 ? 'Registration' : 'Fees Information',
-              //     style: TextStyle(color: Colors.white, fontSize: 15),
-              //   ),
-              //   leading: Icon(
-              //     Icons.repeat,
-              //     color: Colors.white,
-              //   ),
-              //   onTap: () {
-              //     feesList.length == 0
-              //         ? Navigator.of(context).pushNamed(Registration.routeName)
-              //         : Navigator.of(context)
-              //             .pushNamed(FeesInformation.routeName);
-              //   },
-              // ),
-
+             
               ListTile(
                 title: Text(
                   'Faculty Material',
@@ -265,19 +200,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 },
               ),
 
-              // ListTile(
-              //   title: Text(
-              //     'E-Services',
-              //     style: TextStyle(color: Colors.white, fontSize: 15),
-              //   ),
-              //   leading: Icon(
-              //     Icons.supervised_user_circle_sharp,
-              //     color: Colors.white,
-              //   ),
-              //   onTap: () {
-              //     Navigator.of(context).pushNamed(EServices.routeName);
-              //   },
-              // ),
+            
               ListTile(
                 title: Text(
                   'Card Information',
@@ -304,19 +227,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(Restrictions.routeName);
                 },
               ),
-              // ListTile(
-              //   title: Text(
-              //     'Staff Directory',
-              //     style: TextStyle(color: Colors.white, fontSize: 15),
-              //   ),
-              //   leading: Icon(
-              //     Icons.person_pin_rounded,
-              //     color: Colors.white,
-              //   ),
-              //   onTap: () {
-              //     Navigator.of(context).pushNamed(StaffDirectory.routeName);
-              //   },
-              // ),
+             
               ListTile(
                 title: Text(
                   'Complaints',
@@ -343,22 +254,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(MedicalProfile.routeName);
                 },
               ),
-              /*
-                   ListTile(
-                title: Text(
-                  'My Profile',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                leading: Icon(
-                  Icons.person_sharp,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  Navigator.of(context).pushNamed(MyProfile.routeName);
-                },
-              ),
-         
-              */
+              
             ],
           ),
         ),

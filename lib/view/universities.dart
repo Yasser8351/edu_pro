@@ -1,3 +1,4 @@
+import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/login_home.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,15 @@ class Universities extends StatefulWidget {
 }
 
 class _UniversitiesState extends State<Universities> {
+  var api = Api();
+
+  @override
+  void initState() {
+    super.initState();
+    print('object');
+    api.getUniversities();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

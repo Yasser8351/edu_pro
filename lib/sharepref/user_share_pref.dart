@@ -6,38 +6,14 @@ class SharedPrefUser {
   String? image;
   Future<bool> login() async {
     _prefs = await SharedPreferences.getInstance();
-    // bool userStatus = false;
-    // int? stdId;
-    // int? facultyNo;
-    // int? facultyBatchNo;
-    // int? facultyProgramNo;
-    // int? facultySemesterNo;
-    // int? facultyProgramSpecializationNo;
-    // String? studentIndexNo;
-    // await _prefs.setInt('stdId', '1');
-    // await _prefs.setString('token', userModelResult.token);
-    // await _prefs.setString('phone', userModelResult.user.phone);
-    // await _prefs.setString('address', userModelResult.user.address);
-    // await _prefs.setString('name', userModelResult.user.fullName);
-    // await _prefs.setInt('sub_area_id', userModelResult.user.subAreaId);
-    // await _prefs.setInt('is_active', userModelResult.user.isActive);
-    // await _prefs.setInt('account_balance', userModelResult.user.accountBalance);
-    // await _prefs.setInt('discount_rate', UserModel.user.discountRate);
 
-    //await _prefs.setString('email', email);
     return await _prefs.setBool('login', true);
   }
 
   Future<bool> update(UserModel user) async {
     _prefs = await SharedPreferences.getInstance();
     await _prefs.setInt('stdId', user.stdId);
-    // await _prefs.setString('phone', user.phone);
-    // await _prefs.setString('name', user.fullName);
-    // await _prefs.setString('address', user.address);
-    // await _prefs.setInt('is_active', user.isActive);
-    // await _prefs.setInt('sub_area_id', user.isActive);
-    // await _prefs.setInt('account_balance', user.accountBalance);
-    // await _prefs.setInt('discount_rate', user.discountRate);
+
     return await _prefs.setString('email', user.email);
   }
 

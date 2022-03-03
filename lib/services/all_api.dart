@@ -8,9 +8,6 @@ import 'dart:io';
 
 import 'package:edu_pro/models/curriculum_course_model.dart';
 import 'package:edu_pro/models/curriculum_model.dart';
-import 'package:edu_pro/models/e-services_name.dart';
-import 'package:edu_pro/models/e-services_type.dart';
-import 'package:edu_pro/models/e_services_model.dart';
 import 'package:edu_pro/models/News_model.dart';
 import 'package:edu_pro/models/academic_year_model.dart';
 import 'package:edu_pro/models/attendance_model.dart';
@@ -161,109 +158,6 @@ class AllApi {
         List<CurriculumCourseModel> newsList = news.listCurriculumCourseList
             .map((e) => CurriculumCourseModel.fromJson(e))
             .toList();
-        return newsList;
-      } else {
-        return null;
-      }
-    } catch (ex) {
-      return null;
-    }
-  }
-
-//Done
-  Future<List<EServicesModel>?> fetchEServices(int academicYear) async {
-    _prefs = await SharedPreferences.getInstance();
-    int _stdId = await _prefs.getInt('stdId') ?? 0;
-
-    var url =
-        "$National/api/EServicesRequests?stdId=$_stdId&academicYear=$academicYear"; //479
-    try {
-      bool trustSelfSigned = true;
-      HttpClient httpClient = new HttpClient()
-        ..badCertificateCallback =
-            ((X509Certificate cert, String host, int port) => trustSelfSigned);
-      IOClient ioClient = new IOClient(httpClient);
-
-      http.Response response = await ioClient.get(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-        },
-      );
-      if (response.statusCode == 200) {
-        String data = response.body;
-        var jsonData = jsonDecode(data);
-        EServicesList news = EServicesList.fromJson(jsonData);
-        List<EServicesModel> newsList = news.listgradeSystemNo
-            .map((e) => EServicesModel.fromJson(e))
-            .toList();
-        return newsList;
-      } else if (response.statusCode == 500) {
-        isServerError = true;
-      } else {
-        return null;
-      }
-    } catch (ex) {
-      return null;
-    }
-  }
-
-//Done
-  Future<List<EServicesTypeModel>> fetchEServicesType() async {
-    var url = "$National/api/EServicesDeliveryType/id";
-    try {
-      bool trustSelfSigned = true;
-      HttpClient httpClient = new HttpClient()
-        ..badCertificateCallback =
-            ((X509Certificate cert, String host, int port) => trustSelfSigned);
-      IOClient ioClient = new IOClient(httpClient);
-
-      http.Response response = await ioClient.get(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-        },
-      );
-      if (response.statusCode == 200) {
-        String data = response.body;
-        var jsonData = jsonDecode(data);
-        EServicesTypeList news = EServicesTypeList.fromJson(jsonData);
-        List<EServicesTypeModel> newsList =
-            news.listType.map((e) => EServicesTypeModel.fromJson(e)).toList();
-        return newsList;
-      } else if (response.statusCode == 500) {
-        isServerError = true;
-      }
-    } catch (ex) {
-      isServerError = true;
-
-      print(ex);
-    }
-    return [];
-  }
-
-//Done
-  Future<List<EServicesNameModel>?> fetchEServicesName() async {
-    var url = "$National/api/EServicesTypeName";
-    try {
-      bool trustSelfSigned = true;
-      HttpClient httpClient = new HttpClient()
-        ..badCertificateCallback =
-            ((X509Certificate cert, String host, int port) => trustSelfSigned);
-      IOClient ioClient = new IOClient(httpClient);
-
-      http.Response response = await ioClient.get(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-        },
-      );
-      if (response.statusCode == 200) {
-        String data = response.body;
-        var jsonData = jsonDecode(data);
-        EServicesNameList news = EServicesNameList.fromJson(jsonData);
-        List<EServicesNameModel> newsList =
-            news.listName.map((e) => EServicesNameModel.fromJson(e)).toList();
         return newsList;
       } else {
         return null;

@@ -256,34 +256,12 @@ class _ResultsState extends State<Results> {
                                                                   .center,
                                                           children: [
                                                             isSelectedSemester
-                                                                ? Container(
-                                                                    width: 100,
-                                                                    height: 100,
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/warning.gif',
-                                                                      // color: Colors.blue,
-                                                                    ),
+                                                                ? ErrorConnection(
+                                                                    message: isSelectedSemester
+                                                                        ? 'No Data Found'
+                                                                        : '',
                                                                   )
                                                                 : Text(''),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 15),
-                                                              child: Text(
-                                                                isSelectedSemester
-                                                                    ? 'No Data Found'
-                                                                    : '',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .colorScheme
-                                                                        .background),
-                                                              ),
-                                                            ),
                                                           ],
                                                         ),
                                                       )
@@ -391,7 +369,6 @@ class _ResultsState extends State<Results> {
                           ),
                         ],
                       ),
-             
               ],
             )),
         disconnected: Center(key: UniqueKey(), child: ConnectionStatuesBars()),
