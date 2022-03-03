@@ -134,7 +134,11 @@ class _UniversitiesState extends State<Universities> {
                                                                                       ? 'neelain'
                                                                                       : 'umst',
                                                                       UniversitiesId:
-                                                                          1,
+                                                                          list[index]
+                                                                              .universitieid,
+                                                                      UniversityURL:
+                                                                          list[index]
+                                                                              .universityUrl,
                                                                     )));
                                                       },
                                                       child: Padding(

@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LoginHome extends StatefulWidget {
-  const LoginHome({Key? key, this.UniversitiesName, this.UniversitiesId})
+  const LoginHome(
+      {Key? key,
+      this.UniversitiesName,
+      this.UniversitiesId,
+      this.UniversityURL})
       : super(key: key);
   static const routeName = 'LoginHome';
   final UniversitiesName;
   final UniversitiesId;
+  final UniversityURL;
 
   @override
   _LoginHomeState createState() => _LoginHomeState();
@@ -259,7 +264,7 @@ class _LoginHomeState extends State<LoginHome> {
                                             });
 
                                             if (value) {
-                                              print("login successfully");
+                                              //UniversityURL
                                               SharedPrefUser().login();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
@@ -271,6 +276,9 @@ class _LoginHomeState extends State<LoginHome> {
                                               SharedPrefUser()
                                                   .saveUniversitiesId(
                                                       widget.UniversitiesId);
+                                              SharedPrefUser()
+                                                  .saveUniversityURL(
+                                                      widget.UniversityURL);
                                               api.getCurriculum();
                                               SharedPrefUser()
                                                   .saveUser(api.data)

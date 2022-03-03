@@ -62,6 +62,11 @@ class SharedPrefUser {
     return _prefs.getInt('universitiesId') ?? 0;
   }
 
+  Future<int> getUniversityURL() async {
+    _prefs = await SharedPreferences.getInstance();
+    return _prefs.getInt('universityURL') ?? 0;
+  }
+
   Future<String> getMiddleName() async {
     _prefs = await SharedPreferences.getInstance();
     return (_prefs.getString('middleName') ?? '');
@@ -125,6 +130,12 @@ class SharedPrefUser {
     _prefs = await SharedPreferences.getInstance();
     await _prefs.setInt('announcementsList', lists);
     return lists;
+  }
+
+  Future<String> saveUniversityURL(String universityURL) async {
+    _prefs = await SharedPreferences.getInstance();
+    await _prefs.setString('universityURL', universityURL);
+    return universityURL;
   }
 
   Future<Map<String, dynamic>> getUserData() async {
