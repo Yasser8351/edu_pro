@@ -5,6 +5,7 @@ import 'package:edu_pro/models/activitys_model.dart';
 import 'package:edu_pro/models/calender_model.dart';
 import 'package:edu_pro/models/card_model.dart';
 import 'package:edu_pro/models/exam_model.dart';
+import 'package:edu_pro/models/universitiey_model.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -171,24 +172,24 @@ class Api {
     }
   }
 
-  Future<void> getUniversities() async {
-    var url = "http://207.180.223.113:8089/api/Universities";
-    try {
-      bool trustSelfSigned = true;
-      HttpClient httpClient = new HttpClient()
-        ..badCertificateCallback =
-            ((X509Certificate cert, String host, int port) => trustSelfSigned);
-      IOClient ioClient = new IOClient(httpClient);
+  // Future<void> getUniversities() async {
+  //   var url = "$National/api/Universities";
+  //   try {
+  //     bool trustSelfSigned = true;
+  //     HttpClient httpClient = new HttpClient()
+  //       ..badCertificateCallback =
+  //           ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  //     IOClient ioClient = new IOClient(httpClient);
 
-      final response = await ioClient.get(Uri.parse(url), headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      });
-      university = json.decode(response.body);
-      var _university = university[0]["universityUrl"];
-    } catch (error) {
-      print(error.toString());
-    }
-  }
+  //     final response = await ioClient.get(Uri.parse(url), headers: {
+  //       HttpHeaders.contentTypeHeader: 'application/json',
+  //     });
+  //     university = json.decode(response.body);
+  //     var _university = university[0]["universityUrl"];
+  //   } catch (error) {
+  //     print(error.toString());
+  //   }
+  // }
 
   Future<void> getCurriculum() async {
     _prefs = await SharedPreferences.getInstance();
@@ -299,6 +300,43 @@ class Api {
         CalenderList products = CalenderList.fromJson(jsonData);
         List<CalenderModel> productsList = products.listCalender
             .map((e) => CalenderModel.fromJson(e))
+            .toList();
+        return productsList;
+      } else {
+        return null;
+      }
+    } catch (ex) {
+      return null;
+    }
+  }
+
+//Done
+  Future<List<UniversitieyModel>?> getUniversities() async {
+    // _prefs = await SharedPreferences.getInstance();
+    //  int _facultyBatchNo = await _prefs.getInt('facultyBatchId') ?? 0;
+    // var url = "$National/api/Universities";
+    var url = "http://207.180.223.113:8081/api/Universities";
+
+    try {
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      http.Response response = await ioClient.get(
+        Uri.parse(url),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        String data = response.body;
+        print(data);
+        var jsonData = jsonDecode(data);
+        UniversitieyList products = UniversitieyList.fromJson(jsonData);
+        List<UniversitieyModel> productsList = products.listUniversity
+            .map((e) => UniversitieyModel.fromJson(e))
             .toList();
         return productsList;
       } else {

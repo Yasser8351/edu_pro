@@ -47,6 +47,7 @@ import 'package:edu_pro/view_models/library/publications_view_model.dart';
 import 'package:edu_pro/view_models/restrictions_view_model.dart';
 import 'package:edu_pro/view_models/results/semester_view_model.dart';
 import 'package:edu_pro/view_models/subject_view_model.dart';
+import 'package:edu_pro/view_models/universitiey_model_view.dart';
 import 'package:flutter/material.dart';
 
 import 'provider/faculty_info_provider.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GradeSystemMarkViewModel()),
         ChangeNotifierProvider(create: (_) => DrawerViewModel()),
         ChangeNotifierProvider(create: (_) => CurriculumViewModel()),
+        ChangeNotifierProvider(create: (_) => UniversitieyModelView()),
       ],
       child: ConnectionNotifier(
         child: MaterialApp(
