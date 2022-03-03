@@ -27,7 +27,6 @@ import 'package:edu_pro/view/news&events/events_more.dart';
 import 'package:edu_pro/view/news&events/search.dart';
 import 'package:edu_pro/view/restrictions.dart';
 import 'package:edu_pro/view/results.dart';
-import 'package:edu_pro/view/staff_directory.dart';
 import 'package:edu_pro/view/timetable/lecture_timetable.dart';
 import 'package:edu_pro/view/timetable/timetable.dart';
 import 'package:edu_pro/view_models/academic_view_model.dart';
@@ -148,7 +147,6 @@ class MyApp extends StatelessWidget {
             Library.routeName: (ctx) => Library(),
             Timetable.routeName: (ctx) => Timetable(),
             Restrictions.routeName: (ctx) => Restrictions(),
-            StaffDirectory.routeName: (ctx) => StaffDirectory(),
             Complaints.routeName: (ctx) => Complaints(),
             MyProfile.routeName: (ctx) => MyProfile(),
             MyProfileDetail.routeName: (ctx) => MyProfileDetail(),

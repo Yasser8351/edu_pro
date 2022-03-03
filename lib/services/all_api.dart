@@ -98,8 +98,7 @@ class AllApi {
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
     var url =
-        "$National/api/FacultyMateralCurriculumn?CurriculumNo=3735&facultyNo=1107";
-    // "$National/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
+        "$National/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
 
     try {
       bool trustSelfSigned = true;
@@ -136,7 +135,8 @@ class AllApi {
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
-    var url = "$National/api/CurriculumnCourseSpecification?CurriculumNo=3735";
+    var url =
+        "$National/api/CurriculumnCourseSpecification?CurriculumNo=$CurriculumNo";
 
     try {
       bool trustSelfSigned = true;
@@ -445,7 +445,7 @@ class AllApi {
 
 //Done
   Future<List<AcademicYearModel>?> fetchAcademicYear() async {
-    var url = "http://207.180.223.113:8081/api/AcademicYear";
+    var url = "$National/api/AcademicYear";
     // var url = "$National/api/AcademicYear";
     try {
       bool trustSelfSigned = true;
@@ -651,7 +651,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     var url =
-        "$National/api/Restrictions/1267?stdId=$_stdId&facultySemesterId=$semesterId";
+        "$National/api/Restrictions/$_stdId?stdId=$_stdId&facultySemesterId=$semesterId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -917,9 +917,6 @@ class AllApi {
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     int curriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
-    print("curriculumNo $curriculumNo");
-    // var url =
-    //     "$National/api/AttendanceSubject/id?facultyId=1107";
     var url =
         "$National/api/AttendanceSubject/id?curriculumNo=$curriculumNo"; //3735
     try {

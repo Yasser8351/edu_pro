@@ -32,12 +32,10 @@ class Api {
 
     if (isComing) {
       url =
-          "$MyActivityComing?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
-      //"$National/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
-
+          "$National/api/MyActivity?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
     } else {
       url =
-          "$MyActivityCurrent/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+          "$National/api/MyActivity/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
       // "$National/api/MyActivity?facultyNo=1107&facultyBatchNo=1616";
 
     }
@@ -72,7 +70,7 @@ class Api {
 
 //Done
   Future<List<ActivitysModel>?> searchActivity(String start, String end) async {
-    var url = "$MyActivitySearch?start=$start&end=$end";
+    var url = "$National/api/MyActivitySearch?start=$start&end=$end";
 
     try {
       bool trustSelfSigned = true;
@@ -139,14 +137,11 @@ class Api {
 
 //Done
   Future<void> getCard() async {
-    //var url = "$National/api/CardInfo";
     _prefs = await SharedPreferences.getInstance();
 
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
-    //var url = "$National/api/CardInfo/id?stdId=$_stdId";
-    var url = "$National/api/CardInfo/id?stdId=67121";
-    // var url = "$National/api/CardInfo/id?stdId=$_stdId";
+    var url = "$National/api/CardInfo/id?stdId=$_stdId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -163,9 +158,7 @@ class Api {
           HttpHeaders.contentTypeHeader: 'application/json',
         },
       );
-      // final response = await ioClient.get(Uri.parse(url), headers: {
-      //   HttpHeaders.contentTypeHeader: 'application/json',
-      // });
+
       if (response.statusCode == 200) {
         data = json.decode(response.body);
         var d = CardModel.fromJson(data);
@@ -179,9 +172,6 @@ class Api {
   }
 
   Future<void> getUniversities() async {
-    // _prefs = await SharedPreferences.getInstance();
-
-    // int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     var url = "http://207.180.223.113:8089/api/Universities";
     try {
       bool trustSelfSigned = true;
@@ -195,8 +185,6 @@ class Api {
       });
       university = json.decode(response.body);
       var _university = university[0]["universityUrl"];
-      // var _curriculum = Curriculum[0]["curriculumId"];
-      // await _prefs.setInt('curriculumId', _university ?? "");
     } catch (error) {
       print(error.toString());
     }
@@ -230,11 +218,10 @@ class Api {
       int universitiesId, String userName, String password) async {
     var url = "";
 
-    print("universitiesId $universitiesId");
     if (universitiesId == 1) {
-      url = "$NationalLogin";
+      url = "$Umst/api/UserIndex";
     } else if (universitiesId == 2) {
-      url = "$NationalLogin";
+      url = "$National/api/UserIndex";
     }
 
     bool isLogin = false;
