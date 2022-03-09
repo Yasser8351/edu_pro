@@ -45,11 +45,6 @@ class _AppDrawerState extends State<AppDrawer> {
     userName = await SharedPrefUser().getUserName();
     middleName = await SharedPrefUser().getMiddleName();
     image = await SharedPrefUser().getImage();
-    if (image == '') {
-
-    }else{
-      
-    }
     setState(() {});
   }
 

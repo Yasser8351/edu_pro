@@ -178,10 +178,7 @@ class AllApi {
 
     int universitiesId = await _prefs.getInt('universitiesId') ?? 0;
     print("universitiesId $universitiesId");
-    // 1 : UMST universitie
-    if (universitiesId == 1) {
-      url = "${AppSettings.URL}/api/NewsAndEventsSearch?start=$start&end=$end";
-    }
+    url = "${AppSettings.URL}/api/NewsAndEventsSearch?start=$start&end=$end";
 
     try {
       bool trustSelfSigned = true;
@@ -528,6 +525,7 @@ class AllApi {
   Future<List<ProfileModel>?> fetchProfile() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
+    //var url = "https://192.168.1.188:3000/api/MyProfile/id?stdId=67121";
     var url = "${AppSettings.URL}/api/MyProfile/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;

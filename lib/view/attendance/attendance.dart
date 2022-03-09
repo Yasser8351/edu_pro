@@ -69,14 +69,13 @@ class _AttendanceState extends State<Attendance> {
           if (connected == null) return;
           print(connected);
         },
-        connected: listSubject == null
-            ? ErrorConnection(message: 'Server error please try again later')
-            : listSubject.length == 0
-                ? ErrorConnection(message: 'No Data Found')
-                : _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+        connected: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : listSubject == null
+                ? ErrorConnection(
+                    message: 'Server error please try again later')
+                : listSubject.length == 0
+                    ? ErrorConnection(message: 'No Data Found')
                     : Container(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

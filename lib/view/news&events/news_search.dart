@@ -69,14 +69,14 @@ class _CurrentNewsState extends State<NewsSearch> {
           if (connected == null) return;
           print(connected);
         },
-        connected: list == null
-            ? ErrorConnection(
-                message:
-                    "Server error please try again later") //'No News or Events Found',
-            : _isLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+        connected: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : list == null
+                ? ErrorConnection(
+                    message:
+                        "Server error please try again later") //'No News or Events Found',
                 : list.length == 0
                     ? ErrorConnection(message: "No News or Events Found")
                     : Container(

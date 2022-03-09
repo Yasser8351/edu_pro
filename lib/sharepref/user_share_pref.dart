@@ -84,6 +84,11 @@ class SharedPrefUser {
     await _prefs.setInt('surveysList', 0);
   }
 
+  Future<void> saveImage(String image) async {
+    _prefs = await SharedPreferences.getInstance();
+    await _prefs.setString('image', image);
+  }
+
   Future<Map<String, dynamic>> saveUser(Map<String, dynamic> user) async {
     _prefs = await SharedPreferences.getInstance();
 

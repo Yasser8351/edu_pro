@@ -58,210 +58,212 @@ class _PublicationsBookState extends State<BooksBook> {
           if (connected == null) return;
           print(connected);
         },
-        connected: bookList == null
-            ? ErrorConnection(message: "Server error please try again later")
-            : Container(
-                child: _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SizedBox(
-                        child: FutureBuilder(
-                          future: _dataBooks,
-                          builder: (_, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            } else {
-                              if (snapshot.hasError) {
-                                return Text("some error");
-                              } else if (snapshot.hasData == null) {
-                                return Text("No data found");
-                              } else if (snapshot.hasData) {
-                                return Text("No data found");
-                              }
-                              return bookList.length == 0
-                                  ? ErrorConnection(message: "No Data Found")
-                                  : Card(
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      shadowColor: Colors.grey,
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 1),
-                                        height:
-                                            size.height, //600 size.height / 2.7
-                                        child: ListView.builder(
-                                          itemCount: bookList.length,
-                                          itemBuilder: (ctx, index) => Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(5),
-                                                  ),
+        connected: _isLoading
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(child: CircularProgressIndicator()),
+                ],
+              )
+            : bookList == null
+                ? ErrorConnection(
+                    message: "Server error please try again later")
+                : Container(
+                    child: SizedBox(
+                      child: FutureBuilder(
+                        future: _dataBooks,
+                        builder: (_, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            if (snapshot.hasError) {
+                              return Text("some error");
+                            } else if (snapshot.hasData == null) {
+                              return Text("No data found");
+                            } else if (snapshot.hasData) {
+                              return Text("No data found");
+                            }
+                            return bookList.length == 0
+                                ? ErrorConnection(message: "No Data Found")
+                                : Card(
+                                    elevation: 10,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    shadowColor: Colors.grey,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 1),
+                                      height:
+                                          size.height, //600 size.height / 2.7
+                                      child: ListView.builder(
+                                        itemCount: bookList.length,
+                                        itemBuilder: (ctx, index) => Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
                                                 ),
-                                                child: Column(
-                                                  children: [
-                                                    ListTile(
-                                                      title: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "Title",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                      trailing: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "${bookList[index].title}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black87,
-                                                              fontSize: 16),
-                                                        ),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  ListTile(
+                                                    title: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "Title",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16),
                                                       ),
                                                     ),
-                                                    ListTile(
-                                                      title: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "Publisher",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                      trailing: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "${bookList[index].publisher}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black87,
-                                                              fontSize: 16),
-                                                        ),
+                                                    trailing: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "${bookList[index].title}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 16),
                                                       ),
                                                     ),
-                                                    ListTile(
-                                                      title: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "Notes",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                      trailing: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "${bookList[index].notes}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black87,
-                                                              fontSize: 16),
-                                                        ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "Publisher",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16),
                                                       ),
                                                     ),
-                                                    ListTile(
-                                                      title: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "Pages",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                      trailing: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "${bookList[index].pages}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black87,
-                                                              fontSize: 16),
-                                                        ),
+                                                    trailing: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "${bookList[index].publisher}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 16),
                                                       ),
                                                     ),
-                                                    ListTile(
-                                                      title: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "Place",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                      trailing: Container(
-                                                        width: 213,
-                                                        child: Text(
-                                                          "${bookList[index].place}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black87,
-                                                              fontSize: 16),
-                                                        ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "Notes",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16),
                                                       ),
                                                     ),
-                                                    Divider(
-                                                        height: 60,
-                                                        color: Colors.black87)
-                                                  ],
-                                                )),
-                                          ),
+                                                    trailing: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "${bookList[index].notes}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "Pages",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ),
+                                                    trailing: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "${bookList[index].pages}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "Place",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ),
+                                                    trailing: Container(
+                                                      width: 213,
+                                                      child: Text(
+                                                        "${bookList[index].place}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                      height: 60,
+                                                      color: Colors.black87)
+                                                ],
+                                              )),
                                         ),
                                       ),
-                                    );
-                            }
-                          },
-                        ),
+                                    ),
+                                  );
+                          }
+                        },
                       ),
-              ),
+                    ),
+                  ),
         disconnected: Center(key: UniqueKey(), child: ConnectionStatuesBars()),
       ),
     );

@@ -91,286 +91,283 @@ class _ResultsState extends State<Results> {
         },
         connected: Center(
             key: UniqueKey(),
-            child: Stack(
-              children: [
-                semesterList == null || resultList == null
-                    ? ErrorConnection(
-                        message: "Server error please try again later")
-                    : Stack(
-                        children: [
-                          SingleChildScrollView(
-                            child: Container(
-                              child: Directionality(
-                                textDirection: TextDirection.ltr,
-                                child: semesterList.length == 0
-                                    ? ErrorConnection(
-                                        message: "No Data Found",
-                                      )
-                                    : _isLoading
-                                        ? Center(
-                                            child: CircularProgressIndicator())
-                                        : Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 15),
-                                                child: Container(
-                                                  height: 100,
-                                                  child: FutureBuilder(
-                                                    future: _data,
-                                                    builder: (_, snapshot) {
-                                                      if (snapshot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return Center(
-                                                            child:
-                                                                CircularProgressIndicator());
-                                                      } else {
-                                                        if (snapshot.hasError) {
-                                                          return Text(
-                                                              "some error");
-                                                        } else if (snapshot
-                                                                .hasData ==
-                                                            null) {
-                                                          return Text(
-                                                              "No data found");
-                                                        } else if (snapshot
-                                                            .hasData) {
-                                                          return Text(
-                                                              "No data found");
-                                                        }
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(10.0),
-                                                          child: Container(
-                                                            height: size.height,
-                                                            child: ListView
-                                                                .builder(
-                                                              itemCount: 1,
-                                                              itemBuilder:
-                                                                  (context,
-                                                                      index) {
-                                                                _index = index;
-                                                                print(_index);
-                                                                return Container(
-                                                                  height:
-                                                                      size.height /
-                                                                          13,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(4),
-                                                                    border: Border.all(
-                                                                        color: isSelectedSemester
-                                                                            ? Theme.of(context)
-                                                                                .colorScheme
-                                                                                .primary
-                                                                            : Colors
-                                                                                .black45,
-                                                                        width:
-                                                                            1),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                        horizontal:
-                                                                            12),
-                                                                    child:
-                                                                        DropdownButtonHideUnderline(
-                                                                      child: DropdownButton<
-                                                                          String>(
-                                                                        focusColor:
-                                                                            Colors.green,
-                                                                        hint: const Text(
-                                                                            "Select Semester"),
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Theme.of(context).colorScheme.primary),
-                                                                        value:
-                                                                            _valueSemester,
-                                                                        isExpanded:
-                                                                            true,
-                                                                        iconSize:
-                                                                            28,
-                                                                        icon: Icon(
-                                                                            Icons
-                                                                                .arrow_drop_down,
-                                                                            color: isSelectedSemester
-                                                                                ? Theme.of(context).colorScheme.primary
-                                                                                : Colors.black45),
-                                                                        items: semesterList
-                                                                            .map(
-                                                                              (item) => DropdownMenuItem<String>(
-                                                                                child: Text(item.semesterName.toString()),
-                                                                                value: item.semesterId.toString(),
-                                                                              ),
-                                                                            )
-                                                                            .toList(),
-                                                                        onChanged:
-                                                                            (value) {
-                                                                          setState(
-                                                                            () {
-                                                                              _isLoading = false;
-                                                                              isSelectedSemester = true;
-                                                                              this._valueSemester = value;
-                                                                              this._val = value;
-                                                                              print("_valueSemester : $_valueSemester");
-                                                                              setState(() {
-                                                                                _index = index;
-                                                                                _dataResult = Provider.of<ResultViewModel>(context, listen: false).fetchResult(int.parse(_valueSemester.toString())).then((value) {
-                                                                                  setState(() {
-                                                                                    _isLoading = false;
-                                                                                  });
-                                                                                });
-                                                                              });
-                                                                            },
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 15),
-                                                child: resultList.length == 0
-                                                    ? Center(
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            isSelectedSemester
-                                                                ? ErrorConnection(
-                                                                    message: isSelectedSemester
-                                                                        ? 'No Data Found'
-                                                                        : '',
-                                                                  )
-                                                                : Text(''),
-                                                          ],
-                                                        ),
-                                                      )
-                                                    : Card(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primary,
-                                                        margin: EdgeInsets.only(
-                                                            left: 5, right: 5),
-                                                        child: ListTile(
-                                                          title: Text(
-                                                            'Result',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        ),
-                                                      ),
-                                              ),
-                                              Container(
-                                                height: size.height - 200,
-                                                color: Colors.grey[50],
-                                                child: Padding(
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Stack(
+                    children: [
+                      semesterList == null || resultList == null
+                          ? ErrorConnection(
+                              message: "Server error please try again later")
+                          : Stack(
+                              children: [
+                                SingleChildScrollView(
+                                  child: Container(
+                                    child: Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: semesterList.length == 0
+                                          ? ErrorConnection(
+                                              message: "No Data Found",
+                                            )
+                                          : Column(
+                                              children: [
+                                                Padding(
                                                   padding: const EdgeInsets
                                                           .symmetric(
                                                       horizontal: 15),
-                                                  child: FutureBuilder(
-                                                    future: _dataResult,
-                                                    builder: (_, snapshot) {
-                                                      if (snapshot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return Center(
-                                                            child:
-                                                                CircularProgressIndicator());
-                                                      } else {
-                                                        if (snapshot.hasError) {
-                                                          return Text(
-                                                              "some error");
-                                                        } else if (snapshot
-                                                                .hasData ==
-                                                            null) {
-                                                          return Text(
-                                                              "No data found");
-                                                        } else if (snapshot
-                                                            .hasData) {
-                                                          return Text(
-                                                              "No data found");
+                                                  child: Container(
+                                                    height: 100,
+                                                    child: FutureBuilder(
+                                                      future: _data,
+                                                      builder: (_, snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Center(
+                                                              child:
+                                                                  CircularProgressIndicator());
+                                                        } else {
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return Text(
+                                                                "some error");
+                                                          } else if (snapshot
+                                                                  .hasData ==
+                                                              null) {
+                                                            return Text(
+                                                                "No data found");
+                                                          } else if (snapshot
+                                                              .hasData) {
+                                                            return Text(
+                                                                "No data found");
+                                                          }
+                                                          return Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(10.0),
+                                                            child: Container(
+                                                              height:
+                                                                  size.height,
+                                                              child: ListView
+                                                                  .builder(
+                                                                itemCount: 1,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  _index =
+                                                                      index;
+                                                                  print(_index);
+                                                                  return Container(
+                                                                    height:
+                                                                        size.height /
+                                                                            13,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              4),
+                                                                      border: Border.all(
+                                                                          color: isSelectedSemester
+                                                                              ? Theme.of(context).colorScheme.primary
+                                                                              : Colors.black45,
+                                                                          width: 1),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .symmetric(
+                                                                          horizontal:
+                                                                              12),
+                                                                      child:
+                                                                          DropdownButtonHideUnderline(
+                                                                        child: DropdownButton<
+                                                                            String>(
+                                                                          focusColor:
+                                                                              Colors.green,
+                                                                          hint:
+                                                                              const Text("Select Semester"),
+                                                                          style:
+                                                                              TextStyle(color: Theme.of(context).colorScheme.primary),
+                                                                          value:
+                                                                              _valueSemester,
+                                                                          isExpanded:
+                                                                              true,
+                                                                          iconSize:
+                                                                              28,
+                                                                          icon: Icon(
+                                                                              Icons.arrow_drop_down,
+                                                                              color: isSelectedSemester ? Theme.of(context).colorScheme.primary : Colors.black45),
+                                                                          items: semesterList
+                                                                              .map(
+                                                                                (item) => DropdownMenuItem<String>(
+                                                                                  child: Text(item.semesterName.toString()),
+                                                                                  value: item.semesterId.toString(),
+                                                                                ),
+                                                                              )
+                                                                              .toList(),
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(
+                                                                              () {
+                                                                                _isLoading = false;
+                                                                                isSelectedSemester = true;
+                                                                                this._valueSemester = value;
+                                                                                this._val = value;
+                                                                                print("_valueSemester : $_valueSemester");
+                                                                                setState(() {
+                                                                                  _index = index;
+                                                                                  _dataResult = Provider.of<ResultViewModel>(context, listen: false).fetchResult(int.parse(_valueSemester.toString())).then((value) {
+                                                                                    setState(() {
+                                                                                      _isLoading = false;
+                                                                                    });
+                                                                                  });
+                                                                                });
+                                                                              },
+                                                                            );
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          );
                                                         }
-                                                        return resultList
-                                                                    .length ==
-                                                                0
-                                                            ? Text('')
-                                                            : Card(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        left: 5,
-                                                                        right:
-                                                                            5),
-                                                                child:
-                                                                    Container(
-                                                                  height:
-                                                                      size.height -
-                                                                          100,
-                                                                  child: ListView
-                                                                      .builder(
-                                                                    itemCount:
-                                                                        resultList
-                                                                            .length,
-                                                                    shrinkWrap:
-                                                                        true,
-                                                                    itemBuilder:
-                                                                        (context,
-                                                                            index) {
-                                                                      return ListTile(
-                                                                        title:
-                                                                            Text(
-                                                                          "${resultList[index].courseName}",
-                                                                          style: TextStyle(
-                                                                              color: Colors.black54,
-                                                                              fontSize: 18),
-                                                                        ),
-                                                                        trailing:
-                                                                            Text(
-                                                                          "${resultList[index].grade}",
-                                                                          style: TextStyle(
-                                                                              color: Colors.black54,
-                                                                              fontSize: 18),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                              );
-                                                      }
-                                                    },
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                              ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 15),
+                                                  child: resultList.length == 0
+                                                      ? Center(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              isSelectedSemester
+                                                                  ? ErrorConnection(
+                                                                      message: isSelectedSemester
+                                                                          ? 'No Data Found'
+                                                                          : '',
+                                                                    )
+                                                                  : Text(''),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      : Card(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 5,
+                                                                  right: 5),
+                                                          child: ListTile(
+                                                            title: Text(
+                                                              'Result',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                ),
+                                                Container(
+                                                  height: size.height - 200,
+                                                  color: Colors.grey[50],
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 15),
+                                                    child: FutureBuilder(
+                                                      future: _dataResult,
+                                                      builder: (_, snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Center(
+                                                              child:
+                                                                  CircularProgressIndicator());
+                                                        } else {
+                                                          if (snapshot
+                                                              .hasError) {
+                                                            return Text(
+                                                                "some error");
+                                                          } else if (snapshot
+                                                                  .hasData ==
+                                                              null) {
+                                                            return Text(
+                                                                "No data found");
+                                                          } else if (snapshot
+                                                              .hasData) {
+                                                            return Text(
+                                                                "No data found");
+                                                          }
+                                                          return resultList
+                                                                      .length ==
+                                                                  0
+                                                              ? Text('')
+                                                              : Card(
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5,
+                                                                          right:
+                                                                              5),
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        size.height -
+                                                                            100,
+                                                                    child: ListView
+                                                                        .builder(
+                                                                      itemCount:
+                                                                          resultList
+                                                                              .length,
+                                                                      shrinkWrap:
+                                                                          true,
+                                                                      itemBuilder:
+                                                                          (context,
+                                                                              index) {
+                                                                        return ListTile(
+                                                                          title:
+                                                                              Text(
+                                                                            "${resultList[index].courseName}",
+                                                                            style:
+                                                                                TextStyle(color: Colors.black54, fontSize: 18),
+                                                                          ),
+                                                                          trailing:
+                                                                              Text(
+                                                                            "${resultList[index].grade}",
+                                                                            style:
+                                                                                TextStyle(color: Colors.black54, fontSize: 18),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-              ],
-            )),
+                    ],
+                  )),
         disconnected: Center(key: UniqueKey(), child: ConnectionStatuesBars()),
       ),
     );
