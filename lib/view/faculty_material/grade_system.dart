@@ -56,16 +56,17 @@ class _GradeSystemState extends State<GradeSystem> {
           if (connected == null) return;
           print(connected);
         },
-        connected: listMark == null
-            ? ErrorConnection(message: "Server error please try again later")
-            : Container(
-                child: listMark.length == 0
-                    ? ErrorConnection(
-                        message: _isLoading ? '' : 'No Data Found',
-                      )
-                    : _isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(),
+        connected: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : listMark == null
+                ? ErrorConnection(
+                    message: "Server error please try again later")
+                : Container(
+                    child: listMark.length == 0
+                        ? ErrorConnection(
+                            message: _isLoading ? '' : 'No Data Found',
                           )
                         : Column(
                             children: [
@@ -150,7 +151,7 @@ class _GradeSystemState extends State<GradeSystem> {
                               ),
                             ],
                           ),
-              ),
+                  ),
         disconnected: Center(key: UniqueKey(), child: ConnectionStatuesBars()),
       ),
     );

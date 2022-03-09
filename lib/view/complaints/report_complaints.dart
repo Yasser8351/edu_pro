@@ -101,33 +101,35 @@ class _ReportComplaintsState extends State<ReportComplaints> {
           //     ))
         ],
       ),
-      body: list == null
+      body: _isLoading
           ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: Image.asset(
-                      'assets/warning.gif',
-                      // color: Colors.blue,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Text(
-                      'Server error please try again later',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.background),
-                    ),
-                  ),
-                ],
-              ),
+              child: CircularProgressIndicator(),
             )
-          : _isLoading
-              ? Center(child: CircularProgressIndicator())
+          : list == null
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 150,
+                        child: Image.asset(
+                          'assets/warning.gif',
+                          // color: Colors.blue,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Text(
+                          'Server error please try again later',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Theme.of(context).colorScheme.background),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               : list.length == 0
                   ? Center(
                       child: Text(

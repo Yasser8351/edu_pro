@@ -60,17 +60,17 @@ class _ComingActivitiesState extends State<ComingActivities> {
           if (connected == null) return;
           print(connected);
         },
-        connected: activityList == null
-            ? ErrorConnection(
-                message: 'Server error please try again later',
+        connected: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
               )
-            : activityList.length == 0
+            : activityList == null
                 ? ErrorConnection(
-                    message: 'No Activities Found',
+                    message: 'Server error please try again later',
                   )
-                : _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
+                : activityList.length == 0
+                    ? ErrorConnection(
+                        message: 'No Activities Found',
                       )
                     : Container(
                         height: double.infinity - 200,

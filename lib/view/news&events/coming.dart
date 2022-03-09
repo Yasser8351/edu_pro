@@ -62,14 +62,15 @@ class _ComingNewsState extends State<ComingNews> {
           if (connected == null) return;
           print(connected);
         },
-        connected: list == null
-            ? ErrorConnection(message: "Server error please try again later")
-            : list.length == 0
-                ? ErrorConnection(message: "No News or Events Found")
-                : _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+        connected: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : list == null
+                ? ErrorConnection(
+                    message: "Server error please try again later")
+                : list.length == 0
+                    ? ErrorConnection(message: "No News or Events Found")
                     : Container(
                         height: double.infinity - 200,
                         padding: EdgeInsets.only(top: 15),

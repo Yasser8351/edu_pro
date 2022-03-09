@@ -81,22 +81,6 @@ class _AnnouncementsState extends State<Announcements> {
                                             message: "No Announcements Found")
                                         : Column(
                                             children: [
-                                              Card(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                margin: EdgeInsets.all(10),
-                                                child: ListTile(
-                                                  trailing: Text("Date    ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 20)),
-                                                  title: Text("Title",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 20)),
-                                                ),
-                                              ),
                                               Expanded(
                                                 child: ListView.builder(
                                                   itemCount: value
@@ -133,21 +117,67 @@ class NewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String dateToDB = "";
     dateToDB = "${map["announcementDate"]}";
+
     var dateToDay = DateTime.parse(dateToDB).day;
     var dateToMonth = DateTime.parse(dateToDB).month;
     var dateToYear = DateTime.parse(dateToDB).year;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: ListTile(
-        trailing: Text('$dateToYear-$dateToMonth-$dateToDay',
-            style: TextStyle(
-              color: Colors.black,
-            )),
-        title: Text("${map["announcementTitle"].toString()}",
-            style: TextStyle(
-              color: Colors.black,
-            )),
+      child: Card(
+        margin: EdgeInsets.only(bottom: 20),
+        elevation: 10,
+        child: Column(
+          children: [
+            ListTile(
+              trailing: Text("${map["announcementTitle"].toString()}",
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+              title: Text('Title',
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+            ),
+            ListTile(
+              trailing: Text("$dateToYear-$dateToMonth-$dateToDay",
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+              title: Text('Data',
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+// class NewCard extends StatelessWidget {
+//   const NewCard({Key? key, required this.map}) : super(key: key);
+//   final Map<String, dynamic> map;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     String dateToDB = "";
+//     dateToDB = "${map["announcementDate"]}";
+//     var dateToDay = DateTime.parse(dateToDB).day;
+//     var dateToMonth = DateTime.parse(dateToDB).month;
+//     var dateToYear = DateTime.parse(dateToDB).year;
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 10),
+//       child: ListTile(
+//         trailing: Text('$dateToYear-$dateToMonth-$dateToDay',
+//             style: TextStyle(
+//               color: Colors.black,
+//             )),
+//         title: Text("${map["announcementTitle"].toString()}",
+//             style: TextStyle(
+//               color: Colors.black,
+//             )),
+//       ),
+//     );
+//   }
+// }

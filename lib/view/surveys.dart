@@ -109,7 +109,6 @@ class NewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-
       child: Card(
         margin: EdgeInsets.only(bottom: 20),
         elevation: 10,
@@ -159,72 +158,10 @@ class NewCard extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
-              // trailing: GestureDetector(
-              //   onTap: () {
-              //     launch('${map["surveyLink"].toString()}');
-              //   },
-              //   child: Card(
-              //     color: Theme.of(context).colorScheme.primary,
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(6.0),
-              //       child: Text(
-              //         'Select',
-              //         style: TextStyle(color: Colors.white, fontSize: 12),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ),
           ],
         ),
       ),
-
-      // child: Column(
-      //   children: [
-      //     Column(
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.only(bottom: 20),
-      //           child: Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: [
-      //               Container(
-      //                 width: 100,
-      //                 child: Text("${map["surveyTitle"]}",
-      //                     style: TextStyle(
-      //                       color: Theme.of(context).colorScheme.primary,
-      //                     )),
-      //               ),
-      //               SizedBox(width: 4),
-      //               Text("${map["startDate"].toString()}",
-      //                   style: TextStyle(
-      //                     color: Theme.of(context).colorScheme.primary,
-      //                   )),
-      //               SizedBox(width: 4),
-      //               Text("${map["endDate"].toString()}",
-      //                   style: TextStyle(
-      //                     color: Theme.of(context).colorScheme.primary,
-      //                   )),
-      //               SizedBox(width: 0),
-      //               ElevatedButton(
-      //                 onPressed: () {
-      //                   //surveyLink
-      //                   launch('${map["surveyLink"].toString()}');
-      //                 },
-      //                 child: Text(
-      //                   'Select',
-      //                   style: TextStyle(color: Colors.white, fontSize: 12),
-      //                 ),
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

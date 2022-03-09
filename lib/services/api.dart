@@ -206,8 +206,8 @@ class Api {
     _prefs = await SharedPreferences.getInstance();
     AppSettings.URL = await _prefs.getString('universityURL') ?? "";
 
-    "$universityURL/api/UserIndex";
-    // "${AppSettings.URL}/api/UserIndex";
+    //"$universityURL/api/UserIndex";
+    "${AppSettings.URL}/api/UserIndex";
 
     bool isLogin = false;
     try {
