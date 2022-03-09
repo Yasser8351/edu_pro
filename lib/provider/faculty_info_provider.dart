@@ -21,7 +21,7 @@ class FacultyInfoProvider with ChangeNotifier {
       bool _error = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final facultyNo = prefs.getInt('facultyNo') ?? 0;
-      var url = "$National/api/FacultyInfo/id?facultyId=$facultyNo";
+      var url = "${AppSettings.URL}/api/FacultyInfo/id?facultyId=$facultyNo";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

@@ -21,7 +21,7 @@ class AnnouncementsProvider with ChangeNotifier {
     final stdId = prefs.getInt('stdId') ?? 0;
     try {
       bool _error = false;
-      var url = "$National/api/Announcement/id?stdId=$stdId";
+      var url = "${AppSettings.URL}/api/Announcement/id?stdId=$stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

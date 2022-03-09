@@ -63,7 +63,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
           IconButton(
             onPressed: () {
               SharedPrefUser().logout();
-              Navigator.of(context).pushNamed(Universities.routeName);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  Universities.routeName, (route) => false);
             },
             icon: Icon(Icons.logout, color: Colors.white),
           ),

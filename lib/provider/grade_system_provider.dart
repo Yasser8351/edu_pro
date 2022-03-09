@@ -25,7 +25,7 @@ class GradeSystemProvider with ChangeNotifier {
     final stdId = prefs.getInt('stdId') ?? 0;
     try {
       bool _error = false;
-      var url = "$National/api/GradeSystem/id?stdId=$stdId";
+      var url = "${AppSettings.URL}/api/GradeSystem/id?stdId=$stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -52,7 +52,7 @@ class GradeSystemProvider with ChangeNotifier {
   Future<void> getGradeDetails(int grade) async {
     try {
       bool _error = false;
-      var url = "$National/api/GradeSystemMark/id?grade=$grade";
+      var url = "${AppSettings.URL}/api/GradeSystemMark/id?grade=$grade";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

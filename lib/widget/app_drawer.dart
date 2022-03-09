@@ -45,6 +45,11 @@ class _AppDrawerState extends State<AppDrawer> {
     userName = await SharedPrefUser().getUserName();
     middleName = await SharedPrefUser().getMiddleName();
     image = await SharedPrefUser().getImage();
+    if (image == '') {
+
+    }else{
+      
+    }
     setState(() {});
   }
 
@@ -79,15 +84,12 @@ class _AppDrawerState extends State<AppDrawer> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                       
                         CircleAvatar(
                           maxRadius: 20,
                           backgroundImage: MemoryImage(
                             base64Decode("$image"),
                           ),
-                         
                         ),
-
                         const SizedBox(width: 20),
                         Container(
                           width: 210,
@@ -130,7 +132,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 trailing: Text(''),
-               
                 onTap: () {
                   Navigator.of(context).pushNamed(News.routeName);
                 },
@@ -147,9 +148,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Icons.local_activity,
                     color: Colors.white,
                   ),
-                  
                 ),
-                
                 trailing: Text(''),
                 onTap: () {
                   Navigator.of(context).pushNamed(Activities.routeName);
@@ -165,12 +164,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 trailing: Text(''),
-               
                 onTap: () {
                   Navigator.of(context).pushNamed(Announcements.routeName);
                 },
               ),
-             
               ListTile(
                 title: Text(
                   'Surveys',
@@ -185,7 +182,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(Surveys.routeName);
                 },
               ),
-             
               ListTile(
                 title: Text(
                   'Faculty Material',
@@ -199,8 +195,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(FacultyMaterial.routeName);
                 },
               ),
-
-            
               ListTile(
                 title: Text(
                   'Card Information',
@@ -227,7 +221,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(Restrictions.routeName);
                 },
               ),
-             
               ListTile(
                 title: Text(
                   'Complaints',
@@ -254,7 +247,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(MedicalProfile.routeName);
                 },
               ),
-              
             ],
           ),
         ),

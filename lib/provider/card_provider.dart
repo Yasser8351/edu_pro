@@ -22,8 +22,8 @@ class CardProvider with ChangeNotifier {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final _stdId = prefs.getInt('stdId') ?? 0;
       print('_stdId $_stdId');
-      var url = "$National/api/CardInfo/id?stdId=$_stdId";
-      // var url = "$National/api/CardInfo/id?stdId=$_stdId";
+      var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
+      // var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -53,7 +53,7 @@ class CardProvider with ChangeNotifier {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final facultyNo = prefs.getInt('facultyNo') ?? 0;
       print('facultyNo $facultyNo');
-      var url = "$National/api/AttendanceSubject?facultyId=$facultyNo";
+      var url = "${AppSettings.URL}/api/AttendanceSubject?facultyId=$facultyNo";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()

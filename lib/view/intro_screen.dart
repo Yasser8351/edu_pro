@@ -42,15 +42,8 @@ class _SplashScreenPageState extends State<SplashScreenPage>
         child: EasySplashScreen(
           durationInSeconds: 3,
           navigator: userStatus ? Home() : const Universities(),
-          // title: Text(
-          //   'EDU.PRO',
-          //   style: TextStyle(
-          //       color: Theme.of(context).colorScheme.primary,
-          //       fontSize: 18,
-          //       fontWeight: FontWeight.bold),
-          // ),
           logo: Image.asset(
-            'assets/logo2.png',
+            'assets/logo.png',
             fit: BoxFit.fill,
           ),
           logoSize: 220,

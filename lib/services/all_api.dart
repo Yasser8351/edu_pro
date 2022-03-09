@@ -54,10 +54,10 @@ class AllApi {
     if (universitiesId == 1) {
       if (isComing) {
         url =
-            "$National/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+            "${AppSettings.URL}/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
       } else {
         url =
-            "$National/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+            "${AppSettings.URL}/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
       }
     }
 
@@ -74,6 +74,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -98,7 +99,7 @@ class AllApi {
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
     var url =
-        "$National/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
+        "${AppSettings.URL}/api/FacultyMateralCurriculumn?CurriculumNo=$CurriculumNo&facultyNo=$_facultyNo";
 
     try {
       bool trustSelfSigned = true;
@@ -111,6 +112,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -136,7 +138,7 @@ class AllApi {
     int CurriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
     var url =
-        "$National/api/CurriculumnCourseSpecification?CurriculumNo=$CurriculumNo";
+        "${AppSettings.URL}/api/CurriculumnCourseSpecification?CurriculumNo=$CurriculumNo";
 
     try {
       bool trustSelfSigned = true;
@@ -149,6 +151,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -177,7 +180,7 @@ class AllApi {
     print("universitiesId $universitiesId");
     // 1 : UMST universitie
     if (universitiesId == 1) {
-      url = "$National/api/NewsAndEventsSearch?start=$start&end=$end";
+      url = "${AppSettings.URL}/api/NewsAndEventsSearch?start=$start&end=$end";
     }
 
     try {
@@ -191,6 +194,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -212,7 +216,7 @@ class AllApi {
   Future<List<GradeSystemNoModel>?> fetchGradeSystemNo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final _stdId = prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/GradeSystem/id?stdId=$_stdId";
+    var url = "${AppSettings.URL}/api/GradeSystem/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -224,6 +228,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -247,8 +252,8 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
 
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/GradeSystem/id?stdId=$_stdId";
-    // var url = "$National/api/GradeSystemMark/id?grade=$grade"; //20
+    var url = "${AppSettings.URL}/api/GradeSystem/id?stdId=$_stdId";
+    // var url = "${AppSettings.URL}/api/GradeSystemMark/id?grade=$grade"; //20
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -260,6 +265,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -282,7 +288,7 @@ class AllApi {
   Future<void> getCard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final _stdId = prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/CardInfo/id?stdId=$_stdId";
+    var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -293,6 +299,7 @@ class AllApi {
 
       final response = await ioClient.get(Uri.parse(url), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
       });
       if (response.statusCode == 200) {
         data = json.decode(response.body);
@@ -311,7 +318,7 @@ class AllApi {
     int _facultyBatchNo = await _prefs.getInt('facultyBatchId') ?? 0;
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     var url =
-        "$National/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
+        "${AppSettings.URL}/api/Calendar/id?facultyNo=$_facultyNo&&facultyBatchNo=$_facultyBatchNo";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -323,6 +330,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -343,7 +351,7 @@ class AllApi {
 
 //Done
   Future<List<SurveysModel>?> fetchSurveys() async {
-    var url = "$National/api/Survey";
+    var url = "${AppSettings.URL}/api/Survey";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -355,6 +363,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -377,7 +386,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyProgramNo = await _prefs.getInt('facultyProgramNo') ?? 0;
     var url =
-        "$National/api/Semester/id?facultyProgramNo=$_facultyProgramNo"; //10075
+        "${AppSettings.URL}/api/Semester/id?facultyProgramNo=$_facultyProgramNo"; //10075
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -389,6 +398,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -413,7 +423,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
     var url =
-        "$National/api/Results/id?studentNo=$_stdId&&facultyBatchId=$_facultyBatchId&&facultySemesterId=$semesterId";
+        "${AppSettings.URL}/api/Results/id?studentNo=$_stdId&&facultyBatchId=$_facultyBatchId&&facultySemesterId=$semesterId";
 
     try {
       bool trustSelfSigned = true;
@@ -426,6 +436,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -445,8 +456,8 @@ class AllApi {
 
 //Done
   Future<List<AcademicYearModel>?> fetchAcademicYear() async {
-    var url = "$National/api/AcademicYear";
-    // var url = "$National/api/AcademicYear";
+    var url = "${AppSettings.URL}/api/AcademicYear";
+    // var url = "${AppSettings.URL}/api/AcademicYear";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -458,6 +469,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -482,7 +494,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
     var url =
-        "$National/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId"; //9896 -137";
+        "${AppSettings.URL}/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId"; //9896 -137";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -494,6 +506,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -515,7 +528,7 @@ class AllApi {
   Future<List<ProfileModel>?> fetchProfile() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/MyProfile/id?stdId=$_stdId";
+    var url = "${AppSettings.URL}/api/MyProfile/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -527,6 +540,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -548,7 +562,7 @@ class AllApi {
   Future<List<LibraryBorrowModel>?> fetchBorrow() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/LibraryBrrowed/id?stdId=$_stdId";
+    var url = "${AppSettings.URL}/api/LibraryBrrowed/id?stdId=$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -560,6 +574,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -579,8 +594,8 @@ class AllApi {
 
 //Done
   Future<List<PublicationsModel>?> fetchPublications(String bookTitle) async {
-    var url = "$National/api/LibraryPublications?title=$bookTitle";
-    //var url = "$National/api/LibraryPublications";
+    var url = "${AppSettings.URL}/api/LibraryPublications?title=$bookTitle";
+    //var url = "${AppSettings.URL}/api/LibraryPublications";
 
     try {
       bool trustSelfSigned = true;
@@ -593,6 +608,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -616,8 +632,8 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyNo = await _prefs.getInt('facultyNo') ?? 0;
     var url =
-        // "$National/api/LibraryBooks/id?facultyNo=$_facultyNo&&bookId=1784";
-        "$National/api/LibraryBooks?title=$title";
+        // "${AppSettings.URL}/api/LibraryBooks/id?facultyNo=$_facultyNo&&bookId=1784";
+        "${AppSettings.URL}/api/LibraryBooks?title=$title";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -629,6 +645,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -651,7 +668,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     var url =
-        "$National/api/Restrictions/$_stdId?stdId=$_stdId&facultySemesterId=$semesterId";
+        "${AppSettings.URL}/api/Restrictions/$_stdId?stdId=$_stdId&facultySemesterId=$semesterId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -663,6 +680,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -685,7 +703,7 @@ class AllApi {
   Future<List<ComplainModel>?> fetchComplain() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/Complain/$_stdId";
+    var url = "${AppSettings.URL}/api/Complain/$_stdId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -697,6 +715,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -717,7 +736,7 @@ class AllApi {
 
 //Done
   Future<bool> deleteComplain(int id) async {
-    var url = "$National/api/Complain/$id";
+    var url = "${AppSettings.URL}/api/Complain/$id";
     String message = "";
     bool isDelete = false;
     //if(204)
@@ -732,6 +751,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       print(response.statusCode);
@@ -764,7 +784,7 @@ class AllApi {
     bool isAdd = false;
     try {
       //var url = "https://madeinsudan2.com/update_compail.php";
-      var url = "$National/api/ComplaintUpdate";
+      var url = "${AppSettings.URL}/api/ComplaintUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =
@@ -810,7 +830,7 @@ class AllApi {
 
     try {
       //var url = "https://madeinsudan2.com/update_compail.php";
-      var url = "$National/api/ComplaintUpdate";
+      var url = "${AppSettings.URL}/api/ComplaintUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =
@@ -828,6 +848,7 @@ class AllApi {
         body: msg,
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -852,7 +873,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     var url =
-        "$National/api/Curriculum/$_stdId?stdNo=$_stdId&courseId=$courseId";
+        "${AppSettings.URL}/api/Curriculum/$_stdId?stdNo=$_stdId&courseId=$courseId";
     var data;
     try {
       bool trustSelfSigned = true;
@@ -863,6 +884,7 @@ class AllApi {
 
       final response = await ioClient.get(Uri.parse(url), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
       });
       if (response.statusCode == 200) {
         data = json.decode(response.body);
@@ -881,7 +903,8 @@ class AllApi {
   Future<List<AttendanceModel>?> fetchAttendanceDetails(int courseId) async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "$National/api/Curriculum?stdNo=$_stdId&courseId=$courseId";
+    var url =
+        "${AppSettings.URL}/api/Curriculum?stdNo=$_stdId&courseId=$courseId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -893,6 +916,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -918,7 +942,7 @@ class AllApi {
     int curriculumNo = await _prefs.getInt('curriculumId') ?? 0;
 
     var url =
-        "$National/api/AttendanceSubject/id?curriculumNo=$curriculumNo"; //3735
+        "${AppSettings.URL}/api/AttendanceSubject/id?curriculumNo=$curriculumNo"; //3735
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -930,6 +954,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -955,7 +980,7 @@ class AllApi {
     _prefs = await SharedPreferences.getInstance();
     int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
     var url =
-        "$National/api/LectureTimetable/id?dayName=$day&&facultyBatchNo=$_facultyBatchId"; //Saturday
+        "${AppSettings.URL}/api/LectureTimetable/id?dayName=$day&&facultyBatchNo=$_facultyBatchId"; //Saturday
 
     try {
       bool trustSelfSigned = true;
@@ -968,6 +993,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -992,7 +1018,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     bool isUpdate = false;
     try {
-      var url = "$National/api/MyProfileUpdate";
+      var url = "${AppSettings.URL}/api/MyProfileUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
         ..badCertificateCallback =
@@ -1005,6 +1031,7 @@ class AllApi {
         body: msg,
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {

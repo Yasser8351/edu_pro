@@ -1,17 +1,17 @@
 class UniversitieyModel {
-  int? universitieid;
+  int? universityId;
   String? imageUrl;
   String? universityUrl;
   bool? isActive;
 
   UniversitieyModel(
-      {required this.universitieid,
+      {required this.universityId,
       required this.imageUrl,
       required this.universityUrl,
       required this.isActive});
 
   UniversitieyModel.fromJson(Map<String, dynamic> json) {
-    universitieid = json['universitieid'] ?? 0;
+    universityId = json['universityId'] ?? 0;
     imageUrl = json['imageUrl'] ?? "";
     universityUrl = json['universityUrl'] ?? "";
     isActive = json['isActive'] ?? false;
@@ -19,7 +19,7 @@ class UniversitieyModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['universitieid'] = this.universitieid;
+    data['universityId'] = this.universityId;
     data['imageUrl'] = this.imageUrl;
     data['universityUrl'] = this.universityUrl;
     data['isActive'] = this.isActive;
@@ -37,13 +37,9 @@ class UniversitieyList {
   }
 }
 /*{
-    "university": [
-        {
-            "universitieid": 1,
-            "imageUrl": "C:\\Hash\\umst.png",
-            "universityUrl": "http://207.180.223.113:8083/API/",
+    "universityId": 1,
+            "universityUrl": "207.180.223.113",
+            "imageUrl": "http:",
             "isActive": true
-        }
-    ]
 }
 */

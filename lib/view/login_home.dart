@@ -1,6 +1,7 @@
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/sharepref/user_share_pref.dart';
 import 'package:edu_pro/view/home.dart';
+import 'package:edu_pro/view/universities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -36,6 +37,7 @@ class _LoginHomeState extends State<LoginHome> {
   @override
   void initState() {
     super.initState();
+    print("UniversityURL ${widget.UniversityURL}");
   }
 
   void _toggle() {
@@ -74,7 +76,8 @@ class _LoginHomeState extends State<LoginHome> {
                           elevation: 10,
                           child: IconButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                Navigator.of(context)
+                                    .pushNamed(Universities.routeName);
                               },
                               icon: Icon(
                                 Icons.arrow_back,
@@ -91,8 +94,8 @@ class _LoginHomeState extends State<LoginHome> {
                                 horizontal: 20, vertical: 4),
                             child: Column(
                               children: [
-                                Image.asset(
-                                  'assets/${widget.UniversitiesName}.png',
+                                Image.network(
+                                  '${widget.UniversitiesName}',
                                   height: 120,
                                 ),
                                 //SizedBox(height: 18),
@@ -253,7 +256,7 @@ class _LoginHomeState extends State<LoginHome> {
 
                                           api
                                               .login(
-                                            widget.UniversitiesId,
+                                            widget.UniversityURL,
                                             _userNameController.text.toString(),
                                             _passwordController.text.toString(),
                                           )
@@ -264,7 +267,6 @@ class _LoginHomeState extends State<LoginHome> {
                                             });
 
                                             if (value) {
-                                              //UniversityURL
                                               SharedPrefUser().login();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
@@ -273,9 +275,7 @@ class _LoginHomeState extends State<LoginHome> {
                                                     Text("login successfully"),
                                                 backgroundColor: Colors.green,
                                               ));
-                                              SharedPrefUser()
-                                                  .saveUniversitiesId(
-                                                      widget.UniversitiesId);
+
                                               SharedPrefUser()
                                                   .saveUniversityURL(
                                                       widget.UniversityURL);
@@ -283,14 +283,16 @@ class _LoginHomeState extends State<LoginHome> {
                                               SharedPrefUser()
                                                   .saveUser(api.data)
                                                   .then((value) => {});
-                                              print(
-                                                  "api.isServerError ${api.isServerError}");
+
                                               Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                                      builder: (ctx) => Home(
-                                                            userName:
-                                                                "${api.data['firstName']}",
-                                                          )));
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (ctx) =>
+                                                              Home(
+                                                                userName:
+                                                                    "${api.data['token']}",
+                                                                //"${api.data['userInfo'][firstName]}",
+                                                              )));
                                             } else {
                                               print(
                                                   "api.isServerError ${api.isServerError}");

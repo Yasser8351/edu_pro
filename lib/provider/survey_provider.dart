@@ -17,7 +17,7 @@ class SurveyProvider with ChangeNotifier {
   Future<void> getSurvey() async {
     try {
       bool _error = false;
-      var url = "$National/api/Survey";
+      var url = "${AppSettings.URL}/api/Survey";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
