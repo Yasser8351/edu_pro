@@ -114,6 +114,33 @@ class NewCard extends StatelessWidget {
         elevation: 10,
         child: Column(
           children: [
+            SizedBox(height: 15),
+            Text("${map["surveyTitle"]}",
+                style: TextStyle(
+                  color: Colors.black,
+                )),
+            SizedBox(height: 15),
+            Text("${map["startDate"]}",
+                style: TextStyle(
+                  color: Colors.black,
+                )),
+            SizedBox(height: 15),
+            Text("${map["endDate"]}",
+                style: TextStyle(
+                  color: Colors.black,
+                )),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                launch('${map["surveyLink"].toString()}');
+              },
+              child: Text(
+                'Select',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ),
+            SizedBox(height: 15),
+            /*  
             ListTile(
               leading: Text("Title",
                   style: TextStyle(
@@ -159,6 +186,7 @@ class NewCard extends StatelessWidget {
                 ),
               ),
             ),
+        */
           ],
         ),
       ),

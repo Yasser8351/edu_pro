@@ -330,4 +330,36 @@ class Api {
       return null;
     }
   }
+
+  Future<void> getImageList() async {
+    try {
+      bool _error = false;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final _stdId = prefs.getInt('stdId') ?? 0;
+      var url = "https://192.168.1.188:3000/api/StudentImage?stdId=67121";
+      // var url = "${AppSettings.URL}/api/MyProfile/id?stdId=$_stdId";
+
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      final response = await ioClient.get(Uri.parse(url), headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      });
+      if (response.statusCode == 200) {
+        //data = json.decode(response.body);
+        //data = response.body;
+
+        var data = jsonDecode(response.body);
+
+        // response;
+        print("data ${data}");
+        // print("response.body");
+      } else {
+        _error = true;
+      }
+    } catch (error) {}
+  }
 }

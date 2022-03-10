@@ -128,26 +128,13 @@ class NewCard extends StatelessWidget {
         elevation: 10,
         child: Column(
           children: [
-            ListTile(
-              trailing: Text("${map["announcementTitle"].toString()}",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              title: Text('Title',
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-            ),
-            ListTile(
-              trailing: Text("$dateToYear-$dateToMonth-$dateToDay",
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              title: Text('Data',
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-            ),
+            SizedBox(height: 15),
+            Text("${map["announcementTitle"].toString()}",
+                style: TextStyle(color: Colors.black, fontSize: 18)),
+            SizedBox(height: 15),
+            Text("$dateToYear-$dateToMonth-$dateToDay",
+                style: TextStyle(color: Colors.black, fontSize: 18)),
+            SizedBox(height: 15),
           ],
         ),
       ),

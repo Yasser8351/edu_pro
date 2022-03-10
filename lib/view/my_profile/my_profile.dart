@@ -80,12 +80,13 @@ class _MyProfileState extends State<MyProfile> {
           if (connected == null) return;
           print(connected);
         },
-        connected: list == null
-            ? ErrorConnection(message: "Server error please try again later")
-            : list.length == 0
-                ? ErrorConnection(message: "No Data Found")
-                : _isLoading
-                    ? Center(child: CircularProgressIndicator())
+        connected: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : list == null
+                ? ErrorConnection(
+                    message: "Server error please try again later")
+                : list.length == 0
+                    ? ErrorConnection(message: "No Data Found")
                     : Container(
                         margin: EdgeInsets.only(top: 10),
                         height: size.height,

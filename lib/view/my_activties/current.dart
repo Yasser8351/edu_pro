@@ -138,101 +138,174 @@ class _CurrentActivitiesState extends State<CurrentActivities> {
                                                           index]
                                                       .specializationName)));
                                         },
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 80,
-                                              height: 80,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                          color: Colors.white),
-                                                      color: Colors.grey),
-                                                  child: FadeInImage(
-                                                    placeholder: AssetImage(
-                                                        "assets/placeholder.png"),
-                                                    image: MemoryImage(
-                                                      (base64Decode(
-                                                          "${list[index].image}")),
-                                                    ),
-                                                    fit: BoxFit.fitHeight,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Card(
-                                                elevation: 10,
+                                        child: Card(
+                                          elevation: 10,
+                                          //  margin: EdgeInsets.symmetric(horizontal: 10),
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(height: 10),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
                                                 child: SizedBox(
-                                                  height: size.height / 3.1,
-                                                  width: size.width - 100,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      ListTile(
-                                                        title: Text(
-                                                          'From :  $dateFromYear-$dateFromMonth-$dateFromDay',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .secondaryVariant),
+                                                  width: 80,
+                                                  height: 80,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.white),
+                                                          color: Colors.grey),
+                                                      child: FadeInImage(
+                                                        placeholder: AssetImage(
+                                                            "assets/placeholder.png"),
+                                                        image: MemoryImage(
+                                                          (base64Decode(
+                                                              "${list[index].image}")),
                                                         ),
+                                                        fit: BoxFit.fitHeight,
                                                       ),
-                                                      ListTile(
-                                                        title: Text(
-                                                          'To :  $dateToYear-$dateToMonth-$dateToDay',
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .secondaryVariant),
-                                                        ),
-                                                      ),
-                                                      ListTile(
-                                                        title: Text(
-                                                          '${list[index].activityName}',
-                                                          style: TextStyle(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .secondaryVariant),
-                                                        ),
-                                                      ),
-                                                      ListTile(
-                                                        title: Text(
-                                                          'Read more',
-                                                          style: TextStyle(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10,
+                                                    right: 10,
+                                                    top: 15,
+                                                    bottom: 15),
+                                                child: Divider(
+                                                  height: 5,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10),
+                                                    child: SizedBox(
+                                                      height: size.height / 6,
+                                                      width: size.width - 200,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'From :  $dateFromYear-$dateFromMonth-$dateFromDay',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'To :  $dateToYear-$dateToMonth-$dateToDay',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                '${list[index].ActivitysAndEventsDescription}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Read more',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );

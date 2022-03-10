@@ -21,9 +21,7 @@ class CardProvider with ChangeNotifier {
       bool _error = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final _stdId = prefs.getInt('stdId') ?? 0;
-      print('_stdId $_stdId');
       var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
-      // var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
 
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -36,12 +34,10 @@ class CardProvider with ChangeNotifier {
       });
       if (response.statusCode == 200) {
         _cardList = jsonDecode(response.body);
-        print(_cardList);
       } else {
         _error = true;
       }
     } catch (error) {
-      print(error);
       _error = true;
     }
     notifyListeners();

@@ -104,79 +104,49 @@ class NewCard extends StatelessWidget {
             ),
             shadowColor: Colors.grey,
             elevation: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListTile(
-                  trailing: Text(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     "${map["facultyName"]}",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
-                  title: Text(
-                    'Faculty',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  SizedBox(height: 15),
+                  Text(
+                    "${map["deanName"]}",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
-                ),
-                ListTile(
-                  trailing: Container(
-                    width: 200,
-                    child: Text(
-                      "${map["deanName"]}",
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  title: Text(
-                    'Dean Name',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                ),
-                ListTile(
-                  trailing: Text(
+                  SizedBox(height: 15),
+                  Text(
                     "${map["headofExamsNameEn"]}",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
-                  title: Text(
-                    'Head of Exams',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  SizedBox(height: 15),
+                  Text(
+                    "${map["registrarNameEn"]}",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
-                ),
-                ListTile(
-                  trailing: Container(
-                    width: 150,
+                  SizedBox(height: 15),
+                  Text(
+                    "${map["major"]}",
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    width: 100,
                     child: Text(
-                      "${map["registrarNameEn"]}",
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.black),
+                      "Number of Semesters ${map["semistersCount"]}",
+                      style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                   ),
-                  title: Text(
-                    'Registrar Name',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                ),
-                ListTile(
-                  trailing: Text(
-                    "${map["major"]}",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                  title: Text(
-                    'major',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                ),
-                ListTile(
-                  trailing: Text(
-                    "${map["semistersCount"]}",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                  title: Text(
-                    'No. of Semesters',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

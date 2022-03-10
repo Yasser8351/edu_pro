@@ -262,9 +262,11 @@ class _LoginHomeState extends State<LoginHome> {
                                           )
                                               .then((value) {
                                             api.data;
-                                            setState(() {
-                                              _isLoadingLogin = false;
-                                            });
+                                            setState(
+                                              () {
+                                                _isLoadingLogin = false;
+                                              },
+                                            );
 
                                             if (value) {
                                               SharedPrefUser().login();
@@ -291,6 +293,7 @@ class _LoginHomeState extends State<LoginHome> {
                                                               Home(
                                                                 userName:
                                                                     "${api.data['token']}",
+                                                                isLogin: true,
                                                                 //"${api.data['userInfo'][firstName]}",
                                                               )));
                                             } else {

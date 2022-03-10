@@ -102,7 +102,7 @@ class SharedPrefUser {
     await _prefs.setString('studentIndexNo', user["studentIndexNo"] ?? '');
     await _prefs.setString('firstName', user["firstName"] ?? '');
     await _prefs.setString('middleName', user["middleName"] ?? '');
-    await _prefs.setString('image', user["photoImage"] ?? '');
+    // await _prefs.setString('image', user["photoImage"] ?? '');
 
     return user;
   }

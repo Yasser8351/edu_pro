@@ -157,6 +157,7 @@ class _CurrentNewsState extends State<NewsSearch> {
                                           //  margin: EdgeInsets.symmetric(horizontal: 10),
                                           child: Column(
                                             children: [
+                                              const SizedBox(height: 10),
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -190,15 +191,18 @@ class _CurrentNewsState extends State<NewsSearch> {
                                                   ),
                                                 ),
                                               ),
-                                              //const SizedBox(height: 10),
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 30, right: 30),
+                                                    left: 10,
+                                                    right: 10,
+                                                    top: 15,
+                                                    bottom: 15),
                                                 child: Divider(
                                                   height: 5,
                                                   color: Colors.black,
                                                 ),
                                               ),
+                                              const SizedBox(height: 10),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -206,62 +210,107 @@ class _CurrentNewsState extends State<NewsSearch> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 15),
+                                                            left: 10),
                                                     child: SizedBox(
-                                                      height: size.height / 3,
+                                                      height: size.height / 6,
                                                       width: size.width - 200,
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          ListTile(
-                                                            title: Text(
-                                                              'From :  $dateFromYear-$dateFromMonth-$dateFromDay',
-                                                              style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .secondaryVariant),
-                                                            ),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'From :  $dateFromYear-$dateFromMonth-$dateFromDay',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          ListTile(
-                                                            title: Text(
-                                                              'To :  $dateToYear-$dateToMonth-$dateToDay',
-                                                              style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .secondaryVariant),
-                                                            ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'To :  $dateToYear-$dateToMonth-$dateToDay',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          ListTile(
-                                                            title: Text(
-                                                              '${list[index].NewsAndEventsDescription}',
-                                                              style: TextStyle(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .secondaryVariant),
-                                                            ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                '${list[index].NewsAndEventsDescription}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .secondaryVariant),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          ListTile(
-                                                            title: Text(
-                                                              'Read more',
-                                                              style: TextStyle(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .primary),
-                                                            ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Read more',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),

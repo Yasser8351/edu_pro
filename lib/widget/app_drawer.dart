@@ -12,8 +12,9 @@ import 'package:edu_pro/view/my_profile/my_profile.dart';
 import 'package:edu_pro/view/news&events/news&events.dart';
 import 'package:edu_pro/view/restrictions.dart';
 import 'package:edu_pro/view/surveys.dart';
+import 'package:edu_pro/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AppDrawer extends StatefulWidget {
@@ -26,18 +27,15 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   DateTime timeBackPressed = DateTime.now();
 
-  late SharedPreferences _prefs;
   String? photoImage;
   String userName = '', middleName = '', image = '';
-  int ActivityList = 0;
-  int NewsList = 0;
-  int SurveysListFromShared = 0;
-
-  var _list;
+  late bool saveImage = false;
+  Future? _data;
 
   @override
   void initState() {
     super.initState();
+
     save();
   }
 
@@ -45,11 +43,27 @@ class _AppDrawerState extends State<AppDrawer> {
     userName = await SharedPrefUser().getUserName();
     middleName = await SharedPrefUser().getMiddleName();
     image = await SharedPrefUser().getImage();
+    if (image.isEmpty) {
+      saveImage = false;
+      _data = Provider.of<ProfileViewModel>(context, listen: false)
+          .fetchProfile()
+          .then((_) => setState(() {}));
+    } else {
+      saveImage = true;
+    }
+    setState(() {});
+  }
+
+  Future<void> saveImages(String image) async {
+    await SharedPrefUser().saveImage(image);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    var list =
+        Provider.of<ProfileViewModel>(context, listen: false).ProfileList;
+
     return Drawer(
       elevation: 60,
       child: Container(
@@ -72,31 +86,110 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   Navigator.of(context).pushNamed(MyProfile.routeName);
                 },
-                child: Container(
-                  height: 60,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 20,
-                          backgroundImage: MemoryImage(
-                            base64Decode("$image"),
+                child: saveImage
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(MyProfile.routeName);
+                        },
+                        child: Container(
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  maxRadius: 20,
+                                  backgroundImage: MemoryImage(
+                                    base64Decode("$image"),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Container(
+                                  width: 210,
+                                  child: Text(
+                                    '$userName $middleName',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 20),
-                        Container(
-                          width: 210,
-                          child: Text(
-                            '$userName $middleName',
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                      )
+                    : list == null
+                        ? Text("")
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  CircleAvatar(
+                                      maxRadius: 20, child: Icon(Icons.person)),
+                                  Container(
+                                    width: 210,
+                                    child: Text(
+                                      '$userName $middleName',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              FutureBuilder(
+                                future: _data,
+                                builder: (_, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Text('');
+                                  } else {
+                                    if (snapshot.hasError) {
+                                      return Text("some error");
+                                    } else if (snapshot.hasData == null) {
+                                      return Text("No data found");
+                                    } else if (snapshot.hasData) {
+                                      return Text("No data found");
+                                    }
+                                    return Container(
+                                      // padding: EdgeInsets.all(22),
+                                      height: 5,
+                                      child: ListView.builder(
+                                        itemCount: list.length,
+                                        itemBuilder: (ctx, index) {
+                                          image = "${list[index].photo}";
+                                          saveImages(image);
+                                          return Row(
+                                            children: [
+                                              SizedBox(
+                                                child: CircleAvatar(
+                                                  maxRadius: 0,
+                                                  backgroundImage: MemoryImage(
+                                                    base64Decode("$image"),
+                                                  ),
+                                                ),
+                                              ),
+                                              // Container(
+                                              //   width: 210,
+                                              //   child: Text(
+                                              //     '$userName $middleName',
+                                              //     style: TextStyle(
+                                              //         color: Colors.black,
+                                              //         fontSize: 15),
+                                              //   ),
+                                              // ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5, right: 18, left: 18),

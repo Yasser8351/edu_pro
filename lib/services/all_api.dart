@@ -74,7 +74,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -112,7 +112,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -151,7 +151,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -191,7 +191,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -225,7 +225,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -262,7 +262,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -296,7 +296,7 @@ class AllApi {
 
       final response = await ioClient.get(Uri.parse(url), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+        // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
       });
       if (response.statusCode == 200) {
         data = json.decode(response.body);
@@ -327,7 +327,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -360,7 +360,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -395,7 +395,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -433,7 +433,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -466,7 +466,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -503,7 +503,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -538,7 +538,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          //HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -572,7 +572,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -606,7 +606,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -643,7 +643,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -678,7 +678,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -713,7 +713,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -749,7 +749,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       print(response.statusCode);
@@ -846,7 +846,7 @@ class AllApi {
         body: msg,
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -882,7 +882,7 @@ class AllApi {
 
       final response = await ioClient.get(Uri.parse(url), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+        // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
       });
       if (response.statusCode == 200) {
         data = json.decode(response.body);
@@ -914,7 +914,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -952,7 +952,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -991,7 +991,7 @@ class AllApi {
         Uri.parse(url),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {
@@ -1029,7 +1029,7 @@ class AllApi {
         body: msg,
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {

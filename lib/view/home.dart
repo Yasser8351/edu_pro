@@ -1,4 +1,4 @@
-import 'package:edu_pro/sharepref/user_share_pref.dart';
+import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/library/library.dart';
 import 'package:edu_pro/view/timetable/timetable.dart';
 import 'package:edu_pro/view_models/profile_view_model.dart';
@@ -11,45 +11,27 @@ import 'fees_information.dart';
 import 'results.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, this.userName, this.UniversitiesId}) : super(key: key);
+  const Home(
+      {Key? key, this.userName, this.UniversitiesId, this.isLogin = false})
+      : super(key: key);
   static const routeName = "home";
   final userName;
   final UniversitiesId;
+  final isLogin;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  var _isLoading = false;
-
-  Future? _data;
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  String _userName = '', _image = '';
+  String image = '';
   int universitiesId = 0;
   DateTime timeBackPressed = DateTime.now();
+  var api = Api();
   @override
   void initState() {
     super.initState();
-    save();
-
-    getDataFromSharedPref();
-    _data = Provider.of<ProfileViewModel>(context, listen: false)
-        .fetchProfile()
-        .then((_) => setState(() {
-              _isLoading = false;
-            }));
-  }
-
-  Future<void> save() async {
-    _image = await SharedPrefUser().getImage();
-    universitiesId = await SharedPrefUser().getUniversitiesId();
-    print("universitiesId : $universitiesId");
-    setState(() {});
-  }
-
-  Future<void> getDataFromSharedPref() async {
-    _userName = await SharedPrefUser().getUserName();
   }
 
   Color cardBackgroundColor = Colors.grey;

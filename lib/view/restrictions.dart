@@ -229,20 +229,10 @@ class _RestrictionsState extends State<Restrictions> {
                                   ),
                                 ),
                                 restrictionsList!.length == 0
-                                    ? Center(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 50),
-                                          child: Text(
-                                            isSelectedSemester
-                                                ? "No Data Found"
-                                                : "",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black54),
-                                          ),
-                                        ),
-                                      )
+                                    ? isSelectedSemester
+                                        ? ErrorConnection(
+                                            message: "No Data Found")
+                                        : Text('')
                                     : Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 1),
