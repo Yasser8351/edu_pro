@@ -51,14 +51,12 @@ class AllApi {
     var url = "";
     print("universitiesId $universitiesId");
     // 1 : UMST universitie
-    if (universitiesId == 1) {
-      if (isComing) {
-        url =
-            "${AppSettings.URL}/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
-      } else {
-        url =
-            "${AppSettings.URL}/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
-      }
+    if (isComing) {
+      url =
+          "${AppSettings.URL}/api/NewsAndEvents?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
+    } else {
+      url =
+          "${AppSettings.URL}/api/NewsAndEvents/current?facultyNo=$_facultyNo&facultyBatchNo=$_facultyBatchNo";
     }
 
     print("user : $user");

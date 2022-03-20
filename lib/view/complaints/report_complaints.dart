@@ -2,7 +2,6 @@ import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/view/complaints/add_complaints.dart';
 import 'package:edu_pro/view/complaints/complaints.dart';
-import 'package:edu_pro/view/complaints/my_complaints.dart';
 import 'package:edu_pro/view/complaints/update_complain.dart';
 import 'package:edu_pro/view_models/complain_view_model.dart';
 import 'package:flutter/material.dart';
@@ -270,6 +269,14 @@ class _ReportComplaintsState extends State<ReportComplaints> {
                                                                                 backgroundColor: Colors.green,
                                                                                 textColor: Colors.white,
                                                                                 fontSize: 16.0);
+
+                                                                            _data = Provider.of<ComplainViewModel>(context, listen: false).fetchComplain().then((value) =>
+                                                                                {
+                                                                                  isLoading = false,
+                                                                                  Navigator.of(context).pop(),
+                                                                                  list = Provider.of<ComplainViewModel>(context, listen: false).ComplainList,
+                                                                                  setState(() {})
+                                                                                });
                                                                           } else {
                                                                             Fluttertoast.showToast(
                                                                                 msg: "an error occurred",
@@ -283,18 +290,6 @@ class _ReportComplaintsState extends State<ReportComplaints> {
                                                                         }
                                                                       },
                                                                     );
-                                                                    _data = Provider.of<ComplainViewModel>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .fetchComplain()
-                                                                        .then((value) =>
-                                                                            {
-                                                                              isLoading = false,
-                                                                              Navigator.of(context).pop(),
-                                                                              list = Provider.of<ComplainViewModel>(context, listen: false).ComplainList,
-                                                                              setState(() {})
-                                                                            });
                                                                   },
                                                                 ),
                                                                 TextButton(

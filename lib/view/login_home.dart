@@ -293,7 +293,6 @@ class _LoginHomeState extends State<LoginHome> {
                                                               Home(
                                                                 userName:
                                                                     "${api.data['token']}",
-                                                                isLogin: true,
                                                                 //"${api.data['userInfo'][firstName]}",
                                                               )));
                                             } else {
