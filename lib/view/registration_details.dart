@@ -1,3 +1,5 @@
+import 'package:edu_pro/models/registration_model.dart';
+import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
   Future? _data;
 
   bool _isLoading = false;
+  var api = AllApi();
   @override
   void initState() {
     super.initState();
@@ -36,8 +39,8 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
     return Scaffold(
       body: registrationList == null
           ? Text("No Data")
-          : FutureBuilder(
-              future: _data,
+          : FutureBuilder<List<RegistrationFeesModel>?>(
+              future: api.fetchRegistrationFees(),
               builder: (_, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -47,79 +50,77 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                   } else if (snapshot.hasData == null) {
                     return Text("No data found");
                   } else if (snapshot.hasData) {
-                    return Text("No data found");
-                  }
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    height: size.height * registrationList.length / 5.2,
-                    child: ListView.builder(
-                      itemCount: registrationList.length,
-                      itemBuilder: (ctx, index) {
-                        String dateToDB = "";
-                        dateToDB = "${registrationList[index].dateTo}";
-                        var dateToDay = DateTime.parse(dateToDB).day;
-                        var dateToMonth = DateTime.parse(dateToDB).month;
-                        var dateToYear = DateTime.parse(dateToDB).year;
+                    var list = snapshot.data;
 
-                        String dateFromDB = "";
-                        dateFromDB = "${registrationList[index].dateFrom}";
-                        var dateFromDay = DateTime.parse(dateFromDB).day;
-                        var dateFromMonth = DateTime.parse(dateFromDB).month;
-                        var dateFromYear = DateTime.parse(dateFromDB).year;
-                        return Card(
-                          margin: EdgeInsets.only(top: 10),
-                          elevation: 10,
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 15),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 4),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 50,
-                                      child: Text(
-                                        '${registrationList[index].installmentName}',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background),
+                    print("list $list");
+
+                    return list == null
+                        ? Text("")
+                        : Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            height: size.height * registrationList.length / 5.2,
+                            child: ListView.builder(
+                              itemCount: list.length,
+                              itemBuilder: (ctx, index) {
+                                // String dateToDB = "";
+                                // dateToDB = "${list[index].courseFeesSDG}";
+                                // var dateToDay = DateTime.parse(dateToDB).day;
+                                // var dateToMonth = DateTime.parse(dateToDB).month;
+                                // var dateToYear = DateTime.parse(dateToDB).year;
+
+                                // String dateFromDB = "";
+                                // dateFromDB =
+                                //     "${registrationList[index].dateFrom}";
+                                // var dateFromDay = DateTime.parse(dateFromDB).day;
+                                // var dateFromMonth =
+                                //     DateTime.parse(dateFromDB).month;
+                                // var dateFromYear =
+                                //     DateTime.parse(dateFromDB).year;
+                                return Card(
+                                    margin: EdgeInsets.only(top: 10),
+                                    elevation: 10,
+                                    child: Column(children: [
+                                      const SizedBox(height: 15),
+                                      ListTile(
+                                        title: Text(
+                                          'course Fees SDG',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background),
+                                        ),
+                                        trailing: Text(
+                                          '${list[index].courseFeesSDG}',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '$dateFromYear-$dateFromMonth-$dateFromDay',
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background),
-                                    ),
-                                    Text(
-                                      '$dateToYear-$dateToMonth-$dateToDay',
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background),
-                                    ),
-                                    Text(
-                                      '${registrationList[index].percentage.toString()}%  ',
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(
+                                      //       vertical: 15, horizontal: 4),
+                                      //   child: Row(
+                                      //     mainAxisAlignment:
+                                      //         MainAxisAlignment.spaceBetween,
+                                      //     children: [
+                                      //       Text(
+                                      //         '${list[index].courseFeesSDG}',
+                                      //         style: TextStyle(
+                                      //             color: Theme.of(context)
+                                      //                 .colorScheme
+                                      //                 .background),
+                                      //       ),
+                                      //       const SizedBox(height: 20),
+                                      //     ],
+                                      //   ),
+                                      // )
+                                    ]));
+                              },
+                            ),
+                          );
+                  }
+                  return Text("");
                 }
               },
             ),

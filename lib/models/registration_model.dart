@@ -41,12 +41,91 @@ class RegistrationList {
     );
   }
 }
+
+class RegistrationFeesModel {
+  double? courseFeesSDG;
+  double? registerationFeesSDG;
+  double? courseFeesUSD;
+  double? registerationFeesUSD;
+  double? admissionFeesSDG;
+  double? admissionFeesUSD;
+  double? transferFeesSDG;
+  double? transferFeesUSD;
+  double? foreignersCourseFeesUSD;
+  double? trainingFees;
+  double? bridgingFeesSDG;
+  double? bridgingFeesUSD;
+  bool? registrationStatus;
+
+  RegistrationFeesModel({
+    @required this.courseFeesSDG,
+    @required this.registerationFeesSDG,
+    @required this.courseFeesUSD,
+    @required this.registerationFeesUSD,
+    @required this.admissionFeesSDG,
+    @required this.admissionFeesUSD,
+    @required this.transferFeesSDG,
+    @required this.transferFeesUSD,
+    @required this.foreignersCourseFeesUSD,
+    @required this.trainingFees,
+    @required this.bridgingFeesSDG,
+    @required this.bridgingFeesUSD,
+    @required this.registrationStatus,
+  });
+
+  factory RegistrationFeesModel.fromJson(Map<String, dynamic> jsonData) {
+    return RegistrationFeesModel(
+      courseFeesSDG: jsonData['courseFeesSDG'] ?? 00.00,
+      registerationFeesSDG: jsonData['registerationFeesSDG'] ?? 00.00,
+      courseFeesUSD: jsonData['courseFeesUSD'] ?? 00.00,
+      registerationFeesUSD: jsonData['registerationFeesUSD'] ?? 00.00,
+      admissionFeesSDG: jsonData['admissionFeesSDG'] ?? 00.00,
+      admissionFeesUSD: jsonData['admissionFeesUSD'] ?? 00.00,
+      transferFeesSDG: jsonData['transferFeesSDG'] ?? 00.00,
+      transferFeesUSD: jsonData['transferFeesUSD'] ?? 00.00,
+      foreignersCourseFeesUSD: jsonData['foreignersCourseFeesUSD'] ?? 00.00,
+      trainingFees: jsonData['trainingFees'] ?? 00.00,
+      bridgingFeesSDG: jsonData['bridgingFeesSDG'] ?? 00.00,
+      bridgingFeesUSD: jsonData['bridgingFeesUSD'] ?? 00.00,
+      registrationStatus: jsonData['registrationStatus'] ?? false,
+    );
+  }
+}
+
+// class RegistrationFeesList {
+//   final List<dynamic> listFeeRestriction;
+//   RegistrationFeesList({required this.listFeeRestriction});
+//   factory RegistrationFeesList.fromJson(Map<String, dynamic> jsonData) {
+//     return RegistrationFeesList(
+//       listFeeRestriction: jsonData['registration'],
+//     );
+//   }
+// }
+
 /*
-            "installmentId": 11043,
-            "isImmediate": false,
-            "dateFrom": "2021-01-10T00:00:00",
-            "dateTo": "2021-01-15T00:00:00",
-            "percentage": 50,
-            "installmentPolicyNo": 11014,
-            "installmentName": "First"
+        "facultyInformationId": 14122,
+        "facultyNo": 1107,
+        "facultyBatchId": 1616,
+        "semesterNo": 1656,
+        "academicYearNo": 141,
+        "courseFeesSDG": 25000.00,
+        "registerationFeesSDG": 1000.00,
+        "courseFeesUSD": 3000.00,
+        "registerationFeesUSD": 100.00,
+        "admissionFeesSDG": 1000.00,
+
+
+        "admissionFeesUSD": 300.00,
+        "transferFeesSDG": 1000.00,
+        "transferFeesUSD": 100.00,
+        "facultyProgramNo": 10078,
+        "facultyProgramSpecializationNo": 12134,
+        "registerationDate": null,
+        "foreignersCourseFeesUSD": 3000.00,
+        "trainingFees": 10000.00,
+        "registrationStatus": true,
+        "bridgingFeesSDG": 100000.00,
+        "bridgingFeesUSD": 10000.00,
+        "otherFeesSDG": 3000.00,
+        "otherFeesUSD": 300.00
 */

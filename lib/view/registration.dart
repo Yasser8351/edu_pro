@@ -303,8 +303,8 @@ class _RegistrationState extends State<Registration> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  // Navigator.of(context)
-                                  //     .pushNamed(RegistrationDetails.routeName);
+                                  Navigator.of(context)
+                                      .pushNamed(RegistrationDetails.routeName);
                                 },
                                 child: Container(
                                   height: 40.0,

@@ -559,7 +559,7 @@ class AllApi {
   Future<List<RegistrationModel>?> fetchRegistration() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "http://207.180.223.113:8081/api/Registration";
+    var url = "${AppSettings.URL}/api/Registration";
     print("_stdId $_stdId");
     //var url = "${AppSettings.URL}/api/Registration?stdId=$_stdId";
     try {
@@ -584,6 +584,43 @@ class AllApi {
             .map((e) => RegistrationModel.fromJson(e))
             .toList();
         return newsList;
+      } else {
+        return null;
+      }
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  //Done
+  Future<List<RegistrationFeesModel>?> fetchRegistrationFees() async {
+    _prefs = await SharedPreferences.getInstance();
+    int _stdId = await _prefs.getInt('stdId') ?? 0;
+    //var url = "${AppSettings.URL}/api/Registration";
+    print("_stdId $_stdId");
+    var url = "https://192.168.1.188:3000/api/AcademicYear?facultyBatchId=1616";
+    try {
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      http.Response response = await ioClient.get(
+        Uri.parse(url),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          //HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+        },
+      );
+      if (response.statusCode == 200) {
+        String data = response.body;
+        var jsonData = jsonDecode(data);
+        List<dynamic> list = jsonData;
+        List<RegistrationFeesModel> listRegistration =
+            list.map((e) => RegistrationFeesModel.fromJson(e)).toList();
+
+        return listRegistration;
       } else {
         return null;
       }
