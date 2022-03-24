@@ -24,6 +24,7 @@ import 'package:edu_pro/models/model_results/result_model.dart';
 import 'package:edu_pro/models/model_results/semester_model.dart';
 import 'package:edu_pro/models/profile_model.dart';
 import 'package:edu_pro/models/library_model/publications_model.dart';
+import 'package:edu_pro/models/registration_model.dart';
 import 'package:edu_pro/models/restrictions_model.dart';
 import 'package:edu_pro/models/subject_attendance_model.dart';
 import 'package:edu_pro/models/surveys_model.dart';
@@ -545,6 +546,43 @@ class AllApi {
         ProfileList news = ProfileList.fromJson(jsonData);
         List<ProfileModel> newsList =
             news.listProfile.map((e) => ProfileModel.fromJson(e)).toList();
+        return newsList;
+      } else {
+        return null;
+      }
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  //Done
+  Future<List<RegistrationModel>?> fetchRegistration() async {
+    _prefs = await SharedPreferences.getInstance();
+    int _stdId = await _prefs.getInt('stdId') ?? 0;
+    var url = "http://207.180.223.113:8081/api/Registration";
+    print("_stdId $_stdId");
+    //var url = "${AppSettings.URL}/api/Registration?stdId=$_stdId";
+    try {
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      http.Response response = await ioClient.get(
+        Uri.parse(url),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          //HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+        },
+      );
+      if (response.statusCode == 200) {
+        String data = response.body;
+        var jsonData = jsonDecode(data);
+        RegistrationList news = RegistrationList.fromJson(jsonData);
+        List<RegistrationModel> newsList = news.listRestriction
+            .map((e) => RegistrationModel.fromJson(e))
+            .toList();
         return newsList;
       } else {
         return null;

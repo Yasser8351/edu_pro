@@ -5,7 +5,12 @@ import 'package:edu_pro/models/activitys_model.dart';
 import 'package:edu_pro/models/calender_model.dart';
 import 'package:edu_pro/models/card_model.dart';
 import 'package:edu_pro/models/exam_model.dart';
+import 'package:edu_pro/models/fees_model.dart';
+import 'package:edu_pro/models/model_results/result_model.dart';
+import 'package:edu_pro/models/registration_model.dart';
+import 'package:edu_pro/models/test_model.dart';
 import 'package:edu_pro/models/universitiey_model.dart';
+import 'package:edu_pro/view_models/results/result_view_model.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +23,7 @@ class Api {
   var university;
   late SharedPreferences _prefs;
   bool isServerError = false;
+  List<SubAreaModel> _subArea = [];
 
   Map<String, dynamic> responseData = {"isLogin": false, "statusCode": 200};
   //Done
@@ -349,17 +355,134 @@ class Api {
         HttpHeaders.contentTypeHeader: 'application/json',
       });
       if (response.statusCode == 200) {
-        //data = json.decode(response.body);
-        //data = response.body;
-
         var data = jsonDecode(response.body);
-
-        // response;
-        print("data ${data}");
-        // print("response.body");
       } else {
         _error = true;
       }
     } catch (error) {}
+  }
+
+  Future<void> getRegistration() async {
+    try {
+      bool _error = false;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final _stdId = prefs.getInt('stdId') ?? 0;
+      var url = "https://192.168.1.188:3000/api/Test?studentNo=671212";
+      // var url = "${AppSettings.URL}/api/MyProfile/id?stdId=$_stdId";
+
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      final response = await ioClient.get(Uri.parse(url), headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      });
+      if (response.statusCode == 200) {
+        data = json.decode(response.body);
+        print("data ${data}");
+
+        TestModel.fromJson(data);
+      } else {
+        _error = true;
+      }
+    } catch (error) {}
+  }
+
+//Done
+
+  //Registration
+  //https://192.168.1.188:3000/api/Test?studentNo=671212
+  // Future<RegistrationModel?> fetchRegistration() async {
+  //   _prefs = await SharedPreferences.getInstance();
+  //   int _stdId = await _prefs.getInt('stdId') ?? 0;
+  //   _prefs = await SharedPreferences.getInstance();
+  //   AppSettings.URL = await _prefs.getString('universityURL') ?? "";
+  //   var url = "https://192.168.1.188:3000/api/Test?studentNo=671212";
+  //   // var url = "${AppSettings.URL}/api/CardInfo/id?stdId=$_stdId";
+  //   var data = "";
+  //   try {
+  //     bool trustSelfSigned = true;
+  //     HttpClient httpClient = new HttpClient()
+  //       ..badCertificateCallback =
+  //           ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  //     IOClient ioClient = new IOClient(httpClient);
+
+  //     final response = await ioClient.get(
+  //       Uri.parse(url),
+  //       headers: {
+  //         'charset': 'utf-8',
+  //         'content-type': 'text/plain',
+  //         HttpHeaders.contentTypeHeader: 'application/json',
+  //         //HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+  //       },
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       // for (Map json in data) {
+  //       //   Registration photos = Registration(
+  //       //       courseFees: json["courseFees"],
+  //       //       discountRatio: json["discountRatio"],
+  //       //       finalFees: json["finalFees"],
+  //       //       registrartionType: json["registrartionType"],
+  //       //       registrationFees: json["registrationFees"]);
+  //       //   registrationList.add(photos);
+  //       //   print("data $registrationList");
+  //       // }
+  //       //print("data ${response.body}");
+  //       //var data = ResultModel.fromJson(jsonDecode(response.body));
+  //       RegistrationModel.fromJson(jsonDecode(response.body));
+  //       // print("data ${registrationModelFromJson(response.body)}");
+  //       // RegistrationModel.fromJson(jsonDecode(response.body));
+  //       //print(RegistrationModel.fromJson(jsonDecode(response.body)));
+  //       print(response.body);
+  //       return RegistrationModel.fromJson(jsonDecode(response.body));
+  //     } else if (response.statusCode == 500) {
+  //       isServerError = true;
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     isServerError = true;
+  //     print(error.toString());
+  //   }
+  //   return null;
+  // }
+
+  Future<List<RegistrationModel>> fetchRegistration() async {
+    var url = "https://192.168.1.188:3000/api/Test?studentNo=6712191"; //  67121
+    var data = "";
+    try {
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      final response = await ioClient.get(
+        Uri.parse(url),
+        headers: {
+          'charset': 'utf-8',
+          'content-type': 'text/plain',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        List<RegistrationModel> list =
+            data.map((json) => RegistrationModel.fromJson(json)).toList();
+
+        print(list);
+        return list;
+      } else if (response.statusCode == 500) {
+        isServerError = true;
+        return [];
+      }
+    } catch (error) {
+      isServerError = true;
+      print(error.toString());
+    }
+    return [];
   }
 }

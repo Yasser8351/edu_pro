@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/sharepref/user_share_pref.dart';
 import 'package:edu_pro/view/library/library.dart';
 import 'package:edu_pro/view/timetable/timetable.dart';
@@ -28,6 +29,7 @@ class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   String _userName = '', _image = '';
   int universitiesId = 0;
+  var api = Api();
 
   @override
   void initState() {
@@ -91,185 +93,6 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Container(
-            //   child: FutureBuilder(
-            //     future: _data,
-            //     builder: (_, snapshot) {
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return Container(
-            //           height: 130,
-            //           width: double.infinity,
-            //           decoration: BoxDecoration(
-            //             color: Theme.of(context).colorScheme.primary,
-            //             borderRadius: BorderRadius.only(
-            //               bottomLeft: Radius.circular(50.0),
-            //               bottomRight: Radius.circular(50.0),
-            //             ),
-            //           ),
-            //           child: Container(
-            //             height: 130,
-            //             width: double.infinity,
-            //             decoration: BoxDecoration(
-            //               color: Theme.of(context).colorScheme.primary,
-            //               borderRadius: BorderRadius.only(
-            //                 bottomLeft: Radius.circular(50.0),
-            //                 bottomRight: Radius.circular(50.0),
-            //               ),
-            //             ),
-            //           ),
-            //         );
-            //       } else {
-            //         if (snapshot.hasError) {
-            //           return Text("");
-            //         } else if (snapshot.hasData == null) {
-            //           return Text("");
-            //         } else if (snapshot.hasData) {
-            //           return Text("");
-            //         }
-            //         // return Container(
-            //         //   height: 130,
-            //         //   width: double.infinity,
-            //         //   decoration: BoxDecoration(
-            //         //     color: Theme.of(context).colorScheme.primary,
-            //         //     borderRadius: BorderRadius.only(
-            //         //       bottomLeft: Radius.circular(50.0),
-            //         //       bottomRight: Radius.circular(50.0),
-            //         //     ),
-            //         //   ),
-            //         //   child: Container(
-            //         //     height: 10,
-            //         //     child: CircleAvatar(
-            //         //       maxRadius: 30,
-            //         //       backgroundImage: MemoryImage(
-            //         //         base64Decode("$_image"),
-            //         //       ),
-            //         //       // backgroundColor:
-            //         //       //     Theme.of(context).colorScheme.primary,
-            //         //     ),
-            //         //   ),
-            //         // );
-            //         return list == null
-            //             ? Container(
-            //                 height: 130,
-            //                 //height: size.height / 6,
-            //                 width: double.infinity,
-            //                 decoration: BoxDecoration(
-            //                   color: Theme.of(context).colorScheme.primary,
-            //                   borderRadius: BorderRadius.only(
-            //                     bottomLeft: Radius.circular(50.0),
-            //                     bottomRight: Radius.circular(50.0),
-            //                   ),
-            //                 ),
-            //               )
-            //             : list.length == 0
-            //                 ? Container(
-            //                     height: 130,
-            //                     width: double.infinity,
-            //                     decoration: BoxDecoration(
-            //                       color: Theme.of(context).colorScheme.primary,
-            //                       borderRadius: BorderRadius.only(
-            //                         bottomLeft: Radius.circular(50.0),
-            //                         bottomRight: Radius.circular(50.0),
-            //                       ),
-            //                     ),
-            //                     child: Container(
-            //                       height: 130,
-            //                       width: double.infinity,
-            //                       decoration: BoxDecoration(
-            //                         color:
-            //                             Theme.of(context).colorScheme.primary,
-            //                         borderRadius: BorderRadius.only(
-            //                           bottomLeft: Radius.circular(50.0),
-            //                           bottomRight: Radius.circular(50.0),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   )
-            //                 : Container(
-            //                     height: 130,
-            //                     //height: size.height / 6,
-            //                     width: double.infinity,
-            //                     decoration: BoxDecoration(
-            //                       color: Theme.of(context).colorScheme.primary,
-            //                       borderRadius: BorderRadius.only(
-            //                         bottomLeft: Radius.circular(50.0),
-            //                         bottomRight: Radius.circular(50.0),
-            //                       ),
-            //                     ),
-            //                     child: ListView.builder(
-            //                       itemCount: list.length,
-            //                       itemBuilder: (ctx, index) {
-            //                         var r = "${list[index].photo}";
-            //                         return Container(
-            //                           height: 130,
-            //                           width: double.infinity,
-            //                           decoration: BoxDecoration(
-            //                             color: Theme.of(context)
-            //                                 .colorScheme
-            //                                 .primary,
-            //                             borderRadius: BorderRadius.only(
-            //                               bottomLeft: Radius.circular(50.0),
-            //                               bottomRight: Radius.circular(50.0),
-            //                             ),
-            //                           ),
-            //                           child: Column(
-            //                             mainAxisAlignment:
-            //                                 MainAxisAlignment.center,
-            //                             children: [
-            //                               Align(
-            //                                 alignment: Alignment.center,
-            //                                 child: Padding(
-            //                                   padding:
-            //                                       const EdgeInsets.symmetric(
-            //                                           horizontal: 20),
-            //                                   child: Column(
-            //                                     crossAxisAlignment:
-            //                                         CrossAxisAlignment.center,
-            //                                     children: [
-            //                                       GestureDetector(
-            //                                         onTap: () {
-            //                                           Navigator.of(context)
-            //                                               .pushNamed(MyProfile
-            //                                                   .routeName);
-            //                                         },
-            //                                         child: CircleAvatar(
-            //                                           maxRadius: 30,
-            //                                           backgroundImage:
-            //                                               MemoryImage(
-            //                                             base64Decode("$_image"),
-            //                                           ),
-            //                                           //     MemoryImage(
-            //                                           //   base64Decode(
-            //                                           //       "${list[index].photo}"),
-            //                                           // ),
-            //                                           backgroundColor:
-            //                                               Theme.of(context)
-            //                                                   .colorScheme
-            //                                                   .primary,
-            //                                         ),
-            //                                       ),
-            //                                       SizedBox(height: 10),
-            //                                       Text(
-            //                                           widget.userName == null
-            //                                               ? 'Hi, Welcome $_userName'
-            //                                               : 'Hi Welcome ${widget.userName}',
-            //                                           style: TextStyle(
-            //                                               color: Colors.white,
-            //                                               fontSize: 15)),
-            //                                     ],
-            //                                   ),
-            //                                 ),
-            //                               ),
-            //                             ],
-            //                           ),
-            //                         );
-            //                       },
-            //                     ),
-            //                   );
-            //       }
-            //     },
-            //   ),
-            // ),
             Container(
               height: 80,
               width: double.infinity,

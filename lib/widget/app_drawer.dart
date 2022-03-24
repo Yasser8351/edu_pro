@@ -10,6 +10,7 @@ import 'package:edu_pro/view/home.dart';
 import 'package:edu_pro/view/medical_profile.dart';
 import 'package:edu_pro/view/my_profile/my_profile.dart';
 import 'package:edu_pro/view/news&events/news&events.dart';
+import 'package:edu_pro/view/registration.dart';
 import 'package:edu_pro/view/restrictions.dart';
 import 'package:edu_pro/view/surveys.dart';
 import 'package:edu_pro/view_models/profile_view_model.dart';
@@ -281,6 +282,19 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 onTap: () {
                   Navigator.of(context).pushNamed(FacultyMaterial.routeName);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Registration',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+                leading: Icon(
+                  Icons.attach_money_outlined,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed(Registration.routeName);
                 },
               ),
               ListTile(
