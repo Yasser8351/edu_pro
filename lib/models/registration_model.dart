@@ -43,34 +43,34 @@ class RegistrationList {
 }
 
 class RegistrationFeesModel {
-  double? courseFeesSDG;
-  double? registerationFeesSDG;
-  double? courseFeesUSD;
-  double? registerationFeesUSD;
-  double? admissionFeesSDG;
-  double? admissionFeesUSD;
-  double? transferFeesSDG;
-  double? transferFeesUSD;
-  double? foreignersCourseFeesUSD;
-  double? trainingFees;
-  double? bridgingFeesSDG;
-  double? bridgingFeesUSD;
-  bool? registrationStatus;
+  double courseFeesSDG;
+  double registerationFeesSDG;
+  double courseFeesUSD;
+  double registerationFeesUSD;
+  double admissionFeesSDG;
+  double admissionFeesUSD;
+  double transferFeesSDG;
+  double transferFeesUSD;
+  double foreignersCourseFeesUSD;
+  double trainingFees;
+  double bridgingFeesSDG;
+  double bridgingFeesUSD;
+  bool registrationStatus;
 
   RegistrationFeesModel({
-    @required this.courseFeesSDG,
-    @required this.registerationFeesSDG,
-    @required this.courseFeesUSD,
-    @required this.registerationFeesUSD,
-    @required this.admissionFeesSDG,
-    @required this.admissionFeesUSD,
-    @required this.transferFeesSDG,
-    @required this.transferFeesUSD,
-    @required this.foreignersCourseFeesUSD,
-    @required this.trainingFees,
-    @required this.bridgingFeesSDG,
-    @required this.bridgingFeesUSD,
-    @required this.registrationStatus,
+    required this.courseFeesSDG,
+    required this.registerationFeesSDG,
+    required this.courseFeesUSD,
+    required this.registerationFeesUSD,
+    required this.admissionFeesSDG,
+    required this.admissionFeesUSD,
+    required this.transferFeesSDG,
+    required this.transferFeesUSD,
+    required this.foreignersCourseFeesUSD,
+    required this.trainingFees,
+    required this.bridgingFeesSDG,
+    required this.bridgingFeesUSD,
+    required this.registrationStatus,
   });
 
   factory RegistrationFeesModel.fromJson(Map<String, dynamic> jsonData) {

@@ -892,9 +892,16 @@ class AllApi {
   }
 
 //Done
-  Future<bool> sendFeesData(int currencyNo) async {
+  Future<bool> sendFeesData(
+      int currencyNo,
+      double courseFees,
+      double admissionFees,
+      double registrationFees,
+      double trainingFees) async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
+    int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
+
     bool isAdd = false;
     try {
       var url = "https://192.168.1.188:3000/api/Test?FacultyBatchId=1587";
@@ -905,15 +912,15 @@ class AllApi {
             ((X509Certificate cert, String host, int port) => trustSelfSigned);
       IOClient ioClient = new IOClient(httpClient);
       final msg = jsonEncode({
-        "courseFees": 1600000.00,
+        "courseFees": courseFees,
         "discountRatio": 0.00,
-        "finalFees": 500.00 + 0.00 + 10000.00,
+        "finalFees": registrationFees + admissionFees + trainingFees,
         "registrartionType": 3,
-        "admissionFees": 0.00,
-        "registrationFees": 500.00,
+        "admissionFees": admissionFees,
+        "registrationFees": registrationFees,
         "paymentMethodNo": 1,
         "paymentDate": DateTime.now().toString(),
-        "studentNo": 67123226,
+        "studentNo": 109098,
         "appNo": 0,
         "discountNote": "",
         "semesterNo": 1656,
@@ -931,7 +938,7 @@ class AllApi {
         "externalRegistration": 3,
         "registerationSourceNo": 2,
         "registerationDate": DateTime.now().toString(),
-        "trainingFees": 10000.00
+        "trainingFees": trainingFees
       });
 
       http.Response response = await ioClient.post(Uri.parse(url),

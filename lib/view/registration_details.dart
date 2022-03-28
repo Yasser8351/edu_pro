@@ -1,5 +1,6 @@
 import 'package:edu_pro/models/registration_model.dart';
 import 'package:edu_pro/services/all_api.dart';
+import 'package:edu_pro/view/home.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,49 +66,6 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                             child: ListView.builder(
                               itemCount: list.length,
                               itemBuilder: (ctx, index) {
-                                // String dateToDB = "";
-                                // dateToDB = "${list[index].courseFeesSDG}";
-                                // var dateToDay = DateTime.parse(dateToDB).day;
-                                // var dateToMonth = DateTime.parse(dateToDB).month;
-                                // var dateToYear = DateTime.parse(dateToDB).year;
-
-                                // String dateFromDB = "";
-                                // dateFromDB =
-                                //     "${registrationList[index].dateFrom}";
-                                // var dateFromDay = DateTime.parse(dateFromDB).day;
-                                // var dateFromMonth =
-                                //     DateTime.parse(dateFromDB).month;
-                                // var dateFromYear =
-                                //     DateTime.parse(dateFromDB).year;
-                                /*
-                                  "courseFees": 1600000.00,
-           "discountRatio": 0.00,
-           "finalFees": 40000.00,
-           "registrartionType": 3,
-           "admissionFees": 0.00,
-           "registrationFees": 500.00,
-           "paymentMethodNo" :1,
-           "paymentDate":"2022-01-10 00:00:00.000",
-           "studentNo":67123224,
-            "appNo":1,
-            "discountNote":"15% Family+ 15000 she has health Insurance",
-            "semesterNo":1656,
-            "academicYearNo":137,
-            "allFeesPaid":0,
-            "facultyInformationNo":14124,
-            "currencyNo":1,
-            "userNo":1,
-            "operationDate":"2022-01-26 07:38:31.570",
-            "action":"Insert New Fees",
-            "note":"Student Registration from student portal",
-            "admissionDiscountRatio":0,
-            "discountReasonNo":3,
-            "registrationDiscountRatio":3,
-            "externalRegistration":3,
-            "registerationSourceNo":3,
-            "registerationDate":"2022-01-10 00:00:00.000",
-            "trainingFees":10000.00
-                                */
                                 return Column(
                                   children: [
                                     Card(
@@ -134,7 +92,6 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                                       .background),
                                             ),
                                           ),
-
                                           ListTile(
                                             title: Text(
                                               widget.currencyNo == 1
@@ -227,11 +184,26 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 50),
                                     GestureDetector(
                                       onTap: () {
                                         AllApi()
-                                            .sendFeesData(widget.currencyNo)
+                                            .sendFeesData(
+                                              widget.currencyNo,
+                                              widget.currencyNo == 1
+                                                  ? list[index].courseFeesSDG
+                                                  : list[index].courseFeesUSD,
+                                              widget.currencyNo == 1
+                                                  ? list[index].admissionFeesSDG
+                                                  : list[index]
+                                                      .admissionFeesUSD,
+                                              widget.currencyNo == 1
+                                                  ? list[index]
+                                                      .registerationFeesSDG
+                                                  : list[index]
+                                                      .registerationFeesUSD,
+                                              list[index].trainingFees,
+                                            )
                                             .then(
                                               (value) => {
                                                 if (value)
@@ -250,6 +222,11 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                                                           2),
                                                               content: Text(
                                                                   "Fees added successfully")));
+
+                                                      Navigator.of(context)
+                                                          .pushNamedAndRemoveUntil(
+                                                              Home.routeName,
+                                                              (route) => false);
                                                       // title.clear();
                                                       // complain.clear();
                                                     }),
@@ -304,12 +281,14 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                                   .colorScheme
                                                   .primary),
                                           child: Center(
-                                            child: Text(
-                                              'Confirm Payment', //Next
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18.0),
-                                            ),
+                                            child: _isLoading
+                                                ? CircularProgressIndicator()
+                                                : Text(
+                                                    'Confirm Payment', //Next
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18.0),
+                                                  ),
                                           ),
                                         ),
                                       ),
