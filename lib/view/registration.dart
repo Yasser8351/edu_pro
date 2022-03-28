@@ -1,3 +1,4 @@
+import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _RegistrationState extends State<Registration> {
   final String currentYear = formatter.format(now);
   String currency = "sd";
   String paymentMethod = "Immediate"; // Immediate = 1, Installment = 2
+  int currencyNo = 1;
 
   @override
   void initState() {
@@ -44,7 +46,7 @@ class _RegistrationState extends State<Registration> {
     var registrationList =
         Provider.of<RegistrationViewModel>(context, listen: false)
             .registrationList;
-    print('current Year $currentYear');
+    print('current Year $registrationList');
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -56,10 +58,9 @@ class _RegistrationState extends State<Registration> {
       ),
       drawer: AppDrawer(),
       body: registrationList == null
-          ? Text("")
+          ? const Text("No data")
           : SingleChildScrollView(
               child: Container(
-                //color: Colors.grey,
                 height: size.height,
                 child: _isLoading
                     ? Center(child: CircularProgressIndicator())
@@ -124,9 +125,10 @@ class _RegistrationState extends State<Registration> {
                                 }
                                 return Container(
                                   margin: EdgeInsets.symmetric(horizontal: 5),
-                                  height: size.height *
-                                      registrationList.length /
-                                      5.2,
+                                  height: 230,
+                                  // height: size.height *
+                                  //     registrationList.length /
+                                  //     5.2,
                                   child: ListView.builder(
                                     itemCount: registrationList.length,
                                     itemBuilder: (ctx, index) {
@@ -210,8 +212,21 @@ class _RegistrationState extends State<Registration> {
                               }
                             },
                           ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Select currency',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Row(
                                 children: [
@@ -223,7 +238,7 @@ class _RegistrationState extends State<Registration> {
                                           currency = value.toString();
                                         });
                                       }),
-                                  Text("SD"),
+                                  Text("SDG"),
                                 ],
                               ),
                               const SizedBox(width: 20),
@@ -242,88 +257,69 @@ class _RegistrationState extends State<Registration> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: "Immediate",
-                                      groupValue: paymentMethod,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          paymentMethod = value.toString();
-                                        });
-                                      }),
-                                  Text("Immediate"),
-                                ],
-                              ),
-                              const SizedBox(width: 20),
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: "Installment",
-                                      groupValue: paymentMethod,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          paymentMethod = value.toString();
-                                        });
-                                      }),
-                                  Text("Installment"),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RegistrationDetails.routeName);
-                                },
-                                child: Container(
-                                  height: 40.0,
-                                  width: 140,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                  child: Center(
-                                    child: Text(
-                                      'Show Fees',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0),
-                                    ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Row(
+                          //       children: [
+                          //         Radio(
+                          //             value: "Immediate",
+                          //             groupValue: paymentMethod,
+                          //             onChanged: (value) {
+                          //               setState(() {
+                          //                 paymentMethod = value.toString();
+                          //               });
+                          //             }),
+                          //         Text("Immediate"),
+                          //       ],
+                          //     ),
+                          //     const SizedBox(width: 20),
+                          //     Row(
+                          //       children: [
+                          //         Radio(
+                          //             value: "Installment",
+                          //             groupValue: paymentMethod,
+                          //             onChanged: (value) {
+                          //               setState(() {
+                          //                 paymentMethod = value.toString();
+                          //               });
+                          //             }),
+                          //         Text("Installment"),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          const SizedBox(height: 40),
+                          GestureDetector(
+                            onTap: () {
+                              if (currency == "sd") {
+                                currencyNo = 1;
+                              } else {
+                                currencyNo = 2;
+                              }
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (ctx) => RegistrationDetails(
+                                      currencyNo: currencyNo)));
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 60),
+                              child: Container(
+                                height: 40.0,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                                child: Center(
+                                  child: Text(
+                                    'Show Fees Information',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18.0),
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RegistrationDetails.routeName);
-                                },
-                                child: Container(
-                                  height: 40.0,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                  child: Center(
-                                    child: Text(
-                                      'Confirm', //Next
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),

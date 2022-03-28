@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class BooksModel {
   final int? bookId;

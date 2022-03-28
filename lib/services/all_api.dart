@@ -559,9 +559,8 @@ class AllApi {
   Future<List<RegistrationModel>?> fetchRegistration() async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
-    var url = "${AppSettings.URL}/api/Registration";
-    print("_stdId $_stdId");
-    //var url = "${AppSettings.URL}/api/Registration?stdId=$_stdId";
+    //var url = "${AppSettings.URL}/api/Registration";
+    var url = "http://207.180.223.113:8081/api/Registration?stdId=70390";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -619,7 +618,7 @@ class AllApi {
         List<dynamic> list = jsonData;
         List<RegistrationFeesModel> listRegistration =
             list.map((e) => RegistrationFeesModel.fromJson(e)).toList();
-
+        print("listRegistration $listRegistration");
         return listRegistration;
       } else {
         return null;
@@ -883,6 +882,77 @@ class AllApi {
         isServerError = true;
         isAdd = false;
       } else {
+        isAdd = false;
+      }
+    } catch (error) {
+      isAdd = false;
+      print(error.toString());
+    }
+    return isAdd;
+  }
+
+//Done
+  Future<bool> sendFeesData(int currencyNo) async {
+    _prefs = await SharedPreferences.getInstance();
+    int _stdId = await _prefs.getInt('stdId') ?? 0;
+    bool isAdd = false;
+    try {
+      var url = "https://192.168.1.188:3000/api/Test?FacultyBatchId=1587";
+      //var url = "${AppSettings.URL}/api/ComplaintUpdate";
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+      final msg = jsonEncode({
+        "courseFees": 1600000.00,
+        "discountRatio": 0.00,
+        "finalFees": 500.00 + 0.00 + 10000.00,
+        "registrartionType": 3,
+        "admissionFees": 0.00,
+        "registrationFees": 500.00,
+        "paymentMethodNo": 1,
+        "paymentDate": DateTime.now().toString(),
+        "studentNo": 67123226,
+        "appNo": 0,
+        "discountNote": "",
+        "semesterNo": 1656,
+        "academicYearNo": 137,
+        "allFeesPaid": 0,
+        "facultyInformationNo": 14124,
+        "currencyNo": currencyNo, //1 SD
+        "userNo": 1,
+        "operationDate": DateTime.now().toString(),
+        "action": "Insert New Fees",
+        "note": "Student Registration from student portal app",
+        "admissionDiscountRatio": 0,
+        "discountReasonNo": 3,
+        "registrationDiscountRatio": 3,
+        "externalRegistration": 3,
+        "registerationSourceNo": 2,
+        "registerationDate": DateTime.now().toString(),
+        "trainingFees": 10000.00
+      });
+
+      http.Response response = await ioClient.post(Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/json',
+            // 'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw==',
+            HttpHeaders.contentTypeHeader: 'application/json'
+          },
+          body: msg);
+      if (response.statusCode == 200) {
+        print(response);
+        print(response.statusCode);
+        isAdd = true;
+      } else if (response.statusCode == 500) {
+        print(response.statusCode);
+
+        isServerError = true;
+        isAdd = false;
+      } else {
+        print(response.statusCode);
+
         isAdd = false;
       }
     } catch (error) {
