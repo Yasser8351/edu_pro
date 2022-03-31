@@ -2,6 +2,7 @@ import 'package:edu_pro/models/registration_model.dart';
 import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/view/home.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,7 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
             .registrationList;
     return Scaffold(
       body: registrationList == null
-          ? Text("No Data")
+          ? ErrorConnection(message: "Server error please try again later")
           : FutureBuilder<List<RegistrationFeesModel>?>(
               future: api.fetchRegistrationFees(),
               builder: (_, snapshot) {
@@ -56,10 +57,9 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                   } else if (snapshot.hasData) {
                     var list = snapshot.data;
 
-                    print("list $list");
-
                     return list == null
-                        ? Text("")
+                        ? ErrorConnection(
+                            message: "Server error please try again later")
                         : Container(
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             height: size.height * registrationList.length,
@@ -110,7 +110,6 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                                       .background),
                                             ),
                                           ),
-                                          ////////////////////////////////////////
                                           ListTile(
                                             title: Text(
                                               widget.currencyNo == 1
@@ -190,6 +189,9 @@ class _RegistrationDetailsState extends State<RegistrationDetails> {
                                         AllApi()
                                             .sendFeesData(
                                               widget.currencyNo,
+                                              list[index].semesterNo,
+                                              list[index].facultyInformationId,
+                                              list[index].academicYearNo,
                                               widget.currencyNo == 1
                                                   ? list[index].courseFeesSDG
                                                   : list[index].courseFeesUSD,

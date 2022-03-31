@@ -56,6 +56,9 @@ class RegistrationFeesModel {
   double bridgingFeesSDG;
   double bridgingFeesUSD;
   bool registrationStatus;
+  int semesterNo;
+  int academicYearNo;
+  int facultyInformationId;
 
   RegistrationFeesModel({
     required this.courseFeesSDG,
@@ -71,6 +74,9 @@ class RegistrationFeesModel {
     required this.bridgingFeesSDG,
     required this.bridgingFeesUSD,
     required this.registrationStatus,
+    required this.semesterNo,
+    required this.academicYearNo,
+    required this.facultyInformationId,
   });
 
   factory RegistrationFeesModel.fromJson(Map<String, dynamic> jsonData) {
@@ -87,6 +93,9 @@ class RegistrationFeesModel {
       trainingFees: jsonData['trainingFees'] ?? 00.00,
       bridgingFeesSDG: jsonData['bridgingFeesSDG'] ?? 00.00,
       bridgingFeesUSD: jsonData['bridgingFeesUSD'] ?? 00.00,
+      semesterNo: jsonData['semesterNo'] ?? 0,
+      academicYearNo: jsonData['academicYearNo'] ?? 0,
+      facultyInformationId: jsonData['facultyInformationId'] ?? 0,
       registrationStatus: jsonData['registrationStatus'] ?? false,
     );
   }

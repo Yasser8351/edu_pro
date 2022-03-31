@@ -1,6 +1,9 @@
+import 'package:connection_notifier/connection_notifier.dart';
 import 'package:edu_pro/services/all_api.dart';
 import 'package:edu_pro/view_models/registration_view_model.dart';
 import 'package:edu_pro/widget/app_drawer.dart';
+import 'package:edu_pro/widget/check_internet_connection.dart';
+import 'package:edu_pro/widget/error_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -57,274 +60,307 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
       drawer: AppDrawer(),
-      body: registrationList == null
-          ? const Text("No data")
-          : SingleChildScrollView(
-              child: Container(
-                height: size.height,
-                child: _isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : Column(
-                        children: [
-                          const SizedBox(height: 10),
-                          Text(
-                            'Installments Policy',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 18),
-                          ),
-                          const SizedBox(height: 10),
-                          Card(
-                            color: Theme.of(context).colorScheme.primary,
-                            margin: EdgeInsets.only(left: 5, right: 5),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 4),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : registrationList == null
+              ? ErrorConnection(message: "Server error please try again later")
+              : ConnectionNotifierToggler(
+                  onConnectionStatusChanged: (connected) {
+                    if (connected == null) return;
+                    print(connected);
+                  },
+                  connected: Center(
+                    key: UniqueKey(),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        height: size.height,
+                        child: _isLoading
+                            ? Center(child: CircularProgressIndicator())
+                            : Column(
                                 children: [
+                                  const SizedBox(height: 10),
                                   Text(
-                                    'Name',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Text(
-                                    '              From',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Text(
-                                    '             To',
+                                    'Installments Policy',
                                     style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                        color: Colors.black54, fontSize: 18),
                                   ),
-                                  Text(
-                                    'Percentage',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      //fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          FutureBuilder(
-                            future: _data,
-                            builder: (_, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              } else {
-                                if (snapshot.hasError) {
-                                  return Text("some error");
-                                } else if (snapshot.hasData == null) {
-                                  return Text("No data found");
-                                } else if (snapshot.hasData) {
-                                  return Text("No data found");
-                                }
-                                return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                  height: 230,
-                                  // height: size.height *
-                                  //     registrationList.length /
-                                  //     5.2,
-                                  child: ListView.builder(
-                                    itemCount: registrationList.length,
-                                    itemBuilder: (ctx, index) {
-                                      String dateToDB = "";
-                                      dateToDB =
-                                          "${registrationList[index].dateTo}";
-                                      var dateToDay =
-                                          DateTime.parse(dateToDB).day;
-                                      var dateToMonth =
-                                          DateTime.parse(dateToDB).month;
-                                      var dateToYear =
-                                          DateTime.parse(dateToDB).year;
-
-                                      String dateFromDB = "";
-                                      dateFromDB =
-                                          "${registrationList[index].dateFrom}";
-                                      var dateFromDay =
-                                          DateTime.parse(dateFromDB).day;
-                                      var dateFromMonth =
-                                          DateTime.parse(dateFromDB).month;
-                                      var dateFromYear =
-                                          DateTime.parse(dateFromDB).year;
-                                      return Card(
-                                        margin: EdgeInsets.only(top: 10),
-                                        elevation: 10,
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(height: 15),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15,
-                                                      horizontal: 4),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    width: 50,
-                                                    child: Text(
-                                                      '${registrationList[index].installmentName}',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .background),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '$dateFromYear-$dateFromMonth-$dateFromDay',
-                                                    style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .background),
-                                                  ),
-                                                  Text(
-                                                    '$dateToYear-$dateToMonth-$dateToDay',
-                                                    style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .background),
-                                                  ),
-                                                  Text(
-                                                    '${registrationList[index].percentage.toString()}%  ',
-                                                    style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .background),
-                                                  ),
-                                                ],
-                                              ),
+                                  const SizedBox(height: 10),
+                                  Card(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 4),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Name',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          Text(
+                                            '              From',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          Text(
+                                            '             To',
+                                            style: TextStyle(
+                                              color: Colors.white,
                                             ),
-                                            const SizedBox(height: 20),
-                                          ],
-                                        ),
-                                      );
+                                          ),
+                                          Text(
+                                            'Percentage',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              //fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  FutureBuilder(
+                                    future: _data,
+                                    builder: (_, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      } else {
+                                        if (snapshot.hasError) {
+                                          return Text("some error");
+                                        } else if (snapshot.hasData == null) {
+                                          return Text("No data found");
+                                        } else if (snapshot.hasData) {
+                                          return Text("No data found");
+                                        }
+                                        return Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          height: 230,
+                                          // height: size.height *
+                                          //     registrationList.length /
+                                          //     5.2,
+                                          child: ListView.builder(
+                                            itemCount: registrationList.length,
+                                            itemBuilder: (ctx, index) {
+                                              String dateToDB = "";
+                                              dateToDB =
+                                                  "${registrationList[index].dateTo}";
+                                              var dateToDay =
+                                                  DateTime.parse(dateToDB).day;
+                                              var dateToMonth =
+                                                  DateTime.parse(dateToDB)
+                                                      .month;
+                                              var dateToYear =
+                                                  DateTime.parse(dateToDB).year;
+
+                                              String dateFromDB = "";
+                                              dateFromDB =
+                                                  "${registrationList[index].dateFrom}";
+                                              var dateFromDay =
+                                                  DateTime.parse(dateFromDB)
+                                                      .day;
+                                              var dateFromMonth =
+                                                  DateTime.parse(dateFromDB)
+                                                      .month;
+                                              var dateFromYear =
+                                                  DateTime.parse(dateFromDB)
+                                                      .year;
+                                              return Card(
+                                                margin:
+                                                    EdgeInsets.only(top: 10),
+                                                elevation: 10,
+                                                child: Column(
+                                                  children: [
+                                                    const SizedBox(height: 15),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 15,
+                                                          horizontal: 4),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            width: 50,
+                                                            child: Text(
+                                                              '${registrationList[index].installmentName}',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .background),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '$dateFromYear-$dateFromMonth-$dateFromDay',
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .background),
+                                                          ),
+                                                          Text(
+                                                            '$dateToYear-$dateToMonth-$dateToDay',
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .background),
+                                                          ),
+                                                          Text(
+                                                            '${registrationList[index].percentage.toString()}%  ',
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .background),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 20),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      }
                                     },
                                   ),
-                                );
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 6),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Select currency',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: "sd",
-                                      groupValue: currency,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          currency = value.toString();
-                                        });
-                                      }),
-                                  Text("SDG"),
-                                ],
-                              ),
-                              const SizedBox(width: 20),
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: "usd",
-                                      groupValue: currency,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          currency = value.toString();
-                                        });
-                                      }),
-                                  Text("USD"),
-                                ],
-                              ),
-                            ],
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Row(
-                          //       children: [
-                          //         Radio(
-                          //             value: "Immediate",
-                          //             groupValue: paymentMethod,
-                          //             onChanged: (value) {
-                          //               setState(() {
-                          //                 paymentMethod = value.toString();
-                          //               });
-                          //             }),
-                          //         Text("Immediate"),
-                          //       ],
-                          //     ),
-                          //     const SizedBox(width: 20),
-                          //     Row(
-                          //       children: [
-                          //         Radio(
-                          //             value: "Installment",
-                          //             groupValue: paymentMethod,
-                          //             onChanged: (value) {
-                          //               setState(() {
-                          //                 paymentMethod = value.toString();
-                          //               });
-                          //             }),
-                          //         Text("Installment"),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
-                          const SizedBox(height: 40),
-                          GestureDetector(
-                            onTap: () {
-                              if (currency == "sd") {
-                                currencyNo = 1;
-                              } else {
-                                currencyNo = 2;
-                              }
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => RegistrationDetails(
-                                      currencyNo: currencyNo)));
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
-                              child: Container(
-                                height: 40.0,
-                                width: size.width,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                child: Center(
-                                  child: Text(
-                                    'Show Fees Information',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Select currency',
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Radio(
+                                              value: "sd",
+                                              groupValue: currency,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  currency = value.toString();
+                                                });
+                                              }),
+                                          Text("SDG"),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                              value: "usd",
+                                              groupValue: currency,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  currency = value.toString();
+                                                });
+                                              }),
+                                          Text("USD"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Row(
+                                  //       children: [
+                                  //         Radio(
+                                  //             value: "Immediate",
+                                  //             groupValue: paymentMethod,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 paymentMethod = value.toString();
+                                  //               });
+                                  //             }),
+                                  //         Text("Immediate"),
+                                  //       ],
+                                  //     ),
+                                  //     const SizedBox(width: 20),
+                                  //     Row(
+                                  //       children: [
+                                  //         Radio(
+                                  //             value: "Installment",
+                                  //             groupValue: paymentMethod,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 paymentMethod = value.toString();
+                                  //               });
+                                  //             }),
+                                  //         Text("Installment"),
+                                  //       ],
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  const SizedBox(height: 40),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (currency == "sd") {
+                                        currencyNo = 1;
+                                      } else {
+                                        currencyNo = 2;
+                                      }
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  RegistrationDetails(
+                                                    currencyNo: currencyNo,
+                                                  )));
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 60),
+                                      child: Container(
+                                        height: 40.0,
+                                        width: size.width,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
+                                        child: Center(
+                                          child: Text(
+                                            'Show Fees Information',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
                       ),
-              ),
-            ),
+                    ),
+                  ),
+                  disconnected:
+                      Center(key: UniqueKey(), child: ConnectionStatuesBars()),
+                ),
     );
   }
 }

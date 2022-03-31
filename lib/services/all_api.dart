@@ -308,6 +308,41 @@ class AllApi {
     }
   }
 
+  //Done
+  Future<int> getCurrentId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var yearId;
+    final _stdId = prefs.getInt('stdId') ?? 0;
+    var url = "https://192.168.1.188:3000/api/AcademicYear/id?";
+    var data;
+    try {
+      bool trustSelfSigned = true;
+      HttpClient httpClient = new HttpClient()
+        ..badCertificateCallback =
+            ((X509Certificate cert, String host, int port) => trustSelfSigned);
+      IOClient ioClient = new IOClient(httpClient);
+
+      final response = await ioClient.get(Uri.parse(url), headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+      });
+      if (response.statusCode == 200) {
+        data = json.decode(response.body);
+        yearId = data[0]["yearId"];
+
+        return yearId;
+        // print("data ${data["yearId"].toString()}");
+      } else if (response.statusCode == 500) {
+        isServerError = true;
+        return 0;
+      }
+    } catch (error) {
+      print(error.toString());
+      return 0;
+    }
+    return yearId;
+  }
+
 //Done
   Future<List<CalenderModel>?> getCalender() async {
     _prefs = await SharedPreferences.getInstance();
@@ -490,7 +525,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
     var url =
-        "${AppSettings.URL}/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId"; //9896 -137";
+        "${AppSettings.URL}/api/FeesInformation/id?studentNo=$_stdId&&yearId=$yearId";
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -561,6 +596,7 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     //var url = "${AppSettings.URL}/api/Registration";
     var url = "http://207.180.223.113:8081/api/Registration?stdId=70390";
+    //
     try {
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -893,11 +929,15 @@ class AllApi {
 
 //Done
   Future<bool> sendFeesData(
-      int currencyNo,
-      double courseFees,
-      double admissionFees,
-      double registrationFees,
-      double trainingFees) async {
+    int currencyNo,
+    int semesterNo,
+    int facultyInformationId,
+    int academicYearNo,
+    double courseFees,
+    double admissionFees,
+    double registrationFees,
+    double trainingFees,
+  ) async {
     _prefs = await SharedPreferences.getInstance();
     int _stdId = await _prefs.getInt('stdId') ?? 0;
     int _facultyBatchId = await _prefs.getInt('facultyBatchId') ?? 0;
@@ -920,20 +960,20 @@ class AllApi {
         "registrationFees": registrationFees,
         "paymentMethodNo": 1,
         "paymentDate": DateTime.now().toString(),
-        "studentNo": 109098,
+        "studentNo": 109090,
         "appNo": 0,
         "discountNote": "",
-        "semesterNo": 1656,
-        "academicYearNo": 137,
+        "semesterNo": semesterNo,
+        "academicYearNo": academicYearNo,
         "allFeesPaid": 0,
-        "facultyInformationNo": 14124,
+        "facultyInformationNo": facultyInformationId,
         "currencyNo": currencyNo, //1 SD
-        "userNo": 1,
+        "userNo": 0,
         "operationDate": DateTime.now().toString(),
         "action": "Insert New Fees",
         "note": "Student Registration from student portal app",
         "admissionDiscountRatio": 0,
-        "discountReasonNo": 3,
+        "discountReasonNo": null,
         "registrationDiscountRatio": 3,
         "externalRegistration": 3,
         "registerationSourceNo": 2,
@@ -944,23 +984,16 @@ class AllApi {
       http.Response response = await ioClient.post(Uri.parse(url),
           headers: {
             'Content-Type': 'application/json',
-            // 'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw==',
-            //
+            //'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw==',
             HttpHeaders.contentTypeHeader: 'application/json'
           },
           body: msg);
       if (response.statusCode == 200) {
-        print(response);
-        print(response.statusCode);
         isAdd = true;
       } else if (response.statusCode == 500) {
-        print(response.statusCode);
-
         isServerError = true;
         isAdd = false;
       } else {
-        print(response.statusCode);
-
         isAdd = false;
       }
     } catch (error) {
@@ -978,7 +1011,6 @@ class AllApi {
     int _stdId = await _prefs.getInt('stdId') ?? 0;
 
     try {
-      //var url = "https://madeinsudan2.com/update_compail.php";
       var url = "${AppSettings.URL}/api/ComplaintUpdate";
       bool trustSelfSigned = true;
       HttpClient httpClient = new HttpClient()
@@ -997,7 +1029,7 @@ class AllApi {
         body: msg,
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
-          // HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
+          //HttpHeaders.authorizationHeader: '  Bearer ' + AppSettings.token
         },
       );
       if (response.statusCode == 200) {

@@ -247,7 +247,7 @@ class _FeesInformationState extends State<FeesInformation> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                           const SizedBox(height: 150),
+                                            const SizedBox(height: 150),
                                             ErrorConnection(
                                               message: 'No Data Found',
                                             ),

@@ -10,7 +10,6 @@ import 'package:edu_pro/models/model_results/result_model.dart';
 import 'package:edu_pro/models/registration_model.dart';
 import 'package:edu_pro/models/test_model.dart';
 import 'package:edu_pro/models/universitiey_model.dart';
-import 'package:edu_pro/view_models/results/result_view_model.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +22,6 @@ class Api {
   var university;
   late SharedPreferences _prefs;
   bool isServerError = false;
-  List<SubAreaModel> _subArea = [];
 
   Map<String, dynamic> responseData = {"isLogin": false, "statusCode": 200};
   //Done

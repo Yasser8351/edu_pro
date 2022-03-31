@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:edu_pro/services/all_api.dart';
+import 'package:edu_pro/services/api.dart';
 import 'package:edu_pro/sharepref/user_share_pref.dart';
+import 'package:edu_pro/view/fees_information.dart';
 import 'package:edu_pro/view/my_activties/activities.dart';
 import 'package:edu_pro/view/announcements.dart';
 import 'package:edu_pro/view/card_information.dart';
@@ -13,6 +16,7 @@ import 'package:edu_pro/view/news&events/news&events.dart';
 import 'package:edu_pro/view/registration.dart';
 import 'package:edu_pro/view/restrictions.dart';
 import 'package:edu_pro/view/surveys.dart';
+import 'package:edu_pro/view_models/fees_view_model.dart';
 import 'package:edu_pro/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,12 +36,18 @@ class _AppDrawerState extends State<AppDrawer> {
   String userName = '', middleName = '', image = '';
   late bool saveImage = false;
   Future? _data;
+  var api = Api();
 
   @override
   void initState() {
     super.initState();
-
     save();
+    AllApi().getCurrentId().then((value) => {
+          Provider.of<FeesViewModel>(context, listen: false)
+              .fetchFees(int.parse(value.toString()))
+        });
+
+    Provider.of<FeesViewModel>(context, listen: false);
   }
 
   Future<void> save() async {
@@ -64,6 +74,9 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     var list =
         Provider.of<ProfileViewModel>(context, listen: false).ProfileList;
+    var FeesList = Provider.of<FeesViewModel>(context, listen: false).FeesList;
+
+    print(FeesList);
 
     return Drawer(
       elevation: 60,
@@ -284,19 +297,21 @@ class _AppDrawerState extends State<AppDrawer> {
                   Navigator.of(context).pushNamed(FacultyMaterial.routeName);
                 },
               ),
-              ListTile(
-                title: Text(
-                  'Registration',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                leading: Icon(
-                  Icons.attach_money_outlined,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  Navigator.of(context).pushNamed(Registration.routeName);
-                },
-              ),
+              FeesList == null || FeesList.length == 0
+                  ? SizedBox(height: 0)
+                  : ListTile(
+                      title: Text(
+                        'Registration',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                      leading: Icon(
+                        Icons.attach_money_outlined,
+                        color: Colors.white,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Registration.routeName);
+                      },
+                    ),
               ListTile(
                 title: Text(
                   'Card Information',
